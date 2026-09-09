@@ -1,0 +1,897 @@
+{
+  "id": "860c94d6-4bb4-44e2-9507-1148fe5de2b1",
+  "revision": 0,
+  "last_node_id": 99,
+  "last_link_id": 20,
+  "nodes": [
+    {
+      "id": 1,
+      "type": "UNETLoader",
+      "pos": [
+        0,
+        0
+      ],
+      "size": [
+        310,
+        126
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            3
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "UNETLoader"
+      },
+      "widgets_values": [
+        "minimax_h3_fl2va_pruned_int8_convrot.safetensors",
+        "default"
+      ]
+    },
+    {
+      "id": 2,
+      "type": "CLIPLoader",
+      "pos": [
+        0,
+        250
+      ],
+      "size": [
+        310,
+        154
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "CLIP",
+          "type": "CLIP",
+          "links": [
+            1
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CLIPLoader"
+      },
+      "widgets_values": [
+        "qwen3vl_32b_minimax_h3_nvfp4_awq.safetensors",
+        "minimax",
+        "default"
+      ]
+    },
+    {
+      "id": 3,
+      "type": "VAELoader",
+      "pos": [
+        0,
+        470
+      ],
+      "size": [
+        310,
+        100
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "VAE",
+          "type": "VAE",
+          "links": [
+            2,
+            13
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "VAELoader"
+      },
+      "widgets_values": [
+        "minimax_h3_video_vae_fp16.safetensors"
+      ]
+    },
+    {
+      "id": 4,
+      "type": "VAELoader",
+      "pos": [
+        0,
+        650
+      ],
+      "size": [
+        310,
+        100
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "VAE",
+          "type": "VAE",
+          "links": [
+            15
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "VAELoader"
+      },
+      "widgets_values": [
+        "minimax_h3_audio_vae_fp32.safetensors"
+      ]
+    },
+    {
+      "id": 5,
+      "type": "MiniMaxH3ImageToVideo",
+      "pos": [
+        800,
+        0
+      ],
+      "size": [
+        400,
+        500
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 1
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": 2
+        },
+        {
+          "name": "first_frame",
+          "type": "IMAGE",
+          "link": null,
+          "shape": 7
+        },
+        {
+          "name": "last_frame",
+          "type": "IMAGE",
+          "link": null,
+          "shape": 7
+        }
+      ],
+      "outputs": [
+        {
+          "name": "positive",
+          "type": "CONDITIONING",
+          "links": [
+            5
+          ],
+          "slot_index": 0
+        },
+        {
+          "name": "LATENT",
+          "type": "LATENT",
+          "links": [
+            11
+          ],
+          "slot_index": 1
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "MiniMaxH3ImageToVideo"
+      },
+      "widgets_values": [
+        "One continuous unedited cinematic tracking shot, medium wide view of a woman in a dark green coat walking steadily from left to right along a wet stone sidewalk beside a red brick wall, carrying a small tan leather bag. She walks at a constant natural pace, her arms swing gently and her coat moves with each step. The camera tracks smoothly sideways at her walking speed, maintaining the same framing and distance. Overcast soft daylight, realistic skin, stable neutral colors, subtle film texture. No cuts, no transitions, no sudden camera changes. Audio: continuous soft outdoor city ambience and evenly paced footsteps on wet pavement, no music, no dialogue.",
+        736,
+        416,
+        124
+      ]
+    },
+    {
+      "id": 6,
+      "type": "LoraLoaderModelOnly",
+      "pos": [
+        350,
+        0
+      ],
+      "size": [
+        310,
+        146
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 3
+        }
+      ],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            4,
+            6
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoraLoaderModelOnly"
+      },
+      "widgets_values": [
+        "minimax_h3_fl2v_turbo_8step_v1.0_comfyui_bf16.safetensors",
+        1.0
+      ]
+    },
+    {
+      "id": 7,
+      "type": "BasicGuider",
+      "pos": [
+        1720,
+        0
+      ],
+      "size": [
+        310,
+        110
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 4
+        },
+        {
+          "name": "conditioning",
+          "type": "CONDITIONING",
+          "link": 5
+        }
+      ],
+      "outputs": [
+        {
+          "name": "GUIDER",
+          "type": "GUIDER",
+          "links": [
+            8
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "BasicGuider"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 8,
+      "type": "RandomNoise",
+      "pos": [
+        1720,
+        160
+      ],
+      "size": [
+        310,
+        126
+      ],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "NOISE",
+          "type": "NOISE",
+          "links": [
+            7
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "RandomNoise"
+      },
+      "widgets_values": [
+        12345,
+        "fixed"
+      ]
+    },
+    {
+      "id": 9,
+      "type": "KSamplerSelect",
+      "pos": [
+        1720,
+        320
+      ],
+      "size": [
+        310,
+        100
+      ],
+      "flags": {},
+      "order": 8,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "SAMPLER",
+          "type": "SAMPLER",
+          "links": [
+            9
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "KSamplerSelect"
+      },
+      "widgets_values": [
+        "euler"
+      ]
+    },
+    {
+      "id": 10,
+      "type": "BasicScheduler",
+      "pos": [
+        1720,
+        470
+      ],
+      "size": [
+        310,
+        174
+      ],
+      "flags": {},
+      "order": 9,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 6
+        }
+      ],
+      "outputs": [
+        {
+          "name": "SIGMAS",
+          "type": "SIGMAS",
+          "links": [
+            10
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "BasicScheduler"
+      },
+      "widgets_values": [
+        "simple",
+        8,
+        1.0
+      ]
+    },
+    {
+      "id": 11,
+      "type": "SamplerCustomAdvanced",
+      "pos": [
+        2070,
+        120
+      ],
+      "size": [
+        310,
+        170
+      ],
+      "flags": {},
+      "order": 10,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "noise",
+          "type": "NOISE",
+          "link": 7
+        },
+        {
+          "name": "guider",
+          "type": "GUIDER",
+          "link": 8
+        },
+        {
+          "name": "sampler",
+          "type": "SAMPLER",
+          "link": 9
+        },
+        {
+          "name": "sigmas",
+          "type": "SIGMAS",
+          "link": 10
+        },
+        {
+          "name": "latent_image",
+          "type": "LATENT",
+          "link": 11
+        }
+      ],
+      "outputs": [
+        {
+          "name": "output",
+          "type": "LATENT",
+          "links": [
+            12,
+            14,
+            19
+          ],
+          "slot_index": 0
+        },
+        {
+          "name": "denoised_output",
+          "type": "LATENT",
+          "links": [],
+          "slot_index": 1
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "SamplerCustomAdvanced"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 12,
+      "type": "VAEDecode",
+      "pos": [
+        2400,
+        0
+      ],
+      "size": [
+        310,
+        110
+      ],
+      "flags": {},
+      "order": 11,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "samples",
+          "type": "LATENT",
+          "link": 12
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": 13
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            16
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "VAEDecode"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 13,
+      "type": "VAEDecodeAudio",
+      "pos": [
+        2400,
+        180
+      ],
+      "size": [
+        310,
+        110
+      ],
+      "flags": {},
+      "order": 12,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "samples",
+          "type": "LATENT",
+          "link": 14
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": 15
+        }
+      ],
+      "outputs": [
+        {
+          "name": "AUDIO",
+          "type": "AUDIO",
+          "links": [
+            17,
+            20
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "VAEDecodeAudio"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 14,
+      "type": "CreateVideo",
+      "pos": [
+        0,
+        1200
+      ],
+      "size": [
+        310,
+        194
+      ],
+      "flags": {},
+      "order": 13,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 16
+        },
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "link": 17,
+          "shape": 7
+        }
+      ],
+      "outputs": [
+        {
+          "name": "VIDEO",
+          "type": "VIDEO",
+          "links": [
+            18
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CreateVideo"
+      },
+      "widgets_values": [
+        24,
+        "auto",
+        "sRGB"
+      ]
+    },
+    {
+      "id": 15,
+      "type": "SaveVideo",
+      "pos": [
+        0,
+        1200
+      ],
+      "size": [
+        310,
+        174
+      ],
+      "flags": {},
+      "order": 14,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "video",
+          "type": "VIDEO",
+          "link": 18
+        }
+      ],
+      "outputs": [
+        {
+          "name": "video",
+          "type": "VIDEO",
+          "links": [],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "SaveVideo"
+      },
+      "widgets_values": [
+        "h3_continuity_reproduced/source",
+        "auto",
+        "auto"
+      ]
+    },
+    {
+      "id": 16,
+      "type": "H3ContinuitySave",
+      "pos": [
+        2400,
+        410
+      ],
+      "size": [
+        310,
+        138
+      ],
+      "flags": {},
+      "order": 15,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "latent",
+          "type": "LATENT",
+          "link": 19
+        },
+        {
+          "name": "plan",
+          "type": "H3_CONTINUITY_PLAN",
+          "link": null,
+          "shape": 7
+        }
+      ],
+      "outputs": [
+        {
+          "name": "saved_path",
+          "type": "STRING",
+          "links": [],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "H3ContinuitySave"
+      },
+      "widgets_values": [
+        "h3_continuity_reproduced/01.safetensors"
+      ]
+    },
+    {
+      "id": 17,
+      "type": "SaveAudio",
+      "pos": [
+        0,
+        1200
+      ],
+      "size": [
+        310,
+        118
+      ],
+      "flags": {},
+      "order": 16,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "link": 20
+        }
+      ],
+      "outputs": [
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "links": [],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "SaveAudio"
+      },
+      "widgets_values": [
+        "h3_continuity_reproduced/source"
+      ]
+    },
+    {
+      "id": 99,
+      "type": "MarkdownNote",
+      "pos": [
+        800,
+        570
+      ],
+      "size": [
+        680,
+        280
+      ],
+      "flags": {},
+      "order": 17,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "properties": {},
+      "widgets_values": [
+        "## Marco 01 — etapa 01\nEstado aprovado, FL2VA + Turbo 8 steps.\nExecute scripts/restore_checkpoint.py no Python do ComfyUI antes de abrir este workflow.\nOs latents e os vídeos de entrada correspondem ao take aprovado; os arquivos gerados são salvos em outra pasta.\nLeia milestones/marco_01/CHECKPOINT.md."
+      ]
+    }
+  ],
+  "links": [
+    [
+      1,
+      2,
+      0,
+      5,
+      0,
+      "CLIP"
+    ],
+    [
+      2,
+      3,
+      0,
+      5,
+      1,
+      "VAE"
+    ],
+    [
+      3,
+      1,
+      0,
+      6,
+      0,
+      "MODEL"
+    ],
+    [
+      4,
+      6,
+      0,
+      7,
+      0,
+      "MODEL"
+    ],
+    [
+      5,
+      5,
+      0,
+      7,
+      1,
+      "CONDITIONING"
+    ],
+    [
+      6,
+      6,
+      0,
+      10,
+      0,
+      "MODEL"
+    ],
+    [
+      7,
+      8,
+      0,
+      11,
+      0,
+      "NOISE"
+    ],
+    [
+      8,
+      7,
+      0,
+      11,
+      1,
+      "GUIDER"
+    ],
+    [
+      9,
+      9,
+      0,
+      11,
+      2,
+      "SAMPLER"
+    ],
+    [
+      10,
+      10,
+      0,
+      11,
+      3,
+      "SIGMAS"
+    ],
+    [
+      11,
+      5,
+      1,
+      11,
+      4,
+      "LATENT"
+    ],
+    [
+      12,
+      11,
+      0,
+      12,
+      0,
+      "LATENT"
+    ],
+    [
+      13,
+      3,
+      0,
+      12,
+      1,
+      "VAE"
+    ],
+    [
+      14,
+      11,
+      0,
+      13,
+      0,
+      "LATENT"
+    ],
+    [
+      15,
+      4,
+      0,
+      13,
+      1,
+      "VAE"
+    ],
+    [
+      16,
+      12,
+      0,
+      14,
+      0,
+      "IMAGE"
+    ],
+    [
+      17,
+      13,
+      0,
+      14,
+      1,
+      "AUDIO"
+    ],
+    [
+      18,
+      14,
+      0,
+      15,
+      0,
+      "VIDEO"
+    ],
+    [
+      19,
+      11,
+      0,
+      16,
+      0,
+      "LATENT"
+    ],
+    [
+      20,
+      13,
+      0,
+      17,
+      0,
+      "AUDIO"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 0.65,
+      "offset": [
+        80,
+        120
+      ]
+    },
+    "workflow_name": "Marco 01 etapa 01"
+  },
+  "version": 0.4
+}

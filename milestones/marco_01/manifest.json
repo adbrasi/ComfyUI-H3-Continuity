@@ -1,0 +1,98 @@
+{
+  "milestone": "marco_01",
+  "code_tag": "v0.1.0-marco-01",
+  "date": "2026-09-09",
+  "approved_video": "artifacts/03_porta.mp4",
+  "frames": 430,
+  "fps": 24,
+  "duration_seconds": 17.916666666666668,
+  "seeds": [
+    12345,
+    34567,
+    56789
+  ],
+  "target_frames": [
+    124,
+    175,
+    175
+  ],
+  "overlap_frames": [
+    0,
+    22,
+    22
+  ],
+  "method": "pinned_av",
+  "audio_context_seconds": 1,
+  "sampler": "euler",
+  "scheduler": "simple",
+  "steps": 8,
+  "lora_strength": 1,
+  "width": 736,
+  "height": 416,
+  "python": "3.12.14",
+  "packages": {
+    "torch": "2.14.0+cu130",
+    "torchaudio": "2.11.0+cu130",
+    "comfyui-frontend-package": "1.51.10",
+    "comfy-kitchen": "0.2.33",
+    "comfy-aimdo": "0.5.3",
+    "safetensors": "0.8.0",
+    "av": "18.1.0"
+  },
+  "artifacts": {
+    "01_source.safetensors": {
+      "bytes": 4301432,
+      "sha256": "9294ceecededa805f6e8d5f4fd8a4a6d7292823a705b40380fb6943e79a4aaea"
+    },
+    "02_bolsa.safetensors": {
+      "bytes": 6045440,
+      "sha256": "1ccedb1d2d3473ad8018dfeb5ce7fdaeaacdbc71b45413879a60d435a68f7797"
+    },
+    "03_porta.safetensors": {
+      "bytes": 6045440,
+      "sha256": "4e75f1ba4b2a0d0a6ebe527fd49e3c29893abf5b812b98bb4fc91e1890631f34"
+    },
+    "01_source.mp4": {
+      "bytes": 723211,
+      "sha256": "181b3bd3bd8fb889407a365a40735611d290ea6f8250b965cef5ca9553e4f47e"
+    },
+    "02_bolsa.mp4": {
+      "bytes": 1831413,
+      "sha256": "b2bce2e5162fc81106cefaa9a44371431778cbb5d882b28bb16a5c4603da1b36"
+    },
+    "03_porta.mp4": {
+      "bytes": 2288330,
+      "sha256": "2a51061c7b6f678833cd12545259fc7f4d8aa5a46fa9e1d36674ac94139b0010"
+    },
+    "03_porta_untrimmed.flac": {
+      "bytes": 333577,
+      "sha256": "e6a33aa0fba0b8642841f366089d4cd076c538b2b877d2491023df14b3601dda"
+    }
+  },
+  "models": {
+    "diffusion_models/minimax_h3_fl2va_pruned_int8_convrot.safetensors": {
+      "bytes": 20970379616,
+      "sha256": "e889202c41dafb67b10d67b97f0d8541508036a6090af23425a5c2615d03c47a"
+    },
+    "text_encoders/qwen3vl_32b_minimax_h3_nvfp4_awq.safetensors": {
+      "bytes": 15687142551,
+      "sha256": "35a88d51044231fe332301d7a62aa81e3f2cba62febeb446e2c1e3e0ef76f2c6"
+    },
+    "vae/minimax_h3_video_vae_fp16.safetensors": {
+      "bytes": 5207808496,
+      "sha256": "7c1f131492e7eddacaac9069a61b81bdd39de5cc96561e677c5eab1cdce5e522"
+    },
+    "vae/minimax_h3_audio_vae_fp32.safetensors": {
+      "bytes": 605254808,
+      "sha256": "8e505d95dd1561d47abd43d4238fd40d9bb1ae9e147ed0a4cba778d76ae4db48"
+    },
+    "loras/minimax_h3_fl2v_turbo_8step_v1.0_comfyui_bf16.safetensors": {
+      "bytes": 1956193000,
+      "sha256": "2339acdf19bfe123f46b971ea35d367a84adb85de43627e1eceafa5a5b2b111e"
+    }
+  },
+  "comfyui": {
+    "commit": "421a1c245c682c04d4325ba365f40c834c66f5b0",
+    "version": "0.34.0"
+  }
+}

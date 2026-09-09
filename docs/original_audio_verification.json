@@ -1,0 +1,7 @@
+{
+  "source_samples": 576000,
+  "output_samples": 452000,
+  "expected_output_samples": 452000,
+  "max_abs_sample_error": 0.0,
+  "output_sample_rate": 48000
+}

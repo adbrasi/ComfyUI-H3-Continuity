@@ -1,0 +1,24 @@
+{
+  "motion": {
+    "commit": "5335715abe54c1a9bfbe3494da29aae3e8635ce3"
+  },
+  "loop": {
+    "commit": "28abdc3a95b14393604b1e0879e8f586740104dc"
+  },
+  "inpaint": {
+    "commit": "2465cf21522419f670c94645c47b83e4fe8891b4"
+  },
+  "multishot": {
+    "commit": "d7d197709fc93c1afb125e3db1dfd4ac0ae28c60"
+  },
+  "hybrid": {
+    "commit": "a1f20e01831de84243f672285611ba9b89e4f249"
+  },
+  "extender": {
+    "commit": "738af06fdd4d5134921d77c53605661124280acb"
+  },
+  "ComfyUI": {
+    "commit": "421a1c245c682c04d4325ba365f40c834c66f5b0",
+    "version": "0.34.0"
+  }
+}
