@@ -1,0 +1,271 @@
+{
+  "1": {
+    "class_type": "UNETLoader",
+    "inputs": {
+      "unet_name": "minimax_h3_fl2va_pruned_int8_convrot.safetensors",
+      "weight_dtype": "default"
+    }
+  },
+  "2": {
+    "class_type": "CLIPLoader",
+    "inputs": {
+      "clip_name": "qwen3vl_32b_minimax_h3_nvfp4_awq.safetensors",
+      "type": "minimax",
+      "device": "default"
+    }
+  },
+  "3": {
+    "class_type": "VAELoader",
+    "inputs": {
+      "vae_name": "minimax_h3_video_vae_fp16.safetensors"
+    }
+  },
+  "4": {
+    "class_type": "VAELoader",
+    "inputs": {
+      "vae_name": "minimax_h3_audio_vae_fp32.safetensors"
+    }
+  },
+  "5": {
+    "class_type": "MiniMaxH3ImageToVideo",
+    "inputs": {
+      "clip": [
+        "2",
+        0
+      ],
+      "vae": [
+        "3",
+        0
+      ],
+      "prompt": "One continuous realistic cinematic tracking shot of the same woman in the dark green coat beside the same red brick wall, carrying the same small tan leather bag. At the beginning she walks steadily to the right. In the middle she briefly turns her head toward the camera, smiles and raises her free hand in a small friendly wave, then lowers her hand and turns forward again. At the end she resumes exactly the original natural walking posture and pace. The camera keeps tracking sideways at the same speed and distance. Preserve the same clothing, face, wall, pavement and lighting. No cuts, no camera jump, no new people or objects. Quiet footsteps, no speech, no music.",
+      "width": 736,
+      "height": 416,
+      "length": 73
+    }
+  },
+  "6": {
+    "class_type": "LoraLoaderModelOnly",
+    "inputs": {
+      "model": [
+        "1",
+        0
+      ],
+      "lora_name": "minimax_h3_fl2v_turbo_8step_v1.0_comfyui_bf16.safetensors",
+      "strength_model": 1.0
+    }
+  },
+  "7": {
+    "class_type": "BasicGuider",
+    "inputs": {
+      "model": [
+        "6",
+        0
+      ],
+      "conditioning": [
+        "5",
+        0
+      ]
+    }
+  },
+  "8": {
+    "class_type": "RandomNoise",
+    "inputs": {
+      "noise_seed": 91234
+    }
+  },
+  "9": {
+    "class_type": "KSamplerSelect",
+    "inputs": {
+      "sampler_name": "euler"
+    }
+  },
+  "10": {
+    "class_type": "BasicScheduler",
+    "inputs": {
+      "model": [
+        "6",
+        0
+      ],
+      "scheduler": "simple",
+      "steps": 8,
+      "denoise": 1.0
+    }
+  },
+  "11": {
+    "class_type": "SamplerCustomAdvanced",
+    "inputs": {
+      "noise": [
+        "8",
+        0
+      ],
+      "guider": [
+        "7",
+        0
+      ],
+      "sampler": [
+        "9",
+        0
+      ],
+      "sigmas": [
+        "10",
+        0
+      ],
+      "latent_image": [
+        "21",
+        0
+      ]
+    }
+  },
+  "12": {
+    "class_type": "VAEDecode",
+    "inputs": {
+      "samples": [
+        "11",
+        0
+      ],
+      "vae": [
+        "3",
+        0
+      ]
+    }
+  },
+  "13": {
+    "class_type": "VAEDecodeAudio",
+    "inputs": {
+      "samples": [
+        "11",
+        0
+      ],
+      "vae": [
+        "4",
+        0
+      ]
+    }
+  },
+  "14": {
+    "class_type": "CreateVideo",
+    "inputs": {
+      "images": [
+        "24",
+        0
+      ],
+      "audio": [
+        "24",
+        1
+      ],
+      "fps": 24
+    }
+  },
+  "15": {
+    "class_type": "SaveVideo",
+    "inputs": {
+      "video": [
+        "14",
+        0
+      ],
+      "filename_prefix": "h3_continuity_tests/retake_external72_91234",
+      "format": "auto",
+      "codec": "auto"
+    }
+  },
+  "16": {
+    "class_type": "H3ContinuitySave",
+    "inputs": {
+      "latent": [
+        "11",
+        0
+      ],
+      "filename": "h3_continuity_tests/retake_external72_91234.safetensors"
+    }
+  },
+  "17": {
+    "class_type": "SaveAudio",
+    "inputs": {
+      "audio": [
+        "24",
+        1
+      ],
+      "filename_prefix": "h3_continuity_tests/retake_external72_91234"
+    }
+  },
+  "21": {
+    "class_type": "H3RetakePrepare",
+    "inputs": {
+      "start_frame": 22,
+      "end_frame": 56,
+      "offset_frames": 0,
+      "grow_frames": 0,
+      "feather_frames": 4,
+      "curve": "smoothstep",
+      "edit_audio": false,
+      "source_images": [
+        "31",
+        0
+      ],
+      "source_audio": [
+        "31",
+        1
+      ],
+      "vae": [
+        "3",
+        0
+      ],
+      "audio_vae": [
+        "4",
+        0
+      ]
+    }
+  },
+  "24": {
+    "class_type": "H3RetakeAssemble",
+    "inputs": {
+      "images": [
+        "12",
+        0
+      ],
+      "source_images": [
+        "31",
+        0
+      ],
+      "source_audio": [
+        "31",
+        1
+      ],
+      "audio": [
+        "13",
+        0
+      ],
+      "plan": [
+        "21",
+        1
+      ]
+    }
+  },
+  "29": {
+    "class_type": "SaveImage",
+    "inputs": {
+      "images": [
+        "21",
+        2
+      ],
+      "filename_prefix": "h3_continuity_tests/retake_external72_91234_mask"
+    }
+  },
+  "30": {
+    "class_type": "LoadVideo",
+    "inputs": {
+      "file": "h3_source_3s.mp4"
+    }
+  },
+  "31": {
+    "class_type": "H3ContinuityImport",
+    "inputs": {
+      "video": [
+        "30",
+        0
+      ],
+      "width": 736,
+      "height": 416
+    }
+  }
+}

@@ -1,8 +1,12 @@
 # H3 Continuity
 
-Continuação de vídeo MiniMax H3 com contexto em latent, máscaras nativas e montagem a 24 fps. Cinco nodes, sem instalar bibliotecas adicionais, sem alterar o ComfyUI ou o sampler.
+Continuação de vídeo MiniMax H3 com contexto em latent, máscaras nativas e montagem a 24 fps. Oito nodes nesta branch de pesquisa, sem bibliotecas adicionais ou alterações globais no ComfyUI.
 
 O modelo ainda pode errar mãos, objetos, identidade, movimento e sincronização labial. Este pack resolve o transporte e o alinhamento do contexto; não promete eliminar todos os artefatos da geração.
+
+## RETAKE e feather experimental
+
+Esta branch mantém o feather da continuação desligado por padrão (`feather_frames=0`) e acrescenta RETAKE temporal, montagem com extremos preservados e Differential Diffusion adaptado opcional. Veja [workflows, controles e resultados](milestones/research_retake_01/CHECKPOINT.md). O node de Differential Diffusion modifica callbacks apenas no modelo clonado; não faz parte do caminho padrão.
 
 ## Marco aprovado
 

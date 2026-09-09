@@ -116,6 +116,9 @@ class H3ContinuityPrepare:
             'vae': ('VAE',), 'source_audio': ('AUDIO',), 'audio_vae': ('VAE',),
             'soundtrack': ('AUDIO', {'tooltip': 'Original full timeline recording, starting at time zero. Conditions the new video; Assemble preserves these samples.'}),
             'source_end_seconds': ('FLOAT', {'default': 0, 'min': 0, 'max': 86400, 'step': 0.01, 'tooltip': '0 = infer from source or saved chain. Override for a tail taken from a longer movie.'}),
+            'feather_frames': ('INT', {'default': 0, 'min': 0, 'max': 3600, 'tooltip': 'Experimental: release the end of the video prefix gradually. 0 preserves the approved behavior.'}),
+            'feather_strength': ('FLOAT', {'default': 1.0, 'min': 0, 'max': 1, 'step': 0.05}),
+            'feather_curve': (['smoothstep', 'linear'],),
         }}
 
     RETURN_TYPES = ('CONDITIONING', 'LATENT', 'H3_CONTINUITY_PLAN', 'STRING')
@@ -126,7 +129,8 @@ class H3ContinuityPrepare:
 
     def prepare(self, positive, latent, context_frames=22, method='anchors', audio_context_seconds=1,
                 source_latent=None, source_images=None, vae=None, source_audio=None,
-                audio_vae=None, soundtrack=None, source_end_seconds=0):
+                audio_vae=None, soundtrack=None, source_end_seconds=0,
+                feather_frames=0, feather_strength=1.0, feather_curve='smoothstep'):
         check_layout()
         video, audio = streams(latent)
         total = pixel_frames(video.shape[2])
@@ -173,6 +177,20 @@ class H3ContinuityPrepare:
             pv[:, :, :tail.shape[2]] = tail.to(pv)
             vm = torch.ones_like(pv[:, :1])
             vm[:, :, :tail.shape[2]] = 0
+            if feather_frames > 0 and feather_strength > 0:
+                span = min(float(feather_frames), n)
+                cursor, weights = 0, []
+                for k in range(tail.shape[2]):
+                    width = FRAME_PER_TOKEN[k % len(FRAME_PER_TOKEN)]
+                    amount = max(0.0, min(1.0, (cursor + width/2 - (n-span))/span))
+                    if feather_curve == 'smoothstep':
+                        amount = amount*amount*(3-2*amount)
+                    weights.append(amount*feather_strength)
+                    cursor += width
+                vm[:, :, :tail.shape[2]] = vm.new_tensor(weights).view(1,1,-1,1,1)
+                plan['feather_frames'] = span
+                plan['feather_strength'] = feather_strength
+                warnings.append(f'Experimental video feather: last {span:g} context frames can change; maximum release {feather_strength:g}.')
             am = torch.ones_like(pa[:, :1])
             if 'noise_mask' in latent:
                 old_vm, old_am = latent['noise_mask'].unbind()
