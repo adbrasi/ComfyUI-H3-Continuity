@@ -117,12 +117,17 @@ class H3RetakeAssemble:
     RETURN_TYPES = ('IMAGE', 'AUDIO', 'STRING')
     FUNCTION = 'assemble'
     CATEGORY = 'MiniMax H3/Continuity/Retake'
-    DESCRIPTION = 'Keep original pixels outside the effective retake interval. No video crossfade. Original audio is preserved unless edit_audio was selected.'
+    DESCRIPTION = 'Keep source frames outside the effective retake interval, resizing with a center crop to the generated canvas when needed. No video crossfade. Original audio is preserved unless edit_audio was selected.'
 
     def assemble(self, images, source_images, plan, audio=None, source_audio=None):
         count, lo, hi = plan['frames'], plan['start'], plan['end']
-        if len(source_images) != count or len(images) < count or images.shape[1:] != source_images.shape[1:]:
-            raise ValueError('Use the exact source frames and the full sampler decode at matching resolution.')
+        if len(source_images) != count or len(images) < count:
+            raise ValueError('Use the exact source frames and the full sampler decode.')
+        resize_report = ''
+        if source_images.shape[1:3] != images.shape[1:3]:
+            h, w = images.shape[1:3]
+            source_images = comfy.utils.common_upscale(source_images.movedim(-1, 1), w, h, 'lanczos', 'center').movedim(1, -1)
+            resize_report = f' Source resized to {w}×{h} with center crop.'
         result = source_images.clone()
         result[lo:hi] = images[lo:hi].to(result)
         sr = int(source_audio['sample_rate'] if source_audio is not None else audio['sample_rate'] if audio is not None else 32000)
@@ -144,7 +149,7 @@ class H3RetakeAssemble:
                 ramp = torch.minimum((x-plan['audio_start'])/f, (plan['audio_end']-x)/f).clamp(0,1)
                 gain *= ramp.square()*(3-2*ramp)
             out_audio = {'waveform': out_audio['waveform']*(1-gain) + generated['waveform'].to(out_audio['waveform'])*gain, 'sample_rate':sr}
-        return result, out_audio, f'{count} frames; original pixels outside [{lo}, {hi}) retained. Audio '+('edited with edge fades.' if plan['edit_audio'] else 'preserved from source_audio; silence if absent.')
+        return result, out_audio, f'{count} frames; source pixels outside [{lo}, {hi}) retained on output canvas. Audio '+('edited with edge fades.' if plan['edit_audio'] else 'preserved from source_audio; silence if absent.') + resize_report
 
 
 def differential_mask(mask, sigma, sampling, sigmas, strength):

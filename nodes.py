@@ -298,7 +298,7 @@ class H3ContinuityAssemble:
     RETURN_NAMES = ('images', 'audio', 'report')
     FUNCTION = 'assemble'
     CATEGORY = CATEGORY
-    DESCRIPTION = 'Remove the regenerated overlap and align audio to exactly the delivered frames. Optional source inputs prepend the untouched original. No video crossfade or interpolation.'
+    DESCRIPTION = 'Remove the regenerated overlap and align audio to exactly the delivered frames. Source frames are resized with a center crop to the generated canvas when needed. No video crossfade or motion interpolation.'
 
     def assemble(self, images, plan, audio=None, source_images=None, source_audio=None):
         n, total = plan['context_frames'], plan['target_frames']
@@ -307,8 +307,10 @@ class H3ContinuityAssemble:
         new = images[n:].clone()
         report = f'Removed {n} overlap frames; {len(new)} new frames at 24 fps.'
         if source_images is not None:
-            if source_images.shape[1:] != new.shape[1:]:
-                raise ValueError('Resize source_images to the output canvas before assembly.')
+            if source_images.shape[1:3] != new.shape[1:3]:
+                h, w = new.shape[1:3]
+                source_images = comfy.utils.common_upscale(source_images.movedim(-1, 1), w, h, 'lanczos', 'center').movedim(1, -1)
+                report += f' Source resized to {w}×{h} with center crop.'
             # Lightweight seam evidence, not a perceptual quality score.
             seam = float((new[0] - source_images[-1]).abs().mean())
             within = float((source_images[-1] - source_images[-2]).abs().mean()) if len(source_images) > 1 else 0
