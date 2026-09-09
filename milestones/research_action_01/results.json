@@ -1,0 +1,30 @@
+{
+  "memory_action_encoder_image_90123": {
+    "seconds": 53.206,
+    "status": "success",
+    "frames": 294,
+    "new_frames": 204,
+    "seed": 90123
+  },
+  "memory_action_guide90_90123": {
+    "seconds": 108.808,
+    "status": "success",
+    "frames": 294,
+    "new_frames": 204,
+    "seed": 90123
+  },
+  "memory_action_tail22_90123": {
+    "seconds": 53.051,
+    "status": "success",
+    "frames": 294,
+    "new_frames": 204,
+    "seed": 90123
+  },
+  "memory_action_tail90_90123": {
+    "seconds": 74.977,
+    "status": "success",
+    "frames": 294,
+    "new_frames": 204,
+    "seed": 90123
+  }
+}
