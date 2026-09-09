@@ -1,0 +1,54 @@
+{
+  "milestones/research_audio_01/results.json": {
+    "bytes": 439,
+    "sha256": "40a5258eacad77eb6dc168a633bae1fda3b8f0abff8cd42aa6fbc51006ddaaec"
+  },
+  "milestones/research_audio_01/CHECKPOINT.md": {
+    "bytes": 1850,
+    "sha256": "4a348d2ec9734634ecf10d0618abeed38a07f7c393f8e89ffb37bafbaa1de444"
+  },
+  "milestones/research_audio_01/artifacts/audio_full_video.safetensors": {
+    "bytes": 4301424,
+    "sha256": "1d65f8b3623863597db61248c321472da07089dc785d9b23f590c37ca68f7472"
+  },
+  "milestones/research_audio_01/artifacts/audio_full_video_00001.flac": {
+    "bytes": 82830,
+    "sha256": "a18e4669e7ac547c93210304a0154328798418dea1280a786c32b33018420559"
+  },
+  "milestones/research_audio_01/artifacts/audio_full_video_00002_.mp4": {
+    "bytes": 692661,
+    "sha256": "52d8a3b886f7ebad329a7379fffc825d379b3b2020906cc84615c962022d564f"
+  },
+  "milestones/research_audio_01/artifacts/audio_continuation_only.safetensors": {
+    "bytes": 4301424,
+    "sha256": "b562a960873eab824980a3235d89c91543941cad87901bc0e00eda927ce168b5"
+  },
+  "milestones/research_audio_01/artifacts/audio_continuation_only_00001.flac": {
+    "bytes": 176773,
+    "sha256": "d71311715ae9ce82db3895fa60b82714bdbb220e7eab3619b42c3ff2a47f7a0d"
+  },
+  "milestones/research_audio_01/artifacts/audio_continuation_only_00002_.mp4": {
+    "bytes": 749216,
+    "sha256": "16aa36519de11dbe0eca952f7d86f5c6d44d2f7b3a02a6b9124c042830b1974a"
+  },
+  "workflows/03_audio_full_video.json": {
+    "bytes": 22163,
+    "sha256": "7c3a8c0db480af0f3c74f19c354d36caad3e6f5031d35025c0231afad657681f"
+  },
+  "workflows/03_audio_full_video.api.json": {
+    "bytes": 5164,
+    "sha256": "5463a5ccfb7cbb215e1a17584d1842fbacbcaba2a2618ede03d5f56df038733b"
+  },
+  "workflows/04_audio_continuation_only.json": {
+    "bytes": 22214,
+    "sha256": "6d8a72eacfc33fed963e500d472fab0d58285847750ab1402aa58caf4c76ca00"
+  },
+  "workflows/04_audio_continuation_only.api.json": {
+    "bytes": 5192,
+    "sha256": "da220da2e5a244104cad2cb83d83a6f4f700cc58c5d6091f94f07542aa385318"
+  },
+  "workflows/h3_soundtrack_demo.wav": {
+    "bytes": 768044,
+    "sha256": "7ac731ab27d9b73893adef24de2b5354784fd25be5ac89f0df0541ba0869d33b"
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "base_research_tag": "research-memory-01",
+  "source": "../research_memory_01/artifacts/memory_source.safetensors",
+  "sha256": {
+    "CHECKPOINT.md": "6a3fab918fd8d14300020d624516ebdc1eccd60963d2de00b2138314f39952b6",
+    "api/memory_action_encoder_image_90123.api.json": "65afc0cdb5941d2cec13b661904fb70dc97f81215838a11d0ce9931e8f5abd41",
+    "api/memory_action_guide90_90123.api.json": "5e55aa70ba13253728b222a3e11c2309f0437257182827fe6e713338e1384039",
+    "api/memory_action_tail22_90123.api.json": "58779cbcd6ca9984ad93aa9f26715433d8db8d32ffb3a665dbeb140c4a0bdd3b",
+    "api/memory_action_tail90_90123.api.json": "12d75b144ef1058bdb8eb6605cf9c7d3b87ae06bc8b9ecd3b5ea3c81e9d4e588",
+    "artifacts/memory_action_encoder_image_90123.safetensors": "9d24ea76ca05890e10e7de521cb6fe234cebb3eda0d60dce4a19bc92137cb386",
+    "artifacts/memory_action_encoder_image_90123_joined_00001_.mp4": "51712128ffb433626c8ba1379af09daf9eeba794287872953e1d5fdc321d4ad1",
+    "artifacts/memory_action_guide90_90123_joined_00001_.mp4": "d4e909b43715f52522c7a3a6adbb273c8999c5e086604a5cd918ed3235b57f47",
+    "artifacts/memory_action_guide90_90123_untrimmed_00002_.mp4": "0c2014dd641c614fa0afd7360f3a40e2c469dc860ddbb6302241dc1688696ac3",
+    "artifacts/memory_action_tail22_90123_joined_00001_.mp4": "66690119a25012a5afd30fd62a61af3575cbabd0b4285e0d12c3cc69a1da7a2e",
+    "artifacts/memory_action_tail90_90123_joined_00001_.mp4": "53531391e6e70b6bb3be1e59ad9a49be08862303d3ca3037498b4def01fdb389",
+    "contacts/memory_action_encoder_image_90123_contact.jpg": "43bd83b6cfa159c50f84bfb074858f43dae9a200bc0eae7f6fec06a896a20ab1",
+    "contacts/memory_action_guide90_90123_contact.jpg": "20627fc086130aec15e17e49b2461332d489456febbfa3421c7ee8f1e27fd961",
+    "contacts/memory_action_tail22_90123_contact.jpg": "11df7dd749ceb6d14bd3625ce4d4cf414642686b9241fc6ca027d84e85c51b2a",
+    "contacts/memory_action_tail90_90123_contact.jpg": "e793149b54f3662b75245e6f98842773b11d825bf462e5686bd19e2aaf01cf0b",
+    "results.json": "2813c07331b964093aedcc5846e2cc589c0cfd1d04f951512153ef90fc393cc9",
+    "ui/memory_action_encoder_image_90123.json": "bce2806e0c27e34f83ae5af6c6b360ba3886b1ce277012c0d100c975e6b3ca76"
+  }
+}

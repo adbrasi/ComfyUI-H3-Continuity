@@ -1,0 +1,92 @@
+{
+  "memory_anchors90_89123": {
+    "frames": 192,
+    "new_frames": 102,
+    "seam_ratio": 2.146169662475586
+  },
+  "memory_anchors90_89124": {
+    "frames": 192,
+    "new_frames": 102,
+    "seam_ratio": 3.654581069946289
+  },
+  "memory_encoder_image_89123": {
+    "frames": 192,
+    "new_frames": 102,
+    "seam_ratio": 22.107349395751953
+  },
+  "memory_encoder_image_89124": {
+    "frames": 192,
+    "new_frames": 102,
+    "seam_ratio": 24.115386962890625
+  },
+  "memory_encoder_latent_image_89123": {
+    "frames": 192,
+    "new_frames": 102,
+    "seam_ratio": 3.941638946533203
+  },
+  "memory_encoder_latent_image_89124": {
+    "frames": 192,
+    "new_frames": 102,
+    "seam_ratio": 28.799541473388672
+  },
+  "memory_encoder_latent_small_89123": {
+    "frames": 192,
+    "new_frames": 102,
+    "seam_ratio": 2.9291789531707764
+  },
+  "memory_encoder_latent_small_89124": {
+    "frames": 192,
+    "new_frames": 102,
+    "seam_ratio": 24.522687911987305
+  },
+  "memory_guide90_89123": {
+    "frames": 192,
+    "new_frames": 102,
+    "seam_ratio": 3.1609156131744385
+  },
+  "memory_guide90_89124": {
+    "frames": 192,
+    "new_frames": 102,
+    "seam_ratio": 4.5502142906188965
+  },
+  "memory_pinned_pixels90_89123": {
+    "frames": 192,
+    "new_frames": 102,
+    "seam_ratio": 3.0909581184387207
+  },
+  "memory_pinned_pixels90_89124": {
+    "frames": 192,
+    "new_frames": 102,
+    "seam_ratio": 7.166855812072754
+  },
+  "memory_tail22_89123": {
+    "frames": 192,
+    "new_frames": 102,
+    "seam_ratio": 2.8970510959625244
+  },
+  "memory_tail22_89124": {
+    "frames": 192,
+    "new_frames": 102,
+    "seam_ratio": 20.780731201171875
+  },
+  "memory_tail90_89123": {
+    "frames": 192,
+    "new_frames": 102,
+    "seam_ratio": 1.9631065130233765
+  },
+  "memory_tail90_89124": {
+    "frames": 192,
+    "new_frames": 102,
+    "seam_ratio": 7.17427921295166
+  },
+  "memory_wrong_encoder_image_89123": {
+    "frames": 192,
+    "new_frames": 102,
+    "seam_ratio": 11.7485990524292
+  },
+  "memory_wrong_encoder_latent_small_89123": {
+    "frames": 192,
+    "new_frames": 102,
+    "seam_ratio": 2.9009077548980713
+  }
+}

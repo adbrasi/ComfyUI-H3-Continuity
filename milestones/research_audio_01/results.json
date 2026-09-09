@@ -1,0 +1,18 @@
+{
+  "sample_rate": 32000,
+  "output_seconds": 7.25,
+  "output_samples": 232000,
+  "full_track_max_error": 0.0,
+  "source_prefix_max_error": 1.52587890625e-05,
+  "new_recording_max_error": 0.0,
+  "renders": {
+    "full_video": {
+      "seconds": 36.707,
+      "prompt_id": "e9ed128b-0919-4970-aba3-2bb18f0c3672"
+    },
+    "continuation_only": {
+      "seconds": 21.056,
+      "prompt_id": "5caf6eed-a36c-4f3b-9ba2-5e29a974640b"
+    }
+  }
+}

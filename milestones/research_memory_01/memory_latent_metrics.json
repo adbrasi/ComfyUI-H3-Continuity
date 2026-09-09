@@ -1,0 +1,81 @@
+{
+  "memory_anchors90_89123": {
+    "target_latent_steps": 57,
+    "prefix_max_error_vs_raw_source": 1.0669571161270142
+  },
+  "memory_anchors90_89124": {
+    "target_latent_steps": 57,
+    "prefix_max_error_vs_raw_source": 1.2082560062408447
+  },
+  "memory_encoder_image_89123": {
+    "target_latent_steps": 37,
+    "prefix_max_error_vs_raw_source": 4.76837158203125e-07
+  },
+  "memory_encoder_image_89124": {
+    "target_latent_steps": 37,
+    "prefix_max_error_vs_raw_source": 4.76837158203125e-07
+  },
+  "memory_encoder_latent_image_89123": {
+    "target_latent_steps": 37,
+    "prefix_max_error_vs_raw_source": 4.76837158203125e-07
+  },
+  "memory_encoder_latent_image_89124": {
+    "target_latent_steps": 37,
+    "prefix_max_error_vs_raw_source": 4.76837158203125e-07
+  },
+  "memory_encoder_latent_small_89123": {
+    "target_latent_steps": 37,
+    "prefix_max_error_vs_raw_source": 4.76837158203125e-07
+  },
+  "memory_encoder_latent_small_89124": {
+    "target_latent_steps": 37,
+    "prefix_max_error_vs_raw_source": 4.76837158203125e-07
+  },
+  "memory_guide90_89123": {
+    "target_latent_steps": 57,
+    "prefix_max_error_vs_raw_source": 1.5222426652908325
+  },
+  "memory_guide90_89124": {
+    "target_latent_steps": 57,
+    "prefix_max_error_vs_raw_source": 1.4920334815979004
+  },
+  "memory_pinned_pixels90_89123": {
+    "target_latent_steps": 57,
+    "prefix_max_error_vs_raw_source": 1.6031734943389893
+  },
+  "memory_pinned_pixels90_89124": {
+    "target_latent_steps": 57,
+    "prefix_max_error_vs_raw_source": 1.6031734943389893
+  },
+  "memory_tail22_89123": {
+    "target_latent_steps": 37,
+    "prefix_max_error_vs_raw_source": 4.76837158203125e-07
+  },
+  "memory_tail22_89124": {
+    "target_latent_steps": 37,
+    "prefix_max_error_vs_raw_source": 4.76837158203125e-07
+  },
+  "memory_tail90_89123": {
+    "target_latent_steps": 57,
+    "prefix_max_error_vs_raw_source": 4.76837158203125e-07
+  },
+  "memory_tail90_89124": {
+    "target_latent_steps": 57,
+    "prefix_max_error_vs_raw_source": 4.76837158203125e-07
+  },
+  "memory_wrong_encoder_image_89123": {
+    "target_latent_steps": 37,
+    "prefix_max_error_vs_raw_source": 4.76837158203125e-07
+  },
+  "memory_wrong_encoder_latent_small_89123": {
+    "target_latent_steps": 37,
+    "prefix_max_error_vs_raw_source": 4.76837158203125e-07
+  },
+  "long_context_112_requested": {
+    "used_frames": 107,
+    "new_frames": 102,
+    "target_frames": 209,
+    "joined_frames": 226,
+    "prefix_max_error_vs_raw_source": 4.76837158203125e-07
+  }
+}

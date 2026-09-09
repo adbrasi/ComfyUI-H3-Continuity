@@ -114,10 +114,11 @@ def test_save_load_exact_and_safe_paths(tmp_path):
             H3ContinuitySave().save(source, '../escape.safetensors')
 
 
-def test_short_soundtrack_fails_before_sampling():
-    with pytest.raises(ValueError, match='ends before'):
-        H3ContinuityPrepare().prepare(cond(), latent(), source_latent=latent(), audio_vae=FakeVAE(),
-                                      soundtrack={'waveform': torch.zeros(1, 2, 32000), 'sample_rate': 32000})
+def test_short_soundtrack_pads_missing_samples_with_silence():
+    _, _, plan, _ = H3ContinuityPrepare().prepare(cond(), latent(), source_latent=latent(), audio_vae=FakeVAE(),
+        soundtrack={'waveform': torch.ones(1, 2, 32000), 'sample_rate': 32000})
+    assert plan['soundtrack_segment']['waveform'].shape[-1] == 136000
+    assert plan['soundtrack_segment']['waveform'].count_nonzero() == 0
 
 
 def test_original_track_locks_audio_and_preserves_prior_mask():
@@ -151,3 +152,17 @@ def test_import_fps_keeps_duration_and_audio():
     images, audio, _ = H3ContinuityImport().convert(Video(),32,32)
     assert len(images)==72 and images[-1,0,0,0]==88
     assert torch.equal(audio['waveform'],wave)
+
+
+@pytest.mark.parametrize('requested,used', [(90,90),(107,107),(112,107),(124,124),(243,243),(362,362)])
+def test_extended_context_preserves_tail_and_reports_delivered_frames(requested,used):
+    source,target=latent(152),latent(177)
+    positive,out,plan,report=H3ContinuityPrepare().prepare(cond(),target,context_frames=requested,
+        source_latent=source,method='pinned_prefix',audio_context_seconds=0)
+    steps=2+5*((used-5)//17)
+    assert plan['context_frames']==used
+    assert plan['target_frames']==600
+    assert torch.equal(out['samples'].tensors[0][:,:,:steps],source['samples'].tensors[0][:,:,-steps:])
+    assert torch.all(out['noise_mask'].tensors[0][:,:,:steps]==0)
+    assert torch.all(out['noise_mask'].tensors[0][:,:,steps:]==1)
+    if requested!=used:assert f'Requested {requested}' in report

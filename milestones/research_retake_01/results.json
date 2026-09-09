@@ -1,0 +1,54 @@
+{
+  "continuation_feather17_strength0p5_90123": {
+    "status": "success",
+    "seconds": 50.867,
+    "frames": 294
+  },
+  "continuation_feather8_strength0p5_90123": {
+    "status": "success",
+    "seconds": 56.259,
+    "frames": 294
+  },
+  "continuation_feather8_strength1p0_90123": {
+    "status": "success",
+    "seconds": 52.265,
+    "frames": 294
+  },
+  "retake_external72_91234": {
+    "status": "success",
+    "seconds": 15.262,
+    "frames": 72
+  },
+  "retake_feather17_91234": {
+    "status": "success",
+    "seconds": 19.876,
+    "frames": 124,
+    "prefix_latent_max_error": 4.76837158203125e-07,
+    "suffix_latent_max_error": 4.76837158203125e-07,
+    "audio_latent_max_error": 1.1920928955078125e-07
+  },
+  "retake_feather8_91234": {
+    "status": "success",
+    "seconds": 19.737,
+    "frames": 124,
+    "prefix_latent_max_error": 4.76837158203125e-07,
+    "suffix_latent_max_error": 4.76837158203125e-07,
+    "audio_latent_max_error": 1.1920928955078125e-07
+  },
+  "retake_feather8_dd_91234": {
+    "status": "success",
+    "seconds": 19.728,
+    "frames": 124,
+    "prefix_latent_max_error": 4.76837158203125e-07,
+    "suffix_latent_max_error": 4.76837158203125e-07,
+    "audio_latent_max_error": 1.1920928955078125e-07
+  },
+  "retake_hard_91234": {
+    "status": "success",
+    "seconds": 39.182,
+    "frames": 124,
+    "prefix_latent_max_error": 4.76837158203125e-07,
+    "suffix_latent_max_error": 4.76837158203125e-07,
+    "audio_latent_max_error": 1.1920928955078125e-07
+  }
+}

@@ -1,0 +1,770 @@
+{
+  "long_context_112_requested": {
+    "status": "success",
+    "seconds": 48.962,
+    "outputs": {
+      "17": {
+        "audio": [
+          {
+            "filename": "long_context_112_requested_untrimmed_00001.flac",
+            "subfolder": "h3_continuity_tests",
+            "type": "output"
+          }
+        ]
+      },
+      "15": {
+        "images": [
+          {
+            "filename": "long_context_112_requested_untrimmed_00002_.mp4",
+            "subfolder": "h3_continuity_tests",
+            "type": "output"
+          }
+        ],
+        "animated": [
+          true
+        ]
+      },
+      "26": {
+        "images": [
+          {
+            "filename": "long_context_112_requested_joined_00001_.mp4",
+            "subfolder": "h3_continuity_tests",
+            "type": "output"
+          }
+        ],
+        "animated": [
+          true
+        ]
+      }
+    }
+  },
+  "memory_anchors90_89123": {
+    "status": "success",
+    "seconds": 61.196,
+    "outputs": {
+      "17": {
+        "audio": [
+          {
+            "filename": "memory_anchors90_89123_untrimmed_00001.flac",
+            "subfolder": "h3_continuity_tests",
+            "type": "output"
+          }
+        ]
+      },
+      "15": {
+        "images": [
+          {
+            "filename": "memory_anchors90_89123_untrimmed_00002_.mp4",
+            "subfolder": "h3_continuity_tests",
+            "type": "output"
+          }
+        ],
+        "animated": [
+          true
+        ]
+      },
+      "26": {
+        "images": [
+          {
+            "filename": "memory_anchors90_89123_joined_00001_.mp4",
+            "subfolder": "h3_continuity_tests",
+            "type": "output"
+          }
+        ],
+        "animated": [
+          true
+        ]
+      }
+    }
+  },
+  "memory_anchors90_89124": {
+    "status": "success",
+    "seconds": 61.318,
+    "outputs": {
+      "17": {
+        "audio": [
+          {
+            "filename": "memory_anchors90_89124_untrimmed_00001.flac",
+            "subfolder": "h3_continuity_tests",
+            "type": "output"
+          }
+        ]
+      },
+      "15": {
+        "images": [
+          {
+            "filename": "memory_anchors90_89124_untrimmed_00002_.mp4",
+            "subfolder": "h3_continuity_tests",
+            "type": "output"
+          }
+        ],
+        "animated": [
+          true
+        ]
+      },
+      "26": {
+        "images": [
+          {
+            "filename": "memory_anchors90_89124_joined_00001_.mp4",
+            "subfolder": "h3_continuity_tests",
+            "type": "output"
+          }
+        ],
+        "animated": [
+          true
+        ]
+      }
+    }
+  },
+  "memory_counter_source": {
+    "status": "success",
+    "seconds": 13.921,
+    "outputs": {
+      "17": {
+        "audio": [
+          {
+            "filename": "memory_counter_source_00001.flac",
+            "subfolder": "h3_continuity_tests",
+            "type": "output"
+          }
+        ]
+      },
+      "15": {
+        "images": [
+          {
+            "filename": "memory_counter_source_00002_.mp4",
+            "subfolder": "h3_continuity_tests",
+            "type": "output"
+          }
+        ],
+        "animated": [
+          true
+        ]
+      }
+    }
+  },
+  "memory_encoder_image_89123": {
+    "status": "success",
+    "seconds": 23.391,
+    "outputs": {
+      "17": {
+        "audio": [
+          {
+            "filename": "memory_encoder_image_89123_untrimmed_00001.flac",
+            "subfolder": "h3_continuity_tests",
+            "type": "output"
+          }
+        ]
+      },
+      "15": {
+        "images": [
+          {
+            "filename": "memory_encoder_image_89123_untrimmed_00002_.mp4",
+            "subfolder": "h3_continuity_tests",
+            "type": "output"
+          }
+        ],
+        "animated": [
+          true
+        ]
+      },
+      "26": {
+        "images": [
+          {
+            "filename": "memory_encoder_image_89123_joined_00001_.mp4",
+            "subfolder": "h3_continuity_tests",
+            "type": "output"
+          }
+        ],
+        "animated": [
+          true
+        ]
+      }
+    }
+  },
+  "memory_encoder_image_89124": {
+    "status": "success",
+    "seconds": 22.86,
+    "outputs": {
+      "17": {
+        "audio": [
+          {
+            "filename": "memory_encoder_image_89124_untrimmed_00001.flac",
+            "subfolder": "h3_continuity_tests",
+            "type": "output"
+          }
+        ]
+      },
+      "15": {
+        "images": [
+          {
+            "filename": "memory_encoder_image_89124_untrimmed_00002_.mp4",
+            "subfolder": "h3_continuity_tests",
+            "type": "output"
+          }
+        ],
+        "animated": [
+          true
+        ]
+      },
+      "26": {
+        "images": [
+          {
+            "filename": "memory_encoder_image_89124_joined_00001_.mp4",
+            "subfolder": "h3_continuity_tests",
+            "type": "output"
+          }
+        ],
+        "animated": [
+          true
+        ]
+      }
+    }
+  },
+  "memory_encoder_latent_image_89123": {
+    "status": "success",
+    "seconds": 23.765,
+    "outputs": {
+      "17": {
+        "audio": [
+          {
+            "filename": "memory_encoder_latent_image_89123_untrimmed_00001.flac",
+            "subfolder": "h3_continuity_tests",
+            "type": "output"
+          }
+        ]
+      },
+      "15": {
+        "images": [
+          {
+            "filename": "memory_encoder_latent_image_89123_untrimmed_00002_.mp4",
+            "subfolder": "h3_continuity_tests",
+            "type": "output"
+          }
+        ],
+        "animated": [
+          true
+        ]
+      },
+      "26": {
+        "images": [
+          {
+            "filename": "memory_encoder_latent_image_89123_joined_00001_.mp4",
+            "subfolder": "h3_continuity_tests",
+            "type": "output"
+          }
+        ],
+        "animated": [
+          true
+        ]
+      }
+    }
+  },
+  "memory_encoder_latent_image_89124": {
+    "status": "success",
+    "seconds": 24.064,
+    "outputs": {
+      "17": {
+        "audio": [
+          {
+            "filename": "memory_encoder_latent_image_89124_untrimmed_00001.flac",
+            "subfolder": "h3_continuity_tests",
+            "type": "output"
+          }
+        ]
+      },
+      "15": {
+        "images": [
+          {
+            "filename": "memory_encoder_latent_image_89124_untrimmed_00002_.mp4",
+            "subfolder": "h3_continuity_tests",
+            "type": "output"
+          }
+        ],
+        "animated": [
+          true
+        ]
+      },
+      "26": {
+        "images": [
+          {
+            "filename": "memory_encoder_latent_image_89124_joined_00001_.mp4",
+            "subfolder": "h3_continuity_tests",
+            "type": "output"
+          }
+        ],
+        "animated": [
+          true
+        ]
+      }
+    }
+  },
+  "memory_encoder_latent_small_89123": {
+    "status": "success",
+    "seconds": 23.031,
+    "outputs": {
+      "17": {
+        "audio": [
+          {
+            "filename": "memory_encoder_latent_small_89123_untrimmed_00001.flac",
+            "subfolder": "h3_continuity_tests",
+            "type": "output"
+          }
+        ]
+      },
+      "15": {
+        "images": [
+          {
+            "filename": "memory_encoder_latent_small_89123_untrimmed_00002_.mp4",
+            "subfolder": "h3_continuity_tests",
+            "type": "output"
+          }
+        ],
+        "animated": [
+          true
+        ]
+      },
+      "26": {
+        "images": [
+          {
+            "filename": "memory_encoder_latent_small_89123_joined_00001_.mp4",
+            "subfolder": "h3_continuity_tests",
+            "type": "output"
+          }
+        ],
+        "animated": [
+          true
+        ]
+      }
+    }
+  },
+  "memory_encoder_latent_small_89124": {
+    "status": "success",
+    "seconds": 22.547,
+    "outputs": {
+      "17": {
+        "audio": [
+          {
+            "filename": "memory_encoder_latent_small_89124_untrimmed_00001.flac",
+            "subfolder": "h3_continuity_tests",
+            "type": "output"
+          }
+        ]
+      },
+      "15": {
+        "images": [
+          {
+            "filename": "memory_encoder_latent_small_89124_untrimmed_00002_.mp4",
+            "subfolder": "h3_continuity_tests",
+            "type": "output"
+          }
+        ],
+        "animated": [
+          true
+        ]
+      },
+      "26": {
+        "images": [
+          {
+            "filename": "memory_encoder_latent_small_89124_joined_00001_.mp4",
+            "subfolder": "h3_continuity_tests",
+            "type": "output"
+          }
+        ],
+        "animated": [
+          true
+        ]
+      }
+    }
+  },
+  "memory_guide90_89123": {
+    "status": "success",
+    "seconds": 66.858,
+    "outputs": {
+      "17": {
+        "audio": [
+          {
+            "filename": "memory_guide90_89123_untrimmed_00001.flac",
+            "subfolder": "h3_continuity_tests",
+            "type": "output"
+          }
+        ]
+      },
+      "15": {
+        "images": [
+          {
+            "filename": "memory_guide90_89123_untrimmed_00002_.mp4",
+            "subfolder": "h3_continuity_tests",
+            "type": "output"
+          }
+        ],
+        "animated": [
+          true
+        ]
+      },
+      "26": {
+        "images": [
+          {
+            "filename": "memory_guide90_89123_joined_00001_.mp4",
+            "subfolder": "h3_continuity_tests",
+            "type": "output"
+          }
+        ],
+        "animated": [
+          true
+        ]
+      }
+    }
+  },
+  "memory_guide90_89124": {
+    "status": "success",
+    "seconds": 65.501,
+    "outputs": {
+      "17": {
+        "audio": [
+          {
+            "filename": "memory_guide90_89124_untrimmed_00001.flac",
+            "subfolder": "h3_continuity_tests",
+            "type": "output"
+          }
+        ]
+      },
+      "15": {
+        "images": [
+          {
+            "filename": "memory_guide90_89124_untrimmed_00002_.mp4",
+            "subfolder": "h3_continuity_tests",
+            "type": "output"
+          }
+        ],
+        "animated": [
+          true
+        ]
+      },
+      "26": {
+        "images": [
+          {
+            "filename": "memory_guide90_89124_joined_00001_.mp4",
+            "subfolder": "h3_continuity_tests",
+            "type": "output"
+          }
+        ],
+        "animated": [
+          true
+        ]
+      }
+    }
+  },
+  "memory_pinned_pixels90_89123": {
+    "status": "success",
+    "seconds": 42.981,
+    "outputs": {
+      "17": {
+        "audio": [
+          {
+            "filename": "memory_pinned_pixels90_89123_untrimmed_00001.flac",
+            "subfolder": "h3_continuity_tests",
+            "type": "output"
+          }
+        ]
+      },
+      "15": {
+        "images": [
+          {
+            "filename": "memory_pinned_pixels90_89123_untrimmed_00002_.mp4",
+            "subfolder": "h3_continuity_tests",
+            "type": "output"
+          }
+        ],
+        "animated": [
+          true
+        ]
+      },
+      "26": {
+        "images": [
+          {
+            "filename": "memory_pinned_pixels90_89123_joined_00001_.mp4",
+            "subfolder": "h3_continuity_tests",
+            "type": "output"
+          }
+        ],
+        "animated": [
+          true
+        ]
+      }
+    }
+  },
+  "memory_pinned_pixels90_89124": {
+    "status": "success",
+    "seconds": 42.037,
+    "outputs": {
+      "17": {
+        "audio": [
+          {
+            "filename": "memory_pinned_pixels90_89124_untrimmed_00001.flac",
+            "subfolder": "h3_continuity_tests",
+            "type": "output"
+          }
+        ]
+      },
+      "15": {
+        "images": [
+          {
+            "filename": "memory_pinned_pixels90_89124_untrimmed_00002_.mp4",
+            "subfolder": "h3_continuity_tests",
+            "type": "output"
+          }
+        ],
+        "animated": [
+          true
+        ]
+      },
+      "26": {
+        "images": [
+          {
+            "filename": "memory_pinned_pixels90_89124_joined_00001_.mp4",
+            "subfolder": "h3_continuity_tests",
+            "type": "output"
+          }
+        ],
+        "animated": [
+          true
+        ]
+      }
+    }
+  },
+  "memory_tail22_89123": {
+    "status": "success",
+    "seconds": 31.61,
+    "outputs": {
+      "17": {
+        "audio": [
+          {
+            "filename": "memory_tail22_89123_untrimmed_00001.flac",
+            "subfolder": "h3_continuity_tests",
+            "type": "output"
+          }
+        ]
+      },
+      "15": {
+        "images": [
+          {
+            "filename": "memory_tail22_89123_untrimmed_00002_.mp4",
+            "subfolder": "h3_continuity_tests",
+            "type": "output"
+          }
+        ],
+        "animated": [
+          true
+        ]
+      },
+      "26": {
+        "images": [
+          {
+            "filename": "memory_tail22_89123_joined_00001_.mp4",
+            "subfolder": "h3_continuity_tests",
+            "type": "output"
+          }
+        ],
+        "animated": [
+          true
+        ]
+      }
+    }
+  },
+  "memory_tail22_89124": {
+    "status": "success",
+    "seconds": 21.875,
+    "outputs": {
+      "17": {
+        "audio": [
+          {
+            "filename": "memory_tail22_89124_untrimmed_00001.flac",
+            "subfolder": "h3_continuity_tests",
+            "type": "output"
+          }
+        ]
+      },
+      "15": {
+        "images": [
+          {
+            "filename": "memory_tail22_89124_untrimmed_00002_.mp4",
+            "subfolder": "h3_continuity_tests",
+            "type": "output"
+          }
+        ],
+        "animated": [
+          true
+        ]
+      },
+      "26": {
+        "images": [
+          {
+            "filename": "memory_tail22_89124_joined_00001_.mp4",
+            "subfolder": "h3_continuity_tests",
+            "type": "output"
+          }
+        ],
+        "animated": [
+          true
+        ]
+      }
+    }
+  },
+  "memory_tail90_89123": {
+    "status": "success",
+    "seconds": 39.743,
+    "outputs": {
+      "17": {
+        "audio": [
+          {
+            "filename": "memory_tail90_89123_untrimmed_00001.flac",
+            "subfolder": "h3_continuity_tests",
+            "type": "output"
+          }
+        ]
+      },
+      "15": {
+        "images": [
+          {
+            "filename": "memory_tail90_89123_untrimmed_00002_.mp4",
+            "subfolder": "h3_continuity_tests",
+            "type": "output"
+          }
+        ],
+        "animated": [
+          true
+        ]
+      },
+      "26": {
+        "images": [
+          {
+            "filename": "memory_tail90_89123_joined_00001_.mp4",
+            "subfolder": "h3_continuity_tests",
+            "type": "output"
+          }
+        ],
+        "animated": [
+          true
+        ]
+      }
+    }
+  },
+  "memory_tail90_89124": {
+    "status": "success",
+    "seconds": 39.488,
+    "outputs": {
+      "17": {
+        "audio": [
+          {
+            "filename": "memory_tail90_89124_untrimmed_00001.flac",
+            "subfolder": "h3_continuity_tests",
+            "type": "output"
+          }
+        ]
+      },
+      "15": {
+        "images": [
+          {
+            "filename": "memory_tail90_89124_untrimmed_00002_.mp4",
+            "subfolder": "h3_continuity_tests",
+            "type": "output"
+          }
+        ],
+        "animated": [
+          true
+        ]
+      },
+      "26": {
+        "images": [
+          {
+            "filename": "memory_tail90_89124_joined_00001_.mp4",
+            "subfolder": "h3_continuity_tests",
+            "type": "output"
+          }
+        ],
+        "animated": [
+          true
+        ]
+      }
+    }
+  },
+  "memory_wrong_encoder_image_89123": {
+    "status": "success",
+    "seconds": 28.055,
+    "outputs": {
+      "17": {
+        "audio": [
+          {
+            "filename": "memory_wrong_encoder_image_89123_untrimmed_00001.flac",
+            "subfolder": "h3_continuity_tests",
+            "type": "output"
+          }
+        ]
+      },
+      "15": {
+        "images": [
+          {
+            "filename": "memory_wrong_encoder_image_89123_untrimmed_00002_.mp4",
+            "subfolder": "h3_continuity_tests",
+            "type": "output"
+          }
+        ],
+        "animated": [
+          true
+        ]
+      },
+      "26": {
+        "images": [
+          {
+            "filename": "memory_wrong_encoder_image_89123_joined_00001_.mp4",
+            "subfolder": "h3_continuity_tests",
+            "type": "output"
+          }
+        ],
+        "animated": [
+          true
+        ]
+      }
+    }
+  },
+  "memory_wrong_encoder_latent_small_89123": {
+    "status": "success",
+    "seconds": 22.567,
+    "outputs": {
+      "17": {
+        "audio": [
+          {
+            "filename": "memory_wrong_encoder_latent_small_89123_untrimmed_00001.flac",
+            "subfolder": "h3_continuity_tests",
+            "type": "output"
+          }
+        ]
+      },
+      "15": {
+        "images": [
+          {
+            "filename": "memory_wrong_encoder_latent_small_89123_untrimmed_00002_.mp4",
+            "subfolder": "h3_continuity_tests",
+            "type": "output"
+          }
+        ],
+        "animated": [
+          true
+        ]
+      },
+      "26": {
+        "images": [
+          {
+            "filename": "memory_wrong_encoder_latent_small_89123_joined_00001_.mp4",
+            "subfolder": "h3_continuity_tests",
+            "type": "output"
+          }
+        ],
+        "animated": [
+          true
+        ]
+      }
+    }
+  }
+}
