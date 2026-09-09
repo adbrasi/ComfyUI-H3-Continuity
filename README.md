@@ -75,3 +75,7 @@ Não é preciso pedir que tudo fique estático. Uma mudança física gradual de 
 Relatório de pesquisa: `docs/PESQUISA.md`. Resultados locais: `docs/TESTES.md`. Os MP4 completos, áudios sem recorte, checkpoints e folhas de contato ficam em `/workspace/H3-testes` nesta máquina.
 
 Código de teste: `tests/test_nodes.py`. No Python do ComfyUI: `python -m pytest custom_nodes/h3_continuity/tests -q`.
+
+## Áudio original
+
+Use `soundtrack` no Prepare: `full_video` substitui toda a trilha; `continuation_only` mantém `source_audio` e começa sua gravação na emenda. O `plan` leva o áudio ao Assemble. Excedente é cortado; falta é preenchida com silêncio. [Conexões e exemplos](docs/AUDIO_ORIGINAL.md).

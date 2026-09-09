@@ -114,10 +114,11 @@ def test_save_load_exact_and_safe_paths(tmp_path):
             H3ContinuitySave().save(source, '../escape.safetensors')
 
 
-def test_short_soundtrack_fails_before_sampling():
-    with pytest.raises(ValueError, match='ends before'):
-        H3ContinuityPrepare().prepare(cond(), latent(), source_latent=latent(), audio_vae=FakeVAE(),
-                                      soundtrack={'waveform': torch.zeros(1, 2, 32000), 'sample_rate': 32000})
+def test_short_soundtrack_pads_missing_samples_with_silence():
+    _, _, plan, _ = H3ContinuityPrepare().prepare(cond(), latent(), source_latent=latent(), audio_vae=FakeVAE(),
+        soundtrack={'waveform': torch.ones(1, 2, 32000), 'sample_rate': 32000})
+    assert plan['soundtrack_segment']['waveform'].shape[-1] == 136000
+    assert plan['soundtrack_segment']['waveform'].count_nonzero() == 0
 
 
 def test_original_track_locks_audio_and_preserves_prior_mask():
