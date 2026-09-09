@@ -107,7 +107,7 @@ class H3ContinuityPrepare:
     def INPUT_TYPES(cls):
         return {'required': {
             'positive': ('CONDITIONING',), 'latent': ('LATENT',),
-            'context_frames': ([22, 39, 56, 5],),
+            'context_frames': ('INT', {'default': 22, 'min': 5, 'max': 3600, 'step': 17, 'tooltip': 'Frames from the source tail. Snaps down to 5 + 17k before selecting the tail. Must be shorter than target length.'}),
             'method': (['pinned_av', 'pinned_prefix', 'anchors'], {'tooltip': 'pinned_prefix locks video and guides audio; pinned_av locks aligned audio rows too; anchors regenerates the overlap.'}),
             'audio_context_seconds': ('FLOAT', {'default': 1.0, 'min': 0, 'max': 10, 'step': 0.1}),
         }, 'optional': {
@@ -156,6 +156,8 @@ class H3ContinuityPrepare:
             origin = 'pixels'
             inferred_end = available / FPS
             warnings.append('External frames require one lossy VAE encode; use saved latents for subsequent links.')
+        if n != int(context_frames):
+            warnings.append(f'Requested {context_frames} context frames; using the last {n} on the H3 frame grid.')
         if n >= total:
             raise ValueError(f'The target has {total} frames but context uses {n}. Increase target length.')
         end = float(source_end_seconds or inferred_end)
