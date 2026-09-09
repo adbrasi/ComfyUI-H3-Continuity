@@ -1,0 +1,78 @@
+{
+  "milestones/research_audio_masks_01/results.json": {
+    "bytes": 984,
+    "sha256": "6b3793247b0fa83c4c1583b7e4c57aceb197b90dc868bc67072c1333fc180b89"
+  },
+  "milestones/research_audio_masks_01/CHECKPOINT.md": {
+    "bytes": 2190,
+    "sha256": "d24468bf0b589542347e4a90105a4611e3f958597ad0d538fb071cc651b956a4"
+  },
+  "milestones/research_audio_masks_01/api/full_video.json": {
+    "bytes": 5308,
+    "sha256": "f5f8096dcff32a98c9bc26a2da81851d5a81f642daa3da7dda13d4d31d9ac6d4"
+  },
+  "milestones/research_audio_masks_01/api/continuation_only.json": {
+    "bytes": 5343,
+    "sha256": "e220ccb9862a68eef8a9d717bcb7bf8097a8e83205fb15b29c35a5c16a0d48f9"
+  },
+  "milestones/research_audio_masks_01/api/full_video4.json": {
+    "bytes": 5309,
+    "sha256": "80e2d531c1ce9860f3dea75e0c6efedfad8c75fe28780e1f222ad2ea481e38f3"
+  },
+  "milestones/research_audio_masks_01/artifacts/audio_missing_full_video_00002_.mp4": {
+    "bytes": 740987,
+    "sha256": "0421aed17009c0cc443636eb10fb637721eb44237097b5cc6935ace4746dc372"
+  },
+  "milestones/research_audio_masks_01/artifacts/audio_missing_full_video_00001.flac": {
+    "bytes": 312279,
+    "sha256": "becfd975b6cae4cf22d8a104b15aa63dc30e4c5bdf4f02fcef02422dbcce315a"
+  },
+  "milestones/research_audio_masks_01/artifacts/audio_missing_full_video_decoded_00001.flac": {
+    "bytes": 306937,
+    "sha256": "a02f87fee5c708b0d8c5b29f279e3ca915e3418b5cf1561b3505403da6fab515"
+  },
+  "milestones/research_audio_masks_01/artifacts/audio_missing_full_video.safetensors": {
+    "bytes": 4301424,
+    "sha256": "667c4286c16760e83044a343c9cdb7d67ead166cf52b08863411f37424334de8"
+  },
+  "milestones/research_audio_masks_01/artifacts/audio_missing_continuation_only_00002_.mp4": {
+    "bytes": 711707,
+    "sha256": "feff7e40994c0ca61d78c0ae0c7d492eae79c78412668b0bbe673ad8e00eaf23"
+  },
+  "milestones/research_audio_masks_01/artifacts/audio_missing_continuation_only_00001.flac": {
+    "bytes": 112713,
+    "sha256": "80fe1a48d1d7614cf445d1edb816b8d88e372ac13ee0a44c0d5036d260de6995"
+  },
+  "milestones/research_audio_masks_01/artifacts/audio_missing_continuation_only_decoded_00001.flac": {
+    "bytes": 115923,
+    "sha256": "708b5a5de90f9de50a5ac084f8accf07d10417cf56171fb67f0fb79cd1f5871e"
+  },
+  "milestones/research_audio_masks_01/artifacts/audio_missing_continuation_only.safetensors": {
+    "bytes": 4301424,
+    "sha256": "58f9275ef78c7fddf33a1e083b55ee52f2c87e33db913f67e16c52514c4af856"
+  },
+  "milestones/research_audio_masks_01/artifacts/audio_missing_full_video4_00002_.mp4": {
+    "bytes": 767694,
+    "sha256": "3e92b02e0532a6e6a46c22e0f8eb745cf2f34c4d97bb53e8c86c5588e3252739"
+  },
+  "milestones/research_audio_masks_01/artifacts/audio_missing_full_video4_00001.flac": {
+    "bytes": 121946,
+    "sha256": "febe094f60036fb4d3387ef0c13692c57edbdf843833be6f1c5e61b521a47e5d"
+  },
+  "milestones/research_audio_masks_01/artifacts/audio_missing_full_video4_decoded_00001.flac": {
+    "bytes": 107798,
+    "sha256": "d7ed469b78b9bc743e08fafc68fc2ecae1404e54eefa7f8ee4ab32ada7bd8b8c"
+  },
+  "milestones/research_audio_masks_01/artifacts/audio_missing_full_video4.safetensors": {
+    "bytes": 4301424,
+    "sha256": "bec597287618ae8bf52dd25e3b940e25c041e30d210b5dfc48b0f85e49e11f4d"
+  },
+  "milestones/research_audio_masks_01/artifacts/h3_soundtrack_short.wav": {
+    "bytes": 32044,
+    "sha256": "7556ab87bce3ca1a3cbc9539788791ea3b82635b93bd708d4d571bfa7352e56b"
+  },
+  "milestones/research_audio_masks_01/artifacts/h3_soundtrack_4s.wav": {
+    "bytes": 256044,
+    "sha256": "49c62dc6fe15f226bde55bbb8e5c11b5ca040cd0fea1af5d341c518db86cb622"
+  }
+}

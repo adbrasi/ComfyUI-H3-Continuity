@@ -149,7 +149,7 @@
         "11",
         0
       ],
-      "filename": "h3_continuity_tests/audio_full_video.safetensors",
+      "filename": "h3_continuity_tests/audio_missing_full_video4.safetensors",
       "plan": [
         "21",
         2
@@ -173,10 +173,6 @@
       "source_images": [
         "28",
         0
-      ],
-      "source_audio": [
-        "28",
-        1
       ],
       "vae": [
         "3",
@@ -213,10 +209,6 @@
       "source_images": [
         "28",
         0
-      ],
-      "source_audio": [
-        "28",
-        1
       ]
     }
   },
@@ -241,7 +233,7 @@
         "25",
         0
       ],
-      "filename_prefix": "h3_continuity_tests/audio_full_video",
+      "filename_prefix": "h3_continuity_tests/audio_missing_full_video4",
       "format": "auto",
       "codec": "auto"
     }
@@ -270,13 +262,23 @@
         "24",
         1
       ],
-      "filename_prefix": "h3_continuity_tests/audio_full_video"
+      "filename_prefix": "h3_continuity_tests/audio_missing_full_video4"
     }
   },
   "31": {
     "class_type": "LoadAudio",
     "inputs": {
-      "audio": "h3_soundtrack_demo.wav"
+      "audio": "h3_soundtrack_4s.wav"
+    }
+  },
+  "32": {
+    "class_type": "SaveAudio",
+    "inputs": {
+      "audio": [
+        "13",
+        0
+      ],
+      "filename_prefix": "h3_continuity_tests/audio_missing_full_video4_decoded"
     }
   }
 }

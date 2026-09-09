@@ -43,7 +43,38 @@ def fit_audio(audio, count, sample_rate=None):
     wave = audio['waveform']
     if int(audio['sample_rate']) != sr:
         wave = torchaudio.functional.resample(wave, int(audio['sample_rate']), sr)
-    return {'waveform': F.pad(wave[..., :count], (0, max(0, count - wave.shape[-1]))), 'sample_rate': sr}
+    result = {'waveform': F.pad(wave[..., :count], (0, max(0, count - wave.shape[-1]))), 'sample_rate': sr}
+    if 'h3_valid_samples' in audio:
+        result['h3_valid_samples'] = min(count, round(audio_samples(audio) * sr / audio['sample_rate']))
+    return result
+
+
+def audio_samples(audio):
+    return min(audio['waveform'].shape[-1], int(audio.get('h3_valid_samples', audio['waveform'].shape[-1])))
+
+
+def preserve_audio_interval(mask, start, end):
+    # Audio rows span 25 ms. Partial boundary rows get partial preservation.
+    rows = torch.arange(mask.shape[-1], device=mask.device, dtype=torch.float32)
+    covered = (torch.minimum(rows + 1, rows.new_tensor(end * 40)) - torch.maximum(rows, rows.new_tensor(start * 40))).clamp(0, 1)
+    mask.sub_(covered.to(mask)).clamp_(0, 1)
+
+
+def place_audio(output, source, at_seconds):
+    sr = output['sample_rate']
+    destination = output['waveform']
+    offset = max(0, round(at_seconds * sr))
+    start = max(0, round(-at_seconds * source['sample_rate']))
+    stop = min(audio_samples(source), start + math.ceil(max(0, destination.shape[-1] - offset) * source['sample_rate'] / sr))
+    if stop <= start or offset >= destination.shape[-1]:
+        return
+    wave = source['waveform'][..., start:stop]
+    if source['sample_rate'] != sr:
+        wave = torchaudio.functional.resample(wave, source['sample_rate'], sr)
+    if wave.shape[1] != destination.shape[1]:
+        wave = wave.mean(1, keepdim=True).expand(-1, destination.shape[1], -1)
+    count = min(wave.shape[-1], destination.shape[-1] - offset)
+    destination[..., offset:offset + count] = wave[..., :count].to(destination)
 
 
 def encode_audio(vae, audio):
@@ -96,8 +127,9 @@ class H3ContinuityImport:
             images = comfy.utils.common_upscale(images[..., :3].movedim(-1, 1), width, height, 'lanczos', 'center').movedim(1, -1)
         audio = components.audio
         if audio is None:
-            audio = {'waveform': torch.zeros(1, 2, round(count/FPS*32000)), 'sample_rate': 32000}
+            audio = {'waveform': torch.zeros(1, 2, round(count/FPS*32000)), 'sample_rate': 32000, 'h3_valid_samples': 0}
         else:
+            audio = dict(audio, h3_valid_samples=audio_samples(audio))
             audio = fit_audio(audio, round(count/FPS*audio['sample_rate']))
         return images, audio, f'{fps:g} → 24 fps; {count} frames; {width}×{height}; {count/FPS:.3f}s. Rate conversion uses frame selection, not synthesized motion.'
 
@@ -114,12 +146,13 @@ class H3ContinuityPrepare:
             'source_latent': ('LATENT', {'tooltip': 'Preferred: untrimmed sampler output. Avoids VAE re-encoding. Takes priority over source_images.'}),
             'source_images': ('IMAGE', {'tooltip': 'External clip, decoded at 24 fps. The last frames are used, never the first.'}),
             'vae': ('VAE',), 'source_audio': ('AUDIO', {'tooltip': 'Sound of the source video, starting at its first frame. For a new recording use soundtrack instead.'}), 'audio_vae': ('VAE',),
-            'soundtrack': ('AUDIO', {'tooltip': 'Your recording: replaces the full video audio or starts at the continuation join, according to soundtrack_mode. Connect audio_vae; plan carries the recording to Assemble. Excess is trimmed; missing audio becomes silence.'}),
+            'soundtrack': ('AUDIO', {'tooltip': 'Your recording: replaces the full video audio or starts at the continuation join, according to soundtrack_mode. Connect audio_vae; plan carries the recording to Assemble. Excess is trimmed; missing_audio controls uncovered intervals.'}),
             'source_end_seconds': ('FLOAT', {'default': 0, 'min': 0, 'max': 86400, 'step': 0.01, 'tooltip': '0 = infer from source or saved chain. Override for a tail taken from a longer movie.'}),
             'feather_frames': ('INT', {'default': 0, 'min': 0, 'max': 3600, 'tooltip': 'Experimental: release the end of the video prefix gradually. 0 preserves the approved behavior.'}),
             'feather_strength': ('FLOAT', {'default': 1.0, 'min': 0, 'max': 1, 'step': 0.05}),
             'feather_curve': (['smoothstep', 'linear'],),
             'soundtrack_mode': (['full_video', 'continuation_only'], {'tooltip': 'full_video: recording starts at timeline zero and replaces source sound. continuation_only: recording starts at the join; source_audio preserves the original sound before it.'}),
+            'missing_audio': (['generate', 'silence'], {'tooltip': 'generate: preserve supplied audio and let H3 generate uncovered parts of its sampling window. Connect the full audio decode to Assemble. silence: keep the previous zero-padding behavior. Earlier source frames outside the window cannot receive newly generated sound in this pass.'}),
         }}
 
     RETURN_TYPES = ('CONDITIONING', 'LATENT', 'H3_CONTINUITY_PLAN', 'STRING')
@@ -132,7 +165,7 @@ class H3ContinuityPrepare:
                 source_latent=None, source_images=None, vae=None, source_audio=None,
                 audio_vae=None, soundtrack=None, source_end_seconds=0,
                 feather_frames=0, feather_strength=1.0, feather_curve='smoothstep',
-                soundtrack_mode='full_video'):
+                soundtrack_mode='full_video', missing_audio='generate'):
         check_layout()
         video, audio = streams(latent)
         total = pixel_frames(video.shape[2])
@@ -212,11 +245,14 @@ class H3ContinuityPrepare:
             # VAE encoding floors its 40 Hz grid. One lookahead step covers the
             # rounded target and encoder boundary; only target rows are retained.
             window_count = math.ceil((audio.shape[-1] + 1) / 40 * sr)
+            audio_mask = torch.ones_like(audio[:, :1])
+            supplied_seconds = audio_samples(soundtrack) / sr
             if soundtrack_mode == 'full_video':
                 start = round((end - n / FPS) * sr)
                 segment = fit_audio({'waveform': soundtrack['waveform'][..., start:start + window_count].clone(), 'sample_rate': sr}, window_count)
                 segment_start = round(end * sr)
-                plan['soundtrack_full'] = {'waveform': soundtrack['waveform'][..., :round(plan['end_seconds'] * sr)].clone(), 'sample_rate': sr}
+                plan['soundtrack_full'] = {'waveform': soundtrack['waveform'][..., :min(audio_samples(soundtrack), round(plan['end_seconds'] * sr))].clone(), 'sample_rate': sr}
+                preserve_audio_interval(audio_mask, 0, max(0, supplied_seconds - start / sr))
             elif soundtrack_mode == 'continuation_only':
                 context_count = round(n / FPS * sr)
                 if source_audio is not None:
@@ -224,11 +260,14 @@ class H3ContinuityPrepare:
                     if context.shape[1] != soundtrack['waveform'].shape[1]:
                         context = context.mean(1, keepdim=True).expand(-1, soundtrack['waveform'].shape[1], -1)
                     plan['source_audio'] = source_audio
+                    known_end = audio_samples(source_audio) / source_audio['sample_rate'] - (available - n) / FPS
+                    preserve_audio_interval(audio_mask, 0, max(0, min(n / FPS, known_end)))
                 else:
                     context = soundtrack['waveform'].new_zeros(*soundtrack['waveform'].shape[:-1], context_count)
                 following = fit_audio(soundtrack, window_count - context_count)['waveform']
                 segment = {'waveform': torch.cat([context.to(following), following], -1), 'sample_rate': sr}
                 segment_start = 0
+                preserve_audio_interval(audio_mask, n / FPS, n / FPS + supplied_seconds)
             else:
                 raise ValueError('Unknown soundtrack_mode.')
             z = encode_audio(audio_vae, segment)[..., :audio.shape[-1]].clone()
@@ -239,15 +278,25 @@ class H3ContinuityPrepare:
                 end_coord = round(n * FRAME_RESCALE + sa.shape[-1] - available * FRAME_RESCALE)
                 lo, hi = max(0, end_coord - sa.shape[-1]), min(int(n * FRAME_RESCALE), end_coord)
                 z[..., lo:hi] = sa[..., sa.shape[-1] - end_coord + lo:sa.shape[-1] - end_coord + hi].to(z)
-            current_video, _ = streams(prepared)
+                audio_mask[..., lo:hi] = 0
+            current_video, current_audio = streams(prepared)
             video_mask = prepared['noise_mask'].tensors[0].clone() if 'noise_mask' in prepared else torch.ones_like(video[:, :1])
-            prepared['samples'] = NestedTensor([current_video, z.to(audio)])
-            prepared['noise_mask'] = NestedTensor([video_mask, torch.zeros_like(audio[:, :1])])
+            if missing_audio == 'silence':
+                audio_mask.zero_()
+            elif missing_audio != 'generate':
+                raise ValueError('Unknown missing_audio policy.')
+            prepared_audio = torch.where(audio_mask < 1, z.to(audio), current_audio)
+            if 'noise_mask' in latent:
+                audio_mask *= latent['noise_mask'].tensors[1].to(audio_mask)
+            prepared['samples'] = NestedTensor([current_video, prepared_audio])
+            prepared['noise_mask'] = NestedTensor([video_mask, audio_mask])
             segment_count = round(plan['end_seconds'] * sr) - round(end * sr)
-            plan['soundtrack_segment'] = fit_audio({'waveform': soundtrack['waveform'][..., segment_start:segment_start + segment_count].clone(), 'sample_rate': sr}, segment_count)
+            recording = {'waveform': soundtrack['waveform'][..., segment_start:min(audio_samples(soundtrack), segment_start + segment_count)].clone(), 'sample_rate': sr}
+            plan['soundtrack_segment'] = fit_audio(recording, segment_count) if missing_audio == 'silence' else recording
             plan['soundtrack_mode'] = soundtrack_mode
-            warnings.append(f'Soundtrack {soundtrack_mode}: recording preserved by Assemble, excess trimmed, missing samples silenced. Conditioning cannot guarantee perfect lip sync.')
-        elif audio_context_seconds > 0 and (source_latent is not None or source_audio is not None):
+            plan['missing_audio'] = missing_audio
+            warnings.append(f'Soundtrack {soundtrack_mode}: supplied samples preserved; uncovered audio policy={missing_audio}. Connect the full audio decode to Assemble for generated sound. Conditioning cannot guarantee perfect lip sync.')
+        elif audio_context_seconds > 0 and (source_latent is not None or (source_audio is not None and audio_samples(source_audio) > 0)):
             requested = max(1, round(audio_context_seconds * 40))
             if source_latent is not None:
                 rt = min(requested, sa.shape[-1])
@@ -309,6 +358,41 @@ class H3ContinuityPrepare:
         return result, prepared, plan, report
 
 
+def assemble_soundtrack_audio(plan, generated, source_audio, source_frames):
+    full = 'soundtrack_full' in plan
+    recording = plan['soundtrack_full'] if full else plan['soundtrack_segment']
+    if full:
+        source_audio = None
+    elif source_audio is None:
+        source_audio = plan.get('source_audio')
+    sr = int(source_audio['sample_rate'] if source_audio is not None else recording['sample_rate'])
+    parts = [p for p in (generated, source_audio, recording) if p is not None]
+    channels = max(p['waveform'].shape[1] for p in parts)
+    count = round((source_frames + plan['target_frames'] - plan['context_frames']) / FPS * sr)
+    output = {'waveform': recording['waveform'].new_zeros(1, channels, count), 'sample_rate': sr}
+    report = ''
+    if generated is not None:
+        place_audio(output, generated, (source_frames - plan['context_frames']) / FPS)
+    else:
+        report += ' Connect VAE Decode Audio to Assemble.audio to fill uncovered intervals; otherwise they remain silent.'
+    if source_audio is not None and source_frames:
+        prefix = dict(source_audio, waveform=source_audio['waveform'][..., :round(source_frames / FPS * source_audio['sample_rate'])])
+        place_audio(output, prefix, 0)
+    if full:
+        output_start = plan['source_end_seconds'] - source_frames / FPS
+        place_audio(output, recording, -output_start)
+        prefix_seconds = max(0, audio_samples(recording) / recording['sample_rate'] - output_start)
+        report += ' Supplied full-video samples replace source sound; H3 fills uncovered parts of its window.'
+    else:
+        place_audio(output, recording, source_frames / FPS)
+        prefix_seconds = audio_samples(source_audio) / source_audio['sample_rate'] if source_audio is not None else 0
+        report += ' Original source sound and new recording preserved where supplied; H3 fills uncovered parts of its window.'
+    outside = max(0, (source_frames - plan['context_frames']) / FPS - prefix_seconds)
+    if outside:
+        report += f' {outside:.3f}s of source sound are uncovered before the sampling window and cannot be generated by this pass.'
+    return output, report
+
+
 class H3ContinuityAssemble:
     @classmethod
     def INPUT_TYPES(cls):
@@ -336,6 +420,11 @@ class H3ContinuityAssemble:
             seam = float((new[0] - source_images[-1]).abs().mean())
             within = float((source_images[-1] - source_images[-2]).abs().mean()) if len(source_images) > 1 else 0
             report += f' Pixel MAE at join={seam:.5f}; last source transition={within:.5f}. This is not a motion-quality verdict.'
+        if plan.get('missing_audio') == 'generate' and 'soundtrack_segment' in plan:
+            out_audio, audio_report = assemble_soundtrack_audio(plan, audio, source_audio, len(source_images) if source_images is not None else 0)
+            if source_images is not None:
+                new = torch.cat([source_images, new.to(source_images)], 0)
+            return new, out_audio, report + audio_report
         if 'soundtrack_segment' in plan:
             out_audio = plan['soundtrack_segment']
         elif audio is not None:

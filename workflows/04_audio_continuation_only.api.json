@@ -191,7 +191,8 @@
         0
       ],
       "soundtrack_mode": "continuation_only",
-      "feather_frames": 0
+      "feather_frames": 0,
+      "missing_audio": "generate"
     }
   },
   "24": {

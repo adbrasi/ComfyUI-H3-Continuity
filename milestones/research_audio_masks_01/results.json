@@ -1,0 +1,29 @@
+{
+  "full_video": {
+    "duration": 7.25,
+    "recording_seconds": 0.5,
+    "max_error_against_recording_and_generated_decode": 0.0,
+    "generated_audio_rms": 0.01398554164916277,
+    "render_seconds": 36.889,
+    "video": "audio_missing_full_video_00002_.mp4",
+    "prompt_id": "1eed9dd3-0438-4c47-b432-eec17794264d"
+  },
+  "continuation_only": {
+    "duration": 7.25,
+    "recording_seconds": 0.5,
+    "max_error_against_recording_and_generated_decode": 0.0,
+    "generated_audio_rms": 0.07054900377988815,
+    "render_seconds": 21.188,
+    "video": "audio_missing_continuation_only_00002_.mp4",
+    "prompt_id": "b141aad1-279b-433b-8d94-f0a0db65f4f5"
+  },
+  "full_video4": {
+    "duration": 7.25,
+    "recording_seconds": 4.0,
+    "max_error_against_recording_and_generated_decode": 0.0,
+    "generated_audio_rms": 0.09488865733146667,
+    "render_seconds": 21.202,
+    "video": "audio_missing_full_video4_00002_.mp4",
+    "prompt_id": "66e0ba9c-7974-426e-8f97-5245d6b8aa2c"
+  }
+}

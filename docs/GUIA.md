@@ -78,4 +78,4 @@ Código de teste: `tests/test_nodes.py`. No Python do ComfyUI: `python -m pytest
 
 ## Áudio original
 
-Use `soundtrack` no Prepare: `full_video` substitui toda a trilha; `continuation_only` mantém `source_audio` e começa sua gravação na emenda. O `plan` leva o áudio ao Assemble. Excedente é cortado; falta é preenchida com silêncio. [Conexões e exemplos](AUDIO_ORIGINAL.md).
+Use `soundtrack` no Prepare: `full_video` substitui toda a trilha; `continuation_only` mantém `source_audio` e começa sua gravação na emenda. O `plan` leva o áudio ao Assemble. Excedente é cortado; trechos sem gravação são gerados dentro da janela do modelo (`missing_audio=generate`). [Conexões e exemplos](AUDIO_ORIGINAL.md).

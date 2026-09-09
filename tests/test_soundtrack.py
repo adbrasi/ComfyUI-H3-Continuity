@@ -18,7 +18,7 @@ def test_soundtrack_modes_preserve_recording_trim_excess_and_pad_short_input(mod
     track = {'waveform': torch.rand(1, 2, sr * seconds), 'sample_rate': sr}
     original = {'waveform': torch.full((1, 2, round(124 / 24 * sr)), -.75), 'sample_rate': sr}
     _, prepared, plan, _ = H3ContinuityPrepare().prepare(cond(), latent(), source_latent=latent(),
-        soundtrack=track, source_audio=original, soundtrack_mode=mode, audio_vae=FakeVAE())
+        soundtrack=track, source_audio=original, soundtrack_mode=mode, audio_vae=FakeVAE(), missing_audio="silence")
     assert prepared['noise_mask'].tensors[1].count_nonzero() == 0
     generated = torch.zeros(124, 2, 2, 3)
     images, audio, _ = H3ContinuityAssemble().assemble(generated, plan, source_images=generated)

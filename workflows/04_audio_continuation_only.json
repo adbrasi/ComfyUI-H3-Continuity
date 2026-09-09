@@ -587,7 +587,7 @@
       ],
       "size": [
         450,
-        640
+        680
       ],
       "flags": {},
       "order": 14,
@@ -684,7 +684,8 @@
         0,
         1.0,
         "smoothstep",
-        "continuation_only"
+        "continuation_only",
+        "generate"
       ]
     },
     {
@@ -1018,7 +1019,7 @@
       "outputs": [],
       "properties": {},
       "widgets_values": [
-        "## Áudio original: continuation_only\nLoad Audio → soundtrack do Prepare. Conecte o VAE de áudio e plan → Assemble.\nO arquivo começa na emenda. Import → source_audio do Prepare/Assemble conserva o som anterior.\nÁudio maior: corta na duração do vídeo. Menor: completa com silêncio.\nA saída AUDIO do Assemble já está pronta para Create Video.\nTroque o WAV de tons da demonstração pelo seu arquivo; ele só serve para testar a montagem.\nCopie workflows/h3_soundtrack_demo.wav para input/ para reproduzir este teste."
+        "## Áudio original: continuation_only\nLoad Audio → soundtrack do Prepare. Conecte o VAE de áudio e plan → Assemble.\nO arquivo começa na emenda. Import → source_audio do Prepare/Assemble conserva o som anterior.\nÁudio maior: corta na duração do vídeo. Menor: H3 gera o restante da sua janela. missing_audio=silence mantém o comportamento anterior.\nA saída AUDIO do Assemble já está pronta para Create Video.\nTroque o WAV de tons da demonstração pelo seu arquivo; ele só serve para testar a montagem.\nCopie workflows/h3_soundtrack_demo.wav para input/ para reproduzir este teste."
       ]
     }
   ],

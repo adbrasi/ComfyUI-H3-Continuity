@@ -116,7 +116,7 @@ def test_save_load_exact_and_safe_paths(tmp_path):
 
 def test_short_soundtrack_pads_missing_samples_with_silence():
     _, _, plan, _ = H3ContinuityPrepare().prepare(cond(), latent(), source_latent=latent(), audio_vae=FakeVAE(),
-        soundtrack={'waveform': torch.ones(1, 2, 32000), 'sample_rate': 32000})
+        soundtrack={'waveform': torch.ones(1, 2, 32000), 'sample_rate': 32000}, missing_audio='silence')
     assert plan['soundtrack_segment']['waveform'].shape[-1] == 136000
     assert plan['soundtrack_segment']['waveform'].count_nonzero() == 0
 
