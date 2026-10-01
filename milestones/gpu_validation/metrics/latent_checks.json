@@ -1,0 +1,112 @@
+{
+  "hard39": {
+    "frozen_video": {
+      "exact": false,
+      "max_abs": 4.76837158203125e-07,
+      "mean_abs": 1.2637932478298808e-08
+    },
+    "frozen_audio": {
+      "exact": false,
+      "max_abs": 1.1920928955078125e-07,
+      "mean_abs": 3.796412961776241e-09
+    }
+  },
+  "feather39": {
+    "frozen_video": {
+      "exact": false,
+      "max_abs": 4.76837158203125e-07,
+      "mean_abs": 1.2603077692574516e-08
+    },
+    "frozen_audio": {
+      "exact": false,
+      "max_abs": 1.1920928955078125e-07,
+      "mean_abs": 3.796412961776241e-09
+    }
+  },
+  "reference39": {
+    "frozen_video": {
+      "exact": false,
+      "max_abs": 4.76837158203125e-07,
+      "mean_abs": 1.2637932478298808e-08
+    },
+    "frozen_audio": {
+      "exact": false,
+      "max_abs": 1.1920928955078125e-07,
+      "mean_abs": 3.796412961776241e-09
+    }
+  },
+  "bridge_hard": {
+    "left_frozen_video": {
+      "exact": false,
+      "max_abs": 4.76837158203125e-07,
+      "mean_abs": 1.2615691602491097e-08
+    },
+    "right_frozen_video": {
+      "exact": false,
+      "max_abs": 4.76837158203125e-07,
+      "mean_abs": 1.1884031536624207e-08
+    }
+  },
+  "bridge_feather": {
+    "left_frozen_video": {
+      "exact": false,
+      "max_abs": 4.76837158203125e-07,
+      "mean_abs": 1.2576331087643666e-08
+    },
+    "right_frozen_video": {
+      "exact": false,
+      "max_abs": 4.76837158203125e-07,
+      "mean_abs": 1.1862413273888706e-08
+    }
+  },
+  "bridge_fresh": {
+    "left_frozen_video": {
+      "exact": false,
+      "max_abs": 4.76837158203125e-07,
+      "mean_abs": 1.2576331087643666e-08
+    },
+    "right_frozen_video": {
+      "exact": false,
+      "max_abs": 4.76837158203125e-07,
+      "mean_abs": 1.2578635910642788e-08
+    }
+  },
+  "retake": {
+    "frozen_video": {
+      "exact": false,
+      "max_abs": 4.76837158203125e-07,
+      "mean_abs": 1.26445911519113e-08
+    },
+    "frozen_fraction": 0.5405405163764954,
+    "audio": {
+      "exact": false,
+      "max_abs": 1.1920928955078125e-07,
+      "mean_abs": 3.6283478443976946e-09
+    }
+  },
+  "retake_spatial": {
+    "frozen_video": {
+      "exact": false,
+      "max_abs": 4.76837158203125e-07,
+      "mean_abs": 1.267293292528393e-08
+    },
+    "frozen_fraction": 0.8145168423652649,
+    "audio": {
+      "exact": false,
+      "max_abs": 1.1920928955078125e-07,
+      "mean_abs": 3.6283478443976946e-09
+    }
+  },
+  "joint": {
+    "audio": {
+      "exact": false,
+      "max_abs": 3.725290298461914e-09,
+      "mean_abs": 9.850662820165557e-12
+    },
+    "video_change": {
+      "exact": false,
+      "max_abs": 1.351409912109375,
+      "mean_abs": 0.10902977734804153
+    }
+  }
+}

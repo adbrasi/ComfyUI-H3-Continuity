@@ -110,3 +110,100 @@ def test_differential_adapter_sends_same_mask_to_sampler_and_h3():
         c=patched.model_options['model_function_wrapper'](lambda x,t,**kwargs:kwargs,{'input':packed,'timestep':sigma,'c':{},'cond_or_uncond':[0]})
         values=base._denoise_mask_values(expected,[v.shape,a.shape])
         for k in values:assert torch.equal(c[k],values[k])
+
+
+def spatial_source(height=4, width=4):
+    src = source()
+    video, audio = src['samples'].unbind()
+    src['samples'] = NestedTensor([torch.randn(1, 24, video.shape[2], height, width), audio])
+    return src
+
+
+def test_static_spatial_mask_snaps_to_native_patches_and_restores_source_pixels():
+    from comfy.ldm.minimax.model import mask_row_values
+    mask = torch.zeros(8, 8)
+    mask[1, 1] = 1
+    src = spatial_source()
+    prepared, plan, _, _ = H3RetakePrepare().prepare(35, 39, feather_frames=0, source_latent=src, mask=mask)
+    vm, am = prepared['noise_mask'].unbind()
+    assert vm.shape == (1, 1, 37, 4, 4)
+    assert (plan['start'], plan['end']) == (35, 39)
+    assert torch.all(vm[0, 0, 11, :2, :2] == 1)
+    assert vm[0, 0, 11].sum() == 4
+    # Sampler voxel masks and H3 row masks agree: no mixed strengths in a patch.
+    expected = vm[0, 0, :, ::2, ::2].flatten()
+    assert torch.equal(mask_row_values(vm[0, 0], 37, 4, 4), expected)
+    assert am.count_nonzero() == 0
+    original = torch.rand(124, 8, 8, 3)
+    generated = torch.full_like(original, -1)
+    edited, _, _ = H3RetakeAssemble().assemble(generated, original, plan)
+    assert torch.all(edited[35:39, :4, :4] == -1)
+    protected = torch.ones(124, 8, 8, dtype=torch.bool)
+    protected[35:39, :4, :4] = False
+    assert torch.equal(edited[protected], original[protected])
+
+
+def test_moving_mask_pools_only_frames_inside_requested_interval():
+    mask = torch.zeros(124, 8, 8)
+    mask[34, 7, 7] = 1  # This frame is outside [35, 40).
+    mask[36, 0, 0] = .5
+    mask[39, 7, 7] = 1
+    prepared, plan, _, _ = H3RetakePrepare().prepare(35, 40, feather_frames=0, source_latent=spatial_source(), mask=mask)
+    vm = prepared['noise_mask'].tensors[0][0, 0]
+    assert (plan['start'], plan['end']) == (35, 43)
+    assert torch.all(vm[11, :2, :2] == .5) and vm[11, 2:, 2:].count_nonzero() == 0
+    assert torch.all(vm[12, 2:, 2:] == 1) and vm[12, :2, :2].count_nonzero() == 0
+    original = torch.rand(124, 8, 8, 3)
+    generated = torch.zeros_like(original)
+    edited, _, _ = H3RetakeAssemble().assemble(generated, original, plan)
+    assert torch.equal(edited[34], original[34])
+    assert torch.equal(edited[35:39, 4:, 4:], original[35:39, 4:, 4:])
+    assert edited[39:43, 4:, 4:].count_nonzero() == 0
+    assert torch.equal(edited[39:43, :4, :4], original[39:43, :4, :4])
+
+
+@pytest.mark.parametrize('mask,strength', [(torch.zeros(1, 8, 8), 1.), (torch.ones(8, 8), 0.), (None, 0.)])
+def test_zero_visual_support_is_safe_and_preserves_all_source_pixels(mask, strength):
+    prepared, plan, preview, _ = H3RetakePrepare().prepare(34, 90, source_latent=spatial_source(), mask=mask, video_strength=strength)
+    assert prepared['noise_mask'].tensors[0].count_nonzero() == 0
+    assert (plan['start'], plan['end']) == (0, 0)
+    assert preview.count_nonzero() == 0
+    original = torch.rand(124, 8, 8, 3)
+    edited, _, _ = H3RetakeAssemble().assemble(torch.zeros_like(original), original, plan)
+    assert torch.equal(edited, original)
+
+
+def test_video_strength_keeps_audio_edit_independent():
+    prepared, plan, _, _ = H3RetakePrepare().prepare(34, 90, feather_frames=0, source_latent=source(), video_strength=0., edit_audio=True)
+    vm, am = prepared['noise_mask'].unbind()
+    assert vm.count_nonzero() == 0 and am.count_nonzero() > 0
+    assert plan['edit_audio'] and plan['audio_start'] == 34
+
+
+@pytest.mark.parametrize('mask', [torch.zeros(2, 8, 8), torch.zeros(1, 1, 8, 8), torch.full((8, 8), float('nan'))])
+def test_invalid_spatial_masks_raise_clear_error(mask):
+    with pytest.raises(ValueError, match='MASK'):
+        H3RetakePrepare().prepare(34, 90, source_latent=source(), mask=mask)
+
+
+def test_reversed_interval_cannot_be_hidden_by_grow():
+    with pytest.raises(ValueError, match='end_frame'):
+        H3RetakePrepare().prepare(50, 40, grow_frames=20, source_latent=source())
+
+
+def test_retake_halo_unlocks_only_expanded_temporal_support():
+    prepared, plan, _, _ = H3RetakePrepare().prepare(39, 56, grow_frames=4, feather_frames=0, source_latent=source())
+    assert (plan['requested_start'], plan['requested_end']) == (35, 60)
+    assert (plan['start'], plan['end']) == (35, 60)
+    vm = prepared['noise_mask'].tensors[0]
+    assert vm[:, :, :11].count_nonzero() == 0 and vm[:, :, 18:].count_nonzero() == 0
+
+
+def test_audio_retake_uses_selected_linear_feather():
+    _, plan, _, _ = H3RetakePrepare().prepare(34, 90, feather_frames=8, curve='linear', source_latent=source(), edit_audio=True)
+    images = torch.zeros(124, 2, 2, 3)
+    original = {'waveform': torch.ones(1, 1, 248000), 'sample_rate': 48000}
+    generated = {'waveform': torch.zeros(1, 1, 248000), 'sample_rate': 48000}
+    _, sound, _ = H3RetakeAssemble().assemble(images, images, plan, audio=generated, source_audio=original)
+    # At 36 frames the linear ramp is 2/8; smoothstep would be 0.15625.
+    assert sound['waveform'][0, 0, 72000].item() == pytest.approx(.75)

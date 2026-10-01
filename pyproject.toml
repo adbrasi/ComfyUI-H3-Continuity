@@ -1,6 +1,6 @@
 [project]
 name = "comfyui-h3-continuity"
-version = "0.1.0"
-description = "Native latent and mask based MiniMax H3 continuation with exact source-audio assembly."
+version = "0.2.0"
+description = "Training-free MiniMax H3 latent continuation, two-sided bridges and temporal/spatial retakes."
 requires-python = ">=3.10"
 dependencies = []

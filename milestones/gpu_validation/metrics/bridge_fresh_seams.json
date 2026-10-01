@@ -1,0 +1,20 @@
+{
+  "video": "/workspace/comfy/ComfyUI/output/h3_validation/bridge_fresh_00002_.mp4",
+  "frames": 362,
+  "expected_boundaries": [
+    124,
+    238
+  ],
+  "seam_metrics": {
+    "124": {
+      "mae": 8.246476173400879,
+      "rmse": 12.558460235595703,
+      "max_abs": 157
+    },
+    "238": {
+      "mae": 8.43838882446289,
+      "rmse": 13.369124412536621,
+      "max_abs": 170
+    }
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "video": "/workspace/comfy/ComfyUI/output/h3_validation/long_chain/chain_chain_noref_hard_00001_.mp4",
+  "probe": {
+    "programs": [],
+    "streams": [
+      {
+        "width": 736,
+        "height": 416,
+        "r_frame_rate": "24/1",
+        "avg_frame_rate": "24/1",
+        "duration": "39.166667",
+        "nb_frames": "940"
+      }
+    ],
+    "format": {
+      "duration": "39.166667"
+    }
+  },
+  "frame_count": 940,
+  "dimensions": [
+    736,
+    416
+  ],
+  "frame_count_is_estimate": false,
+  "seam": {
+    "frame_index_zero_based": 838,
+    "before_vs_after": {
+      "mae_0_255": 11.05553150177002,
+      "max_abs_0_255": 208.0,
+      "mean_rgb_delta": [
+        -0.6943359375,
+        -0.5958175659179688,
+        -0.148162841796875
+      ],
+      "rmse_0_255": 18.870073318481445
+    },
+    "interpretation": "Decoded pixel difference only; motion-aware human review is still required."
+  },
+  "seam_clip": "/workspace/research/gpu-validation/analysis/long_chain/chain_chain_noref_hard_00001__seam_838.mp4",
+  "contact_sheet": "/workspace/research/gpu-validation/analysis/long_chain/chain_chain_noref_hard_00001__contact.jpg"
+}

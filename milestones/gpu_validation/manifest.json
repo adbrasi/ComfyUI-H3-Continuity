@@ -1,0 +1,37 @@
+{
+  "base_url": "http://127.0.0.1:8188",
+  "timeout_seconds": 5400,
+  "poll_interval_seconds": 1,
+  "output_dir": "api_runs",
+  "continue_after_error": false,
+  "cases": [
+    {
+      "name": "continuation_hard39_reference_seed77001",
+      "graph": "workflows/continuation_hard_ref.api.json"
+    },
+    {
+      "name": "continuation_feather39_05_reference_seed77001",
+      "graph": "workflows/continuation_feather39_ref.api.json"
+    },
+    {
+      "name": "chain8_hard_no_reference_seed94001",
+      "graph": "workflows/chain_noref.api.json"
+    },
+    {
+      "name": "chain8_hard_original_reference_seed94001",
+      "graph": "workflows/chain_reference.api.json"
+    },
+    {
+      "name": "bridge_source_to_chain8_reference_seed66001",
+      "graph": "workflows/bridge_source_to_chain.api.json"
+    },
+    {
+      "name": "retake_hard_seed55001",
+      "graph": "workflows/retake_hard.api.json"
+    },
+    {
+      "name": "retake_feather8_seed55001",
+      "graph": "workflows/retake_feather8.api.json"
+    }
+  ]
+}

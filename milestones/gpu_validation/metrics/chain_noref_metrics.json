@@ -1,0 +1,137 @@
+{
+  "video": "/workspace/comfy/ComfyUI/output/h3_validation/long_chain/chain_chain_noref_hard_00001_.mp4",
+  "frame_count": 940,
+  "size": [
+    736,
+    416
+  ],
+  "seams": {
+    "124": {
+      "mae": 7.964725971221924,
+      "rmse": 12.164833068847656,
+      "max_abs": 159
+    },
+    "226": {
+      "mae": 8.018322944641113,
+      "rmse": 12.25441837310791,
+      "max_abs": 164
+    },
+    "328": {
+      "mae": 8.171896934509277,
+      "rmse": 12.387998580932617,
+      "max_abs": 151
+    },
+    "430": {
+      "mae": 8.757975578308105,
+      "rmse": 13.974950790405273,
+      "max_abs": 204
+    },
+    "532": {
+      "mae": 7.771264553070068,
+      "rmse": 12.279118537902832,
+      "max_abs": 209
+    },
+    "634": {
+      "mae": 7.236713409423828,
+      "rmse": 11.77995777130127,
+      "max_abs": 184
+    },
+    "736": {
+      "mae": 8.36673355102539,
+      "rmse": 13.855305671691895,
+      "max_abs": 217
+    },
+    "838": {
+      "mae": 10.972092628479004,
+      "rmse": 18.710268020629883,
+      "max_abs": 207
+    }
+  },
+  "clip_laplacian_variance": {
+    "source": {
+      "frame_range": [
+        0,
+        124
+      ],
+      "mean": 198.0572736913974,
+      "median": 185.79040098599936
+    },
+    "extension_1": {
+      "frame_range": [
+        124,
+        226
+      ],
+      "mean": 154.3108373061228,
+      "median": 153.11188814325652
+    },
+    "extension_2": {
+      "frame_range": [
+        226,
+        328
+      ],
+      "mean": 194.0866782848324,
+      "median": 191.67830600762102
+    },
+    "extension_3": {
+      "frame_range": [
+        328,
+        430
+      ],
+      "mean": 152.16041616831205,
+      "median": 152.70576028794733
+    },
+    "extension_4": {
+      "frame_range": [
+        430,
+        532
+      ],
+      "mean": 158.2713918160964,
+      "median": 156.21800526060957
+    },
+    "extension_5": {
+      "frame_range": [
+        532,
+        634
+      ],
+      "mean": 128.1865502708137,
+      "median": 128.28812361249976
+    },
+    "extension_6": {
+      "frame_range": [
+        634,
+        736
+      ],
+      "mean": 123.61491508682951,
+      "median": 122.15840361351157
+    },
+    "extension_7": {
+      "frame_range": [
+        736,
+        838
+      ],
+      "mean": 128.986333491238,
+      "median": 129.43295925087915
+    },
+    "extension_8": {
+      "frame_range": [
+        838,
+        940
+      ],
+      "mean": 126.5572371443039,
+      "median": 125.72909456402333
+    }
+  },
+  "laplacian_note": "Blur/sharpness proxy only; confounded by camera motion, scene content, subject scale, framing, exposure and codec. Does not measure identity or semantic drift.",
+  "endpoint_frames": [
+    123,
+    225,
+    327,
+    429,
+    531,
+    633,
+    735,
+    837,
+    939
+  ],
+  "contact_sheet": "/workspace/research/gpu-validation/analysis/long_chain/chain_noref_endpoints.jpg"
+}

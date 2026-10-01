@@ -12,6 +12,7 @@ import folder_paths
 import comfy.utils
 from comfy.nested_tensor import NestedTensor
 from comfy.ldm.minimax.model import FRAME_PER_TOKEN, FRAME_RESCALE, PackedLayout
+from .timing import handover
 
 FPS = 24
 CATEGORY = 'MiniMax H3/Continuity'
@@ -233,6 +234,7 @@ class H3ContinuityPrepare:
                 am = am * old_am.to(am)
             prepared['samples'] = NestedTensor([pv, pa])
             prepared['noise_mask'] = NestedTensor([vm, am])
+            plan['handover_frame'] = handover(vm, tail.shape[2], 'left')
         elif method == 'anchors':
             kfs.append({'resolved_frame_index': 0, 'latent': tail})
         else:
@@ -410,12 +412,19 @@ class H3ContinuityAssemble:
         if len(images) != total:
             raise ValueError(f'Decode the full sampler output: expected {total} frames, received {len(images)}.')
         new = images[n:].clone()
+        cut = plan.get('handover_frame', n)
+        if cut < n and source_images is None:
+            raise ValueError('Connect source_images to deliver the regenerated feather instead of discarding it.')
         report = f'Removed {n} overlap frames; {len(new)} new frames at 24 fps.'
         if source_images is not None:
             if source_images.shape[1:3] != new.shape[1:3]:
                 h, w = new.shape[1:3]
                 source_images = comfy.utils.common_upscale(source_images.movedim(-1, 1), w, h, 'lanczos', 'center').movedim(1, -1)
                 report += f' Source resized to {w}×{h} with center crop.'
+            if len(source_images) < n:
+                raise ValueError('source_images must include the complete context window.')
+            if cut < n:
+                report += f' Replaced the last {n-cut} source frames with the regenerated feather.'
             # Lightweight seam evidence, not a perceptual quality score.
             seam = float((new[0] - source_images[-1]).abs().mean())
             within = float((source_images[-1] - source_images[-2]).abs().mean()) if len(source_images) > 1 else 0
@@ -423,7 +432,7 @@ class H3ContinuityAssemble:
         if plan.get('missing_audio') == 'generate' and 'soundtrack_segment' in plan:
             out_audio, audio_report = assemble_soundtrack_audio(plan, audio, source_audio, len(source_images) if source_images is not None else 0)
             if source_images is not None:
-                new = torch.cat([source_images, new.to(source_images)], 0)
+                new = torch.cat([source_images[:len(source_images)-n+cut], images[cut:].to(source_images)], 0)
             return new, out_audio, report + audio_report
         if 'soundtrack_segment' in plan:
             out_audio = plan['soundtrack_segment']
@@ -462,7 +471,7 @@ class H3ContinuityAssemble:
                 prefix = suffix.new_zeros(suffix.shape[0], suffix.shape[1], count)
                 report += ' Connect source_audio to retain the original sound before the join.'
             out_audio = {'waveform': torch.cat([prefix.to(suffix), suffix], -1), 'sample_rate': sr}
-            new = torch.cat([source_images, new.to(source_images)], 0)
+            new = torch.cat([source_images[:len(source_images)-n+cut], images[cut:].to(source_images)], 0)
         out_audio = fit_audio(out_audio, round(len(new) / FPS * out_audio['sample_rate']))
         return new, out_audio, report
 

@@ -1,0 +1,1504 @@
+{
+  "1": {
+    "class_type": "UNETLoader",
+    "inputs": {
+      "unet_name": "minimax_h3_fl2va_pruned_int8_convrot.safetensors",
+      "weight_dtype": "default"
+    }
+  },
+  "2": {
+    "class_type": "CLIPLoader",
+    "inputs": {
+      "clip_name": "qwen3vl_32b_minimax_h3_nvfp4_awq.safetensors",
+      "type": "minimax",
+      "device": "default"
+    }
+  },
+  "3": {
+    "class_type": "VAELoader",
+    "inputs": {
+      "vae_name": "minimax_h3_video_vae_fp16.safetensors"
+    }
+  },
+  "4": {
+    "class_type": "VAELoader",
+    "inputs": {
+      "vae_name": "minimax_h3_audio_vae_fp32.safetensors"
+    }
+  },
+  "5": {
+    "class_type": "MiniMaxH3ImageToVideo",
+    "inputs": {
+      "clip": [
+        "2",
+        0
+      ],
+      "vae": [
+        "3",
+        0
+      ],
+      "prompt": "One continuous unedited cinematic tracking shot, medium wide view of a woman in a dark green coat walking steadily from left to right along a wet stone sidewalk beside a red brick wall, carrying a small tan leather bag. She walks at a constant natural pace, her arms swing gently and her coat moves with each step. The camera tracks smoothly sideways at her walking speed, maintaining the same framing and distance. Overcast soft daylight, realistic skin, stable neutral colors, subtle film texture. No cuts, no transitions, no sudden camera changes. Audio: continuous soft outdoor city ambience and evenly paced footsteps on wet pavement, no music, no dialogue.",
+      "width": 736,
+      "height": 416,
+      "length": 141,
+      "first_frame": [
+        "31",
+        0
+      ]
+    }
+  },
+  "6": {
+    "class_type": "LoraLoaderModelOnly",
+    "inputs": {
+      "model": [
+        "1",
+        0
+      ],
+      "lora_name": "minimax_h3_fl2v_turbo_8step_v1.0_comfyui_bf16.safetensors",
+      "strength_model": 1.0
+    }
+  },
+  "7": {
+    "class_type": "BasicGuider",
+    "inputs": {
+      "model": [
+        "6",
+        0
+      ],
+      "conditioning": [
+        "21",
+        0
+      ]
+    }
+  },
+  "8": {
+    "class_type": "RandomNoise",
+    "inputs": {
+      "noise_seed": 94001
+    }
+  },
+  "9": {
+    "class_type": "KSamplerSelect",
+    "inputs": {
+      "sampler_name": "euler"
+    }
+  },
+  "10": {
+    "class_type": "BasicScheduler",
+    "inputs": {
+      "model": [
+        "6",
+        0
+      ],
+      "scheduler": "simple",
+      "steps": 8,
+      "denoise": 1.0
+    }
+  },
+  "11": {
+    "class_type": "SamplerCustomAdvanced",
+    "inputs": {
+      "noise": [
+        "8",
+        0
+      ],
+      "guider": [
+        "7",
+        0
+      ],
+      "sampler": [
+        "9",
+        0
+      ],
+      "sigmas": [
+        "10",
+        0
+      ],
+      "latent_image": [
+        "21",
+        1
+      ]
+    }
+  },
+  "12": {
+    "class_type": "VAEDecode",
+    "inputs": {
+      "samples": [
+        "11",
+        0
+      ],
+      "vae": [
+        "3",
+        0
+      ]
+    }
+  },
+  "13": {
+    "class_type": "VAEDecodeAudio",
+    "inputs": {
+      "samples": [
+        "11",
+        0
+      ],
+      "vae": [
+        "4",
+        0
+      ]
+    }
+  },
+  "16": {
+    "class_type": "H3ContinuitySave",
+    "inputs": {
+      "latent": [
+        "11",
+        0
+      ],
+      "filename": "h3_validation/{{RUN_ID}}/chain_chain_reference_01.safetensors",
+      "plan": [
+        "21",
+        2
+      ]
+    }
+  },
+  "20": {
+    "class_type": "H3ContinuityLoad",
+    "inputs": {
+      "filename": "h3_validation/source.safetensors"
+    }
+  },
+  "21": {
+    "class_type": "H3ContinuityPrepare",
+    "inputs": {
+      "positive": [
+        "5",
+        0
+      ],
+      "latent": [
+        "5",
+        1
+      ],
+      "source_latent": [
+        "20",
+        0
+      ],
+      "context_frames": 39,
+      "method": "pinned_av",
+      "audio_context_seconds": 1.0,
+      "feather_frames": 0,
+      "feather_strength": 1.0
+    }
+  },
+  "22": {
+    "class_type": "VAEDecode",
+    "inputs": {
+      "samples": [
+        "20",
+        0
+      ],
+      "vae": [
+        "3",
+        0
+      ]
+    }
+  },
+  "23": {
+    "class_type": "VAEDecodeAudio",
+    "inputs": {
+      "samples": [
+        "20",
+        0
+      ],
+      "vae": [
+        "4",
+        0
+      ]
+    }
+  },
+  "24": {
+    "class_type": "H3ContinuityAssemble",
+    "inputs": {
+      "images": [
+        "12",
+        0
+      ],
+      "audio": [
+        "13",
+        0
+      ],
+      "plan": [
+        "21",
+        2
+      ],
+      "source_images": [
+        "22",
+        0
+      ],
+      "source_audio": [
+        "23",
+        0
+      ]
+    }
+  },
+  "31": {
+    "class_type": "ImageFromBatch",
+    "inputs": {
+      "image": [
+        "22",
+        0
+      ],
+      "batch_index": 0,
+      "length": 1
+    }
+  },
+  "32": {
+    "class_type": "BasicGuider",
+    "inputs": {
+      "model": [
+        "6",
+        0
+      ],
+      "conditioning": [
+        "40",
+        0
+      ]
+    }
+  },
+  "33": {
+    "class_type": "RandomNoise",
+    "inputs": {
+      "noise_seed": 94002
+    }
+  },
+  "34": {
+    "class_type": "KSamplerSelect",
+    "inputs": {
+      "sampler_name": "euler"
+    }
+  },
+  "35": {
+    "class_type": "BasicScheduler",
+    "inputs": {
+      "model": [
+        "6",
+        0
+      ],
+      "scheduler": "simple",
+      "steps": 8,
+      "denoise": 1.0
+    }
+  },
+  "36": {
+    "class_type": "SamplerCustomAdvanced",
+    "inputs": {
+      "noise": [
+        "33",
+        0
+      ],
+      "guider": [
+        "32",
+        0
+      ],
+      "sampler": [
+        "34",
+        0
+      ],
+      "sigmas": [
+        "35",
+        0
+      ],
+      "latent_image": [
+        "40",
+        1
+      ]
+    }
+  },
+  "37": {
+    "class_type": "VAEDecode",
+    "inputs": {
+      "samples": [
+        "36",
+        0
+      ],
+      "vae": [
+        "3",
+        0
+      ]
+    }
+  },
+  "38": {
+    "class_type": "VAEDecodeAudio",
+    "inputs": {
+      "samples": [
+        "36",
+        0
+      ],
+      "vae": [
+        "4",
+        0
+      ]
+    }
+  },
+  "39": {
+    "class_type": "H3ContinuitySave",
+    "inputs": {
+      "latent": [
+        "36",
+        0
+      ],
+      "filename": "h3_validation/{{RUN_ID}}/chain_chain_reference_02.safetensors",
+      "plan": [
+        "40",
+        2
+      ]
+    }
+  },
+  "40": {
+    "class_type": "H3ContinuityPrepare",
+    "inputs": {
+      "positive": [
+        "5",
+        0
+      ],
+      "latent": [
+        "5",
+        1
+      ],
+      "source_latent": [
+        "11",
+        0
+      ],
+      "context_frames": 39,
+      "method": "pinned_av",
+      "audio_context_seconds": 1.0,
+      "feather_frames": 0,
+      "feather_strength": 1.0
+    }
+  },
+  "41": {
+    "class_type": "VAEDecode",
+    "inputs": {
+      "samples": [
+        "20",
+        0
+      ],
+      "vae": [
+        "3",
+        0
+      ]
+    }
+  },
+  "42": {
+    "class_type": "VAEDecodeAudio",
+    "inputs": {
+      "samples": [
+        "20",
+        0
+      ],
+      "vae": [
+        "4",
+        0
+      ]
+    }
+  },
+  "43": {
+    "class_type": "H3ContinuityAssemble",
+    "inputs": {
+      "images": [
+        "37",
+        0
+      ],
+      "audio": [
+        "38",
+        0
+      ],
+      "plan": [
+        "40",
+        2
+      ],
+      "source_images": [
+        "24",
+        0
+      ],
+      "source_audio": [
+        "24",
+        1
+      ]
+    }
+  },
+  "44": {
+    "class_type": "BasicGuider",
+    "inputs": {
+      "model": [
+        "6",
+        0
+      ],
+      "conditioning": [
+        "52",
+        0
+      ]
+    }
+  },
+  "45": {
+    "class_type": "RandomNoise",
+    "inputs": {
+      "noise_seed": 94003
+    }
+  },
+  "46": {
+    "class_type": "KSamplerSelect",
+    "inputs": {
+      "sampler_name": "euler"
+    }
+  },
+  "47": {
+    "class_type": "BasicScheduler",
+    "inputs": {
+      "model": [
+        "6",
+        0
+      ],
+      "scheduler": "simple",
+      "steps": 8,
+      "denoise": 1.0
+    }
+  },
+  "48": {
+    "class_type": "SamplerCustomAdvanced",
+    "inputs": {
+      "noise": [
+        "45",
+        0
+      ],
+      "guider": [
+        "44",
+        0
+      ],
+      "sampler": [
+        "46",
+        0
+      ],
+      "sigmas": [
+        "47",
+        0
+      ],
+      "latent_image": [
+        "52",
+        1
+      ]
+    }
+  },
+  "49": {
+    "class_type": "VAEDecode",
+    "inputs": {
+      "samples": [
+        "48",
+        0
+      ],
+      "vae": [
+        "3",
+        0
+      ]
+    }
+  },
+  "50": {
+    "class_type": "VAEDecodeAudio",
+    "inputs": {
+      "samples": [
+        "48",
+        0
+      ],
+      "vae": [
+        "4",
+        0
+      ]
+    }
+  },
+  "51": {
+    "class_type": "H3ContinuitySave",
+    "inputs": {
+      "latent": [
+        "48",
+        0
+      ],
+      "filename": "h3_validation/{{RUN_ID}}/chain_chain_reference_03.safetensors",
+      "plan": [
+        "52",
+        2
+      ]
+    }
+  },
+  "52": {
+    "class_type": "H3ContinuityPrepare",
+    "inputs": {
+      "positive": [
+        "5",
+        0
+      ],
+      "latent": [
+        "5",
+        1
+      ],
+      "source_latent": [
+        "36",
+        0
+      ],
+      "context_frames": 39,
+      "method": "pinned_av",
+      "audio_context_seconds": 1.0,
+      "feather_frames": 0,
+      "feather_strength": 1.0
+    }
+  },
+  "53": {
+    "class_type": "VAEDecode",
+    "inputs": {
+      "samples": [
+        "20",
+        0
+      ],
+      "vae": [
+        "3",
+        0
+      ]
+    }
+  },
+  "54": {
+    "class_type": "VAEDecodeAudio",
+    "inputs": {
+      "samples": [
+        "20",
+        0
+      ],
+      "vae": [
+        "4",
+        0
+      ]
+    }
+  },
+  "55": {
+    "class_type": "H3ContinuityAssemble",
+    "inputs": {
+      "images": [
+        "49",
+        0
+      ],
+      "audio": [
+        "50",
+        0
+      ],
+      "plan": [
+        "52",
+        2
+      ],
+      "source_images": [
+        "43",
+        0
+      ],
+      "source_audio": [
+        "43",
+        1
+      ]
+    }
+  },
+  "56": {
+    "class_type": "BasicGuider",
+    "inputs": {
+      "model": [
+        "6",
+        0
+      ],
+      "conditioning": [
+        "64",
+        0
+      ]
+    }
+  },
+  "57": {
+    "class_type": "RandomNoise",
+    "inputs": {
+      "noise_seed": 94004
+    }
+  },
+  "58": {
+    "class_type": "KSamplerSelect",
+    "inputs": {
+      "sampler_name": "euler"
+    }
+  },
+  "59": {
+    "class_type": "BasicScheduler",
+    "inputs": {
+      "model": [
+        "6",
+        0
+      ],
+      "scheduler": "simple",
+      "steps": 8,
+      "denoise": 1.0
+    }
+  },
+  "60": {
+    "class_type": "SamplerCustomAdvanced",
+    "inputs": {
+      "noise": [
+        "57",
+        0
+      ],
+      "guider": [
+        "56",
+        0
+      ],
+      "sampler": [
+        "58",
+        0
+      ],
+      "sigmas": [
+        "59",
+        0
+      ],
+      "latent_image": [
+        "64",
+        1
+      ]
+    }
+  },
+  "61": {
+    "class_type": "VAEDecode",
+    "inputs": {
+      "samples": [
+        "60",
+        0
+      ],
+      "vae": [
+        "3",
+        0
+      ]
+    }
+  },
+  "62": {
+    "class_type": "VAEDecodeAudio",
+    "inputs": {
+      "samples": [
+        "60",
+        0
+      ],
+      "vae": [
+        "4",
+        0
+      ]
+    }
+  },
+  "63": {
+    "class_type": "H3ContinuitySave",
+    "inputs": {
+      "latent": [
+        "60",
+        0
+      ],
+      "filename": "h3_validation/{{RUN_ID}}/chain_chain_reference_04.safetensors",
+      "plan": [
+        "64",
+        2
+      ]
+    }
+  },
+  "64": {
+    "class_type": "H3ContinuityPrepare",
+    "inputs": {
+      "positive": [
+        "5",
+        0
+      ],
+      "latent": [
+        "5",
+        1
+      ],
+      "source_latent": [
+        "48",
+        0
+      ],
+      "context_frames": 39,
+      "method": "pinned_av",
+      "audio_context_seconds": 1.0,
+      "feather_frames": 0,
+      "feather_strength": 1.0
+    }
+  },
+  "65": {
+    "class_type": "VAEDecode",
+    "inputs": {
+      "samples": [
+        "20",
+        0
+      ],
+      "vae": [
+        "3",
+        0
+      ]
+    }
+  },
+  "66": {
+    "class_type": "VAEDecodeAudio",
+    "inputs": {
+      "samples": [
+        "20",
+        0
+      ],
+      "vae": [
+        "4",
+        0
+      ]
+    }
+  },
+  "67": {
+    "class_type": "H3ContinuityAssemble",
+    "inputs": {
+      "images": [
+        "61",
+        0
+      ],
+      "audio": [
+        "62",
+        0
+      ],
+      "plan": [
+        "64",
+        2
+      ],
+      "source_images": [
+        "55",
+        0
+      ],
+      "source_audio": [
+        "55",
+        1
+      ]
+    }
+  },
+  "68": {
+    "class_type": "BasicGuider",
+    "inputs": {
+      "model": [
+        "6",
+        0
+      ],
+      "conditioning": [
+        "76",
+        0
+      ]
+    }
+  },
+  "69": {
+    "class_type": "RandomNoise",
+    "inputs": {
+      "noise_seed": 94005
+    }
+  },
+  "70": {
+    "class_type": "KSamplerSelect",
+    "inputs": {
+      "sampler_name": "euler"
+    }
+  },
+  "71": {
+    "class_type": "BasicScheduler",
+    "inputs": {
+      "model": [
+        "6",
+        0
+      ],
+      "scheduler": "simple",
+      "steps": 8,
+      "denoise": 1.0
+    }
+  },
+  "72": {
+    "class_type": "SamplerCustomAdvanced",
+    "inputs": {
+      "noise": [
+        "69",
+        0
+      ],
+      "guider": [
+        "68",
+        0
+      ],
+      "sampler": [
+        "70",
+        0
+      ],
+      "sigmas": [
+        "71",
+        0
+      ],
+      "latent_image": [
+        "76",
+        1
+      ]
+    }
+  },
+  "73": {
+    "class_type": "VAEDecode",
+    "inputs": {
+      "samples": [
+        "72",
+        0
+      ],
+      "vae": [
+        "3",
+        0
+      ]
+    }
+  },
+  "74": {
+    "class_type": "VAEDecodeAudio",
+    "inputs": {
+      "samples": [
+        "72",
+        0
+      ],
+      "vae": [
+        "4",
+        0
+      ]
+    }
+  },
+  "75": {
+    "class_type": "H3ContinuitySave",
+    "inputs": {
+      "latent": [
+        "72",
+        0
+      ],
+      "filename": "h3_validation/{{RUN_ID}}/chain_chain_reference_05.safetensors",
+      "plan": [
+        "76",
+        2
+      ]
+    }
+  },
+  "76": {
+    "class_type": "H3ContinuityPrepare",
+    "inputs": {
+      "positive": [
+        "5",
+        0
+      ],
+      "latent": [
+        "5",
+        1
+      ],
+      "source_latent": [
+        "60",
+        0
+      ],
+      "context_frames": 39,
+      "method": "pinned_av",
+      "audio_context_seconds": 1.0,
+      "feather_frames": 0,
+      "feather_strength": 1.0
+    }
+  },
+  "77": {
+    "class_type": "VAEDecode",
+    "inputs": {
+      "samples": [
+        "20",
+        0
+      ],
+      "vae": [
+        "3",
+        0
+      ]
+    }
+  },
+  "78": {
+    "class_type": "VAEDecodeAudio",
+    "inputs": {
+      "samples": [
+        "20",
+        0
+      ],
+      "vae": [
+        "4",
+        0
+      ]
+    }
+  },
+  "79": {
+    "class_type": "H3ContinuityAssemble",
+    "inputs": {
+      "images": [
+        "73",
+        0
+      ],
+      "audio": [
+        "74",
+        0
+      ],
+      "plan": [
+        "76",
+        2
+      ],
+      "source_images": [
+        "67",
+        0
+      ],
+      "source_audio": [
+        "67",
+        1
+      ]
+    }
+  },
+  "80": {
+    "class_type": "BasicGuider",
+    "inputs": {
+      "model": [
+        "6",
+        0
+      ],
+      "conditioning": [
+        "88",
+        0
+      ]
+    }
+  },
+  "81": {
+    "class_type": "RandomNoise",
+    "inputs": {
+      "noise_seed": 94006
+    }
+  },
+  "82": {
+    "class_type": "KSamplerSelect",
+    "inputs": {
+      "sampler_name": "euler"
+    }
+  },
+  "83": {
+    "class_type": "BasicScheduler",
+    "inputs": {
+      "model": [
+        "6",
+        0
+      ],
+      "scheduler": "simple",
+      "steps": 8,
+      "denoise": 1.0
+    }
+  },
+  "84": {
+    "class_type": "SamplerCustomAdvanced",
+    "inputs": {
+      "noise": [
+        "81",
+        0
+      ],
+      "guider": [
+        "80",
+        0
+      ],
+      "sampler": [
+        "82",
+        0
+      ],
+      "sigmas": [
+        "83",
+        0
+      ],
+      "latent_image": [
+        "88",
+        1
+      ]
+    }
+  },
+  "85": {
+    "class_type": "VAEDecode",
+    "inputs": {
+      "samples": [
+        "84",
+        0
+      ],
+      "vae": [
+        "3",
+        0
+      ]
+    }
+  },
+  "86": {
+    "class_type": "VAEDecodeAudio",
+    "inputs": {
+      "samples": [
+        "84",
+        0
+      ],
+      "vae": [
+        "4",
+        0
+      ]
+    }
+  },
+  "87": {
+    "class_type": "H3ContinuitySave",
+    "inputs": {
+      "latent": [
+        "84",
+        0
+      ],
+      "filename": "h3_validation/{{RUN_ID}}/chain_chain_reference_06.safetensors",
+      "plan": [
+        "88",
+        2
+      ]
+    }
+  },
+  "88": {
+    "class_type": "H3ContinuityPrepare",
+    "inputs": {
+      "positive": [
+        "5",
+        0
+      ],
+      "latent": [
+        "5",
+        1
+      ],
+      "source_latent": [
+        "72",
+        0
+      ],
+      "context_frames": 39,
+      "method": "pinned_av",
+      "audio_context_seconds": 1.0,
+      "feather_frames": 0,
+      "feather_strength": 1.0
+    }
+  },
+  "89": {
+    "class_type": "VAEDecode",
+    "inputs": {
+      "samples": [
+        "20",
+        0
+      ],
+      "vae": [
+        "3",
+        0
+      ]
+    }
+  },
+  "90": {
+    "class_type": "VAEDecodeAudio",
+    "inputs": {
+      "samples": [
+        "20",
+        0
+      ],
+      "vae": [
+        "4",
+        0
+      ]
+    }
+  },
+  "91": {
+    "class_type": "H3ContinuityAssemble",
+    "inputs": {
+      "images": [
+        "85",
+        0
+      ],
+      "audio": [
+        "86",
+        0
+      ],
+      "plan": [
+        "88",
+        2
+      ],
+      "source_images": [
+        "79",
+        0
+      ],
+      "source_audio": [
+        "79",
+        1
+      ]
+    }
+  },
+  "92": {
+    "class_type": "BasicGuider",
+    "inputs": {
+      "model": [
+        "6",
+        0
+      ],
+      "conditioning": [
+        "100",
+        0
+      ]
+    }
+  },
+  "93": {
+    "class_type": "RandomNoise",
+    "inputs": {
+      "noise_seed": 94007
+    }
+  },
+  "94": {
+    "class_type": "KSamplerSelect",
+    "inputs": {
+      "sampler_name": "euler"
+    }
+  },
+  "95": {
+    "class_type": "BasicScheduler",
+    "inputs": {
+      "model": [
+        "6",
+        0
+      ],
+      "scheduler": "simple",
+      "steps": 8,
+      "denoise": 1.0
+    }
+  },
+  "96": {
+    "class_type": "SamplerCustomAdvanced",
+    "inputs": {
+      "noise": [
+        "93",
+        0
+      ],
+      "guider": [
+        "92",
+        0
+      ],
+      "sampler": [
+        "94",
+        0
+      ],
+      "sigmas": [
+        "95",
+        0
+      ],
+      "latent_image": [
+        "100",
+        1
+      ]
+    }
+  },
+  "97": {
+    "class_type": "VAEDecode",
+    "inputs": {
+      "samples": [
+        "96",
+        0
+      ],
+      "vae": [
+        "3",
+        0
+      ]
+    }
+  },
+  "98": {
+    "class_type": "VAEDecodeAudio",
+    "inputs": {
+      "samples": [
+        "96",
+        0
+      ],
+      "vae": [
+        "4",
+        0
+      ]
+    }
+  },
+  "99": {
+    "class_type": "H3ContinuitySave",
+    "inputs": {
+      "latent": [
+        "96",
+        0
+      ],
+      "filename": "h3_validation/{{RUN_ID}}/chain_chain_reference_07.safetensors",
+      "plan": [
+        "100",
+        2
+      ]
+    }
+  },
+  "100": {
+    "class_type": "H3ContinuityPrepare",
+    "inputs": {
+      "positive": [
+        "5",
+        0
+      ],
+      "latent": [
+        "5",
+        1
+      ],
+      "source_latent": [
+        "84",
+        0
+      ],
+      "context_frames": 39,
+      "method": "pinned_av",
+      "audio_context_seconds": 1.0,
+      "feather_frames": 0,
+      "feather_strength": 1.0
+    }
+  },
+  "101": {
+    "class_type": "VAEDecode",
+    "inputs": {
+      "samples": [
+        "20",
+        0
+      ],
+      "vae": [
+        "3",
+        0
+      ]
+    }
+  },
+  "102": {
+    "class_type": "VAEDecodeAudio",
+    "inputs": {
+      "samples": [
+        "20",
+        0
+      ],
+      "vae": [
+        "4",
+        0
+      ]
+    }
+  },
+  "103": {
+    "class_type": "H3ContinuityAssemble",
+    "inputs": {
+      "images": [
+        "97",
+        0
+      ],
+      "audio": [
+        "98",
+        0
+      ],
+      "plan": [
+        "100",
+        2
+      ],
+      "source_images": [
+        "91",
+        0
+      ],
+      "source_audio": [
+        "91",
+        1
+      ]
+    }
+  },
+  "104": {
+    "class_type": "BasicGuider",
+    "inputs": {
+      "model": [
+        "6",
+        0
+      ],
+      "conditioning": [
+        "112",
+        0
+      ]
+    }
+  },
+  "105": {
+    "class_type": "RandomNoise",
+    "inputs": {
+      "noise_seed": 94008
+    }
+  },
+  "106": {
+    "class_type": "KSamplerSelect",
+    "inputs": {
+      "sampler_name": "euler"
+    }
+  },
+  "107": {
+    "class_type": "BasicScheduler",
+    "inputs": {
+      "model": [
+        "6",
+        0
+      ],
+      "scheduler": "simple",
+      "steps": 8,
+      "denoise": 1.0
+    }
+  },
+  "108": {
+    "class_type": "SamplerCustomAdvanced",
+    "inputs": {
+      "noise": [
+        "105",
+        0
+      ],
+      "guider": [
+        "104",
+        0
+      ],
+      "sampler": [
+        "106",
+        0
+      ],
+      "sigmas": [
+        "107",
+        0
+      ],
+      "latent_image": [
+        "112",
+        1
+      ]
+    }
+  },
+  "109": {
+    "class_type": "VAEDecode",
+    "inputs": {
+      "samples": [
+        "108",
+        0
+      ],
+      "vae": [
+        "3",
+        0
+      ]
+    }
+  },
+  "110": {
+    "class_type": "VAEDecodeAudio",
+    "inputs": {
+      "samples": [
+        "108",
+        0
+      ],
+      "vae": [
+        "4",
+        0
+      ]
+    }
+  },
+  "111": {
+    "class_type": "H3ContinuitySave",
+    "inputs": {
+      "latent": [
+        "108",
+        0
+      ],
+      "filename": "h3_validation/{{RUN_ID}}/chain_chain_reference_08.safetensors",
+      "plan": [
+        "112",
+        2
+      ]
+    }
+  },
+  "112": {
+    "class_type": "H3ContinuityPrepare",
+    "inputs": {
+      "positive": [
+        "5",
+        0
+      ],
+      "latent": [
+        "5",
+        1
+      ],
+      "source_latent": [
+        "96",
+        0
+      ],
+      "context_frames": 39,
+      "method": "pinned_av",
+      "audio_context_seconds": 1.0,
+      "feather_frames": 0,
+      "feather_strength": 1.0
+    }
+  },
+  "113": {
+    "class_type": "VAEDecode",
+    "inputs": {
+      "samples": [
+        "20",
+        0
+      ],
+      "vae": [
+        "3",
+        0
+      ]
+    }
+  },
+  "114": {
+    "class_type": "VAEDecodeAudio",
+    "inputs": {
+      "samples": [
+        "20",
+        0
+      ],
+      "vae": [
+        "4",
+        0
+      ]
+    }
+  },
+  "115": {
+    "class_type": "H3ContinuityAssemble",
+    "inputs": {
+      "images": [
+        "109",
+        0
+      ],
+      "audio": [
+        "110",
+        0
+      ],
+      "plan": [
+        "112",
+        2
+      ],
+      "source_images": [
+        "103",
+        0
+      ],
+      "source_audio": [
+        "103",
+        1
+      ]
+    }
+  },
+  "116": {
+    "class_type": "CreateVideo",
+    "inputs": {
+      "images": [
+        "115",
+        0
+      ],
+      "audio": [
+        "115",
+        1
+      ],
+      "fps": 24
+    }
+  },
+  "117": {
+    "class_type": "SaveVideo",
+    "inputs": {
+      "video": [
+        "116",
+        0
+      ],
+      "filename_prefix": "h3_validation/{{RUN_ID}}/chain_chain_reference_hard",
+      "format": "auto",
+      "codec": "auto"
+    }
+  }
+}

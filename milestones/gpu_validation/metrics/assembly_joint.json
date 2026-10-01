@@ -1,0 +1,20 @@
+{
+  "assembled_frames": 226,
+  "video_shape": [
+    1,
+    24,
+    67,
+    26,
+    46
+  ],
+  "audio_shape": [
+    1,
+    32,
+    2,
+    377
+  ],
+  "source_video_exact": true,
+  "source_audio_exact": true,
+  "joint226_audio_max_abs": 7.450580596923828e-09,
+  "joint226_video_mean_change": 0.12022367864847183
+}

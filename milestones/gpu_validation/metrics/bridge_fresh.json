@@ -1,0 +1,26 @@
+{
+  "video": "/workspace/comfy/ComfyUI/output/h3_validation/bridge_fresh_00002_.mp4",
+  "probe": {
+    "programs": [],
+    "streams": [
+      {
+        "width": 736,
+        "height": 416,
+        "r_frame_rate": "24/1",
+        "avg_frame_rate": "24/1",
+        "duration": "15.083333",
+        "nb_frames": "362"
+      }
+    ],
+    "format": {
+      "duration": "15.083344"
+    }
+  },
+  "frame_count": 362,
+  "dimensions": [
+    736,
+    416
+  ],
+  "frame_count_is_estimate": false,
+  "contact_sheet": "/workspace/research/gpu-validation/analysis/long_chain/bridge_fresh_00002__contact.jpg"
+}
