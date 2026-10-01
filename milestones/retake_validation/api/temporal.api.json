@@ -1,0 +1,331 @@
+{
+  "1": {
+    "class_type": "UNETLoader",
+    "inputs": {
+      "unet_name": "minimax_h3_fl2va_pruned_int8_convrot.safetensors",
+      "weight_dtype": "default"
+    }
+  },
+  "2": {
+    "class_type": "CLIPLoader",
+    "inputs": {
+      "clip_name": "qwen3vl_32b_minimax_h3_nvfp4_awq.safetensors",
+      "type": "minimax",
+      "device": "default"
+    }
+  },
+  "3": {
+    "class_type": "VAELoader",
+    "inputs": {
+      "vae_name": "minimax_h3_video_vae_fp16.safetensors"
+    }
+  },
+  "4": {
+    "class_type": "VAELoader",
+    "inputs": {
+      "vae_name": "minimax_h3_audio_vae_fp32.safetensors"
+    }
+  },
+  "5": {
+    "class_type": "MiniMaxH3ImageToVideo",
+    "inputs": {
+      "clip": [
+        "2",
+        0
+      ],
+      "vae": [
+        "3",
+        0
+      ],
+      "prompt": "One uninterrupted photorealistic fantasy action shot of the same two adult swordsmen sparring in the same sunlit ancient stone courtyard, same navy blue tunic with brown leather armor on the dark haired fighter, same burgundy tunic and dark leather armor on the light haired fighter. Begin in exactly the original normal sword duel. During the middle interval both steel sword blades magically transform into brilliant glowing energy swords, cyan for the navy fighter and hot magenta for the burgundy fighter. They exchange spectacular glowing sword strikes and blocks with vivid blue and pink sparks. A large luminous swirling orange circular magic portal briefly opens directly between and behind them in the courtyard, pulsing with golden light. This is an unmistakable magical event within the existing duel. Toward the end the portal closes and the energy blades transform back into the original steel swords, and both fighters resume the original sparring pose and pace. Keep both faces, tunics, anatomy and courtyard architecture consistent. Same continuous smooth camera arc, same camera distance, no cuts or teleportation. Preserve original audio.",
+      "width": 736,
+      "height": 416,
+      "length": 141,
+      "first_frame": [
+        "40",
+        0
+      ],
+      "last_frame": [
+        "41",
+        0
+      ]
+    }
+  },
+  "6": {
+    "class_type": "LoraLoaderModelOnly",
+    "inputs": {
+      "model": [
+        "1",
+        0
+      ],
+      "lora_name": "minimax_h3_fl2v_turbo_8step_v1.0_comfyui_bf16.safetensors",
+      "strength_model": 1.0
+    }
+  },
+  "7": {
+    "class_type": "BasicGuider",
+    "inputs": {
+      "model": [
+        "6",
+        0
+      ],
+      "conditioning": [
+        "5",
+        0
+      ]
+    }
+  },
+  "8": {
+    "class_type": "RandomNoise",
+    "inputs": {
+      "noise_seed": 58702
+    }
+  },
+  "9": {
+    "class_type": "KSamplerSelect",
+    "inputs": {
+      "sampler_name": "euler"
+    }
+  },
+  "10": {
+    "class_type": "BasicScheduler",
+    "inputs": {
+      "model": [
+        "6",
+        0
+      ],
+      "scheduler": "simple",
+      "steps": 8,
+      "denoise": 1.0
+    }
+  },
+  "11": {
+    "class_type": "SamplerCustomAdvanced",
+    "inputs": {
+      "noise": [
+        "8",
+        0
+      ],
+      "guider": [
+        "7",
+        0
+      ],
+      "sampler": [
+        "9",
+        0
+      ],
+      "sigmas": [
+        "10",
+        0
+      ],
+      "latent_image": [
+        "21",
+        0
+      ]
+    }
+  },
+  "12": {
+    "class_type": "VAEDecode",
+    "inputs": {
+      "samples": [
+        "11",
+        0
+      ],
+      "vae": [
+        "3",
+        0
+      ]
+    }
+  },
+  "13": {
+    "class_type": "VAEDecodeAudio",
+    "inputs": {
+      "samples": [
+        "11",
+        0
+      ],
+      "vae": [
+        "4",
+        0
+      ]
+    }
+  },
+  "14": {
+    "class_type": "CreateVideo",
+    "inputs": {
+      "images": [
+        "24",
+        0
+      ],
+      "audio": [
+        "24",
+        1
+      ],
+      "fps": 24
+    }
+  },
+  "15": {
+    "class_type": "SaveVideo",
+    "inputs": {
+      "video": [
+        "14",
+        0
+      ],
+      "filename_prefix": "h3_retake_validation/temporal",
+      "format": "auto",
+      "codec": "auto"
+    }
+  },
+  "16": {
+    "class_type": "H3ContinuitySave",
+    "inputs": {
+      "latent": [
+        "11",
+        0
+      ],
+      "filename": "h3_retake_validation/temporal.safetensors"
+    }
+  },
+  "17": {
+    "class_type": "SaveAudio",
+    "inputs": {
+      "audio": [
+        "24",
+        1
+      ],
+      "filename_prefix": "h3_retake_validation/temporal"
+    }
+  },
+  "20": {
+    "class_type": "H3ContinuityLoad",
+    "inputs": {
+      "filename": "h3_action_validation/combat/chain_combat_feather_02.safetensors"
+    }
+  },
+  "21": {
+    "class_type": "H3RetakePrepare",
+    "inputs": {
+      "source_latent": [
+        "20",
+        0
+      ],
+      "start_frame": 34,
+      "end_frame": 107,
+      "offset_frames": 0,
+      "grow_frames": 0,
+      "feather_frames": 8,
+      "curve": "smoothstep",
+      "edit_audio": false,
+      "video_strength": 1.0
+    }
+  },
+  "22": {
+    "class_type": "VAEDecode",
+    "inputs": {
+      "samples": [
+        "20",
+        0
+      ],
+      "vae": [
+        "3",
+        0
+      ]
+    }
+  },
+  "23": {
+    "class_type": "VAEDecodeAudio",
+    "inputs": {
+      "samples": [
+        "20",
+        0
+      ],
+      "vae": [
+        "4",
+        0
+      ]
+    }
+  },
+  "24": {
+    "class_type": "H3RetakeAssemble",
+    "inputs": {
+      "images": [
+        "12",
+        0
+      ],
+      "source_images": [
+        "22",
+        0
+      ],
+      "source_audio": [
+        "23",
+        0
+      ],
+      "audio": [
+        "13",
+        0
+      ],
+      "plan": [
+        "21",
+        1
+      ]
+    }
+  },
+  "29": {
+    "class_type": "SaveImage",
+    "inputs": {
+      "images": [
+        "21",
+        2
+      ],
+      "filename_prefix": "h3_retake_validation/temporal_mask"
+    }
+  },
+  "40": {
+    "class_type": "ImageFromBatch",
+    "inputs": {
+      "image": [
+        "22",
+        0
+      ],
+      "batch_index": 0,
+      "length": 1
+    }
+  },
+  "41": {
+    "class_type": "ImageFromBatch",
+    "inputs": {
+      "image": [
+        "22",
+        0
+      ],
+      "batch_index": 140,
+      "length": 1
+    }
+  },
+  "50": {
+    "class_type": "CreateVideo",
+    "inputs": {
+      "images": [
+        "22",
+        0
+      ],
+      "audio": [
+        "23",
+        0
+      ],
+      "fps": 24
+    }
+  },
+  "51": {
+    "class_type": "SaveVideo",
+    "inputs": {
+      "video": [
+        "50",
+        0
+      ],
+      "filename_prefix": "h3_retake_validation/source",
+      "format": "auto",
+      "codec": "auto"
+    }
+  }
+}

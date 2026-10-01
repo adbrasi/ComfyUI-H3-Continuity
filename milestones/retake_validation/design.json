@@ -1,0 +1,25 @@
+{
+  "source": "h3_action_validation/combat/chain_combat_feather_02.safetensors",
+  "frames": 141,
+  "fps": 24,
+  "interval": [
+    34,
+    107
+  ],
+  "feather": 8,
+  "seed": 58702,
+  "strength": 1,
+  "edit_audio": false,
+  "prompt": "One uninterrupted photorealistic fantasy action shot of the same two adult swordsmen sparring in the same sunlit ancient stone courtyard, same navy blue tunic with brown leather armor on the dark haired fighter, same burgundy tunic and dark leather armor on the light haired fighter. Begin in exactly the original normal sword duel. During the middle interval both steel sword blades magically transform into brilliant glowing energy swords, cyan for the navy fighter and hot magenta for the burgundy fighter. They exchange spectacular glowing sword strikes and blocks with vivid blue and pink sparks. A large luminous swirling orange circular magic portal briefly opens directly between and behind them in the courtyard, pulsing with golden light. This is an unmistakable magical event within the existing duel. Toward the end the portal closes and the energy blades transform back into the original steel swords, and both fighters resume the original sparring pose and pace. Keep both faces, tunics, anatomy and courtyard architecture consistent. Same continuous smooth camera arc, same camera distance, no cuts or teleportation. Preserve original audio.",
+  "spatial_mask": {
+    "x": 96,
+    "y": 112,
+    "width": 544,
+    "height": 304
+  },
+  "methods": [
+    "temporal soft mask",
+    "temporal differential diffusion",
+    "spatial differential diffusion"
+  ]
+}

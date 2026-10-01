@@ -1,0 +1,127 @@
+{
+  "source": "/workspace/comfy/ComfyUI/output/h3_retake_validation/source_00001_.mp4",
+  "retake": "/workspace/comfy/ComfyUI/output/h3_retake_validation/spatial_00002_.mp4",
+  "frames": 141,
+  "dimensions": [
+    736,
+    416
+  ],
+  "fps": 24,
+  "temporal_requested_half_open": [
+    34,
+    107
+  ],
+  "temporal_native_latent_support_half_open": [
+    34,
+    107
+  ],
+  "temporal_support_derivation": "H3RetakePrepare profile (smoothstep feather 8) max-pooled over FRAME_PER_TOKEN=(1,4,4,4,4); first/last active latent intervals snap [34,107) outward.",
+  "spatial_rect_half_open_xyxy": [
+    96,
+    112,
+    640,
+    416
+  ],
+  "regions_vs_source": {
+    "outside_temporal_support_all_pixels": {
+      "frames": 68,
+      "pixels_per_frame": 306176,
+      "mae_0_255": 1.6591216325759888,
+      "rmse_0_255": 2.5039384365081787,
+      "p95_abs_0_255": 5.0,
+      "fraction_channel_values_over_2": 0.24887033127684602,
+      "fraction_channel_values_over_8": 0.007731776212784445
+    },
+    "inside_temporal_support_all_pixels": {
+      "frames": 73,
+      "pixels_per_frame": 306176,
+      "mae_0_255": 8.92485237121582,
+      "rmse_0_255": 25.46788215637207,
+      "p95_abs_0_255": 46.0,
+      "fraction_channel_values_over_2": 0.4711404387579985,
+      "fraction_channel_values_over_8": 0.1528966000156534
+    },
+    "spatial_rectangle_all_frames": {
+      "frames": 141,
+      "pixels_per_frame": 165376,
+      "mae_0_255": 8.433242797851562,
+      "rmse_0_255": 24.85395622253418,
+      "p95_abs_0_255": 43.0,
+      "fraction_channel_values_over_2": 0.44280268098280745,
+      "fraction_channel_values_over_8": 0.1453941164348345
+    },
+    "outside_spatial_rectangle_all_frames": {
+      "frames": 141,
+      "pixels_per_frame": 140800,
+      "mae_0_255": 1.88255774974823,
+      "rmse_0_255": 3.3563578128814697,
+      "p95_abs_0_255": 5.0,
+      "fraction_channel_values_over_2": 0.2713259926391575,
+      "fraction_channel_values_over_8": 0.009471795750053729
+    },
+    "inside_temporal_and_spatial_rectangle": {
+      "frames": 73,
+      "pixels_per_frame": 165376,
+      "mae_0_255": 14.660541534423828,
+      "rmse_0_255": 34.44679260253906,
+      "p95_abs_0_255": 87.0,
+      "fraction_channel_values_over_2": 0.6103285210533385,
+      "fraction_channel_values_over_8": 0.2706540269766883
+    },
+    "inside_temporal_but_outside_spatial_rectangle": {
+      "frames": 73,
+      "pixels_per_frame": 140800,
+      "mae_0_255": 2.187986135482788,
+      "rmse_0_255": 4.092488765716553,
+      "p95_abs_0_255": 6.0,
+      "fraction_channel_values_over_2": 0.30765770937110837,
+      "fraction_channel_values_over_8": 0.014585149439601494
+    }
+  },
+  "selected_frame_differences": {
+    "0": {
+      "global_mae_0_255": 0.0,
+      "spatial_inside_mae": 0.0,
+      "spatial_outside_mae": 0.0
+    },
+    "33": {
+      "global_mae_0_255": 1.9986543655395508,
+      "spatial_inside_mae": 2.1419553756713867,
+      "spatial_outside_mae": 1.83034086227417
+    },
+    "34": {
+      "global_mae_0_255": 2.05889630317688,
+      "spatial_inside_mae": 2.208440065383911,
+      "spatial_outside_mae": 1.8832504749298096
+    },
+    "106": {
+      "global_mae_0_255": 2.155665397644043,
+      "spatial_inside_mae": 2.286323308944702,
+      "spatial_outside_mae": 2.002201795578003
+    },
+    "107": {
+      "global_mae_0_255": 2.1175577640533447,
+      "spatial_inside_mae": 2.163447856903076,
+      "spatial_outside_mae": 2.063657760620117
+    },
+    "140": {
+      "global_mae_0_255": 2.2701778411865234,
+      "spatial_inside_mae": 2.4017410278320312,
+      "spatial_outside_mae": 2.1156511306762695
+    }
+  },
+  "contact_sheet_frames": [
+    0,
+    24,
+    48,
+    72,
+    96,
+    120
+  ],
+  "contact_sheet": "/workspace/research/ComfyUI-H3-Continuity/milestones/retake_validation/previews/spatial_00002__source_vs_retake_0-5s.jpg",
+  "limits": {
+    "decoded_pixels": "Source and retake are decoded video frames; H.264 re-encoding can create small differences even outside the edit mask.",
+    "scores": "These are preservation/change measurements, not a score for visual quality or edit correctness. Review source/retake contact sheets and motion.",
+    "mask_grid": "Spatial rectangle is evaluated at requested half-open pixel bounds; the node's internal grid snapping and latent support can expand effective influence."
+  }
+}
