@@ -1,0 +1,14 @@
+{
+  "jungle": {
+    "seed": 23601,
+    "prompt": "One continuous photorealistic cinematic adventure shot, full body view of an adult female explorer with tied black hair, mustard yellow field jacket, dark cargo trousers, brown hiking boots and a small brown backpack. She runs briskly toward the right along a narrow trail through a dense tropical jungle, naturally stepping over roots and jumping over low fallen logs without stopping. The camera tracks smoothly sideways beside her at running speed, maintaining enough distance to show her whole body and feet. Dense green foliage and tree trunks pass in the background, foreground leaves occasionally partially obscure her. Humid afternoon sunlight and dappled shadows, realistic anatomy and fast athletic motion, consistent outfit. A single uninterrupted camera take. Audio: rapid footsteps on damp soil, rustling foliage, birds and breathing, no music, no dialogue."
+  },
+  "combat": {
+    "seed": 34702,
+    "prompt": "One continuous photorealistic cinematic adventure action shot, medium wide full body view of two adult swordsmen sparring in a sunlit ancient stone courtyard. The first fighter has short dark hair and wears a navy blue tunic with brown leather armor and dark trousers; the second has short light hair and wears a burgundy tunic with dark leather armor. Each holds one steel sword. They continuously exchange controlled sword strikes, blocks, sidesteps and small lunges while circling, keeping both fighters fully visible. Their swords meet naturally and remain in their hands. The camera moves in a smooth slow arc around the pair, following the sparring without cutting. Fine dust rises at their feet, stable warm late afternoon light, realistic anatomy, cloth motion and stone texture. A single uninterrupted camera take, no teleportation. Audio: sword clashes, boot steps on stone and exertion, no music, no dialogue."
+  },
+  "snow": {
+    "seed": 45803,
+    "prompt": "One continuous photorealistic cinematic adventure chase shot, wide full body view of an adult woman with dark hair, a tan leather coat and a vivid red scarf riding one black horse at a sustained fast gallop toward the right through a snowy mountain forest. The rider leans forward and holds the reins naturally; the red scarf streams backward and the horses legs cycle with physically plausible galloping motion. Snow sprays from the hooves. The camera tracks smoothly alongside the horse at matching speed, with a gentle handheld action-camera feel, keeping the complete horse and rider visible. Snowy pine trees and distant mountains pass behind them, occasional foreground tree trunks create brief partial occlusions. Cold clear daylight, stable neutral colors, detailed leather and fur. A single uninterrupted camera take. Audio: galloping hooves on packed snow, wind, horse breathing, no music, no dialogue."
+  }
+}

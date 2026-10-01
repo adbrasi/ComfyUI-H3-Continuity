@@ -1,0 +1,429 @@
+{
+  "14ffdeeb-c5e1-4b47-8e69-009480d1077f": {
+    "prompt": [
+      8,
+      "14ffdeeb-c5e1-4b47-8e69-009480d1077f",
+      {
+        "1": {
+          "class_type": "UNETLoader",
+          "inputs": {
+            "unet_name": "minimax_h3_fl2va_pruned_int8_convrot.safetensors",
+            "weight_dtype": "default"
+          }
+        },
+        "2": {
+          "class_type": "CLIPLoader",
+          "inputs": {
+            "clip_name": "qwen3vl_32b_minimax_h3_nvfp4_awq.safetensors",
+            "type": "minimax",
+            "device": "default"
+          }
+        },
+        "3": {
+          "class_type": "VAELoader",
+          "inputs": {
+            "vae_name": "minimax_h3_video_vae_fp16.safetensors"
+          }
+        },
+        "4": {
+          "class_type": "VAELoader",
+          "inputs": {
+            "vae_name": "minimax_h3_audio_vae_fp32.safetensors"
+          }
+        },
+        "5": {
+          "class_type": "MiniMaxH3ImageToVideo",
+          "inputs": {
+            "clip": [
+              "2",
+              0
+            ],
+            "vae": [
+              "3",
+              0
+            ],
+            "prompt": "One continuous photorealistic cinematic adventure shot, full body view of an adult female explorer with tied black hair, mustard yellow field jacket, dark cargo trousers, brown hiking boots and a small brown backpack. She runs briskly toward the right along a narrow trail through a dense tropical jungle, naturally stepping over roots and jumping over low fallen logs without stopping. The camera tracks smoothly sideways beside her at running speed, maintaining enough distance to show her whole body and feet. Dense green foliage and tree trunks pass in the background, foreground leaves occasionally partially obscure her. Humid afternoon sunlight and dappled shadows, realistic anatomy and fast athletic motion, consistent outfit. A single uninterrupted camera take. Audio: rapid footsteps on damp soil, rustling foliage, birds and breathing, no music, no dialogue.",
+            "width": 736,
+            "height": 416,
+            "length": 192,
+            "first_frame": [
+              "40",
+              0
+            ]
+          }
+        },
+        "6": {
+          "class_type": "LoraLoaderModelOnly",
+          "inputs": {
+            "model": [
+              "1",
+              0
+            ],
+            "lora_name": "minimax_h3_fl2v_turbo_8step_v1.0_comfyui_bf16.safetensors",
+            "strength_model": 1.0
+          }
+        },
+        "7": {
+          "class_type": "BasicGuider",
+          "inputs": {
+            "model": [
+              "6",
+              0
+            ],
+            "conditioning": [
+              "21",
+              0
+            ]
+          }
+        },
+        "8": {
+          "class_type": "RandomNoise",
+          "inputs": {
+            "noise_seed": 27601
+          }
+        },
+        "9": {
+          "class_type": "KSamplerSelect",
+          "inputs": {
+            "sampler_name": "euler"
+          }
+        },
+        "10": {
+          "class_type": "BasicScheduler",
+          "inputs": {
+            "model": [
+              "6",
+              0
+            ],
+            "scheduler": "simple",
+            "steps": 8,
+            "denoise": 1.0
+          }
+        },
+        "11": {
+          "class_type": "SamplerCustomAdvanced",
+          "inputs": {
+            "noise": [
+              "8",
+              0
+            ],
+            "guider": [
+              "7",
+              0
+            ],
+            "sampler": [
+              "9",
+              0
+            ],
+            "sigmas": [
+              "10",
+              0
+            ],
+            "latent_image": [
+              "21",
+              1
+            ]
+          }
+        },
+        "12": {
+          "class_type": "VAEDecode",
+          "inputs": {
+            "samples": [
+              "11",
+              0
+            ],
+            "vae": [
+              "3",
+              0
+            ]
+          }
+        },
+        "13": {
+          "class_type": "VAEDecodeAudio",
+          "inputs": {
+            "samples": [
+              "11",
+              0
+            ],
+            "vae": [
+              "4",
+              0
+            ]
+          }
+        },
+        "16": {
+          "class_type": "H3ContinuitySave",
+          "inputs": {
+            "latent": [
+              "11",
+              0
+            ],
+            "filename": "h3_action_validation/jungle/bridge.safetensors"
+          }
+        },
+        "20": {
+          "class_type": "H3ContinuityLoad",
+          "inputs": {
+            "filename": "h3_action_validation/jungle/canonical430.safetensors"
+          }
+        },
+        "21": {
+          "class_type": "H3BridgePrepare",
+          "inputs": {
+            "positive": [
+              "5",
+              0
+            ],
+            "latent": [
+              "5",
+              1
+            ],
+            "left_latent": [
+              "20",
+              0
+            ],
+            "right_latent": [
+              "42",
+              0
+            ],
+            "context_frames": 39,
+            "feather_frames": 17,
+            "feather_strength": 1.0,
+            "audio_policy": "preserve"
+          }
+        },
+        "22": {
+          "class_type": "VAEDecode",
+          "inputs": {
+            "samples": [
+              "20",
+              0
+            ],
+            "vae": [
+              "3",
+              0
+            ]
+          }
+        },
+        "23": {
+          "class_type": "VAEDecodeAudio",
+          "inputs": {
+            "samples": [
+              "20",
+              0
+            ],
+            "vae": [
+              "4",
+              0
+            ]
+          }
+        },
+        "24": {
+          "class_type": "H3BridgeAssemble",
+          "inputs": {
+            "images": [
+              "12",
+              0
+            ],
+            "left_images": [
+              "22",
+              0
+            ],
+            "right_images": [
+              "43",
+              0
+            ],
+            "plan": [
+              "21",
+              2
+            ],
+            "audio": [
+              "13",
+              0
+            ],
+            "left_audio": [
+              "23",
+              0
+            ],
+            "right_audio": [
+              "44",
+              0
+            ]
+          }
+        },
+        "25": {
+          "class_type": "CreateVideo",
+          "inputs": {
+            "images": [
+              "24",
+              0
+            ],
+            "audio": [
+              "24",
+              1
+            ],
+            "fps": 24.0
+          }
+        },
+        "26": {
+          "class_type": "SaveVideo",
+          "inputs": {
+            "video": [
+              "25",
+              0
+            ],
+            "filename_prefix": "h3_action_validation/jungle/bridge",
+            "format": "auto",
+            "codec": "auto"
+          }
+        },
+        "30": {
+          "class_type": "SaveAudio",
+          "inputs": {
+            "audio": [
+              "24",
+              1
+            ],
+            "filename_prefix": "h3_action_validation/jungle/bridge"
+          }
+        },
+        "41": {
+          "class_type": "H3ConditioningSave",
+          "inputs": {
+            "positive": [
+              "21",
+              0
+            ],
+            "filename": "h3_action_validation/jungle/bridge.cond.safetensors",
+            "settings": "{\"seed\": 27601, \"steps\": 8, \"target_frames\": 192, \"context_frames\": 39, \"feather_frames\": 17, \"feather_strength\": 1.0}"
+          }
+        },
+        "42": {
+          "class_type": "H3ContinuityLoad",
+          "inputs": {
+            "filename": "h3_action_validation/jungle/fresh.safetensors"
+          }
+        },
+        "43": {
+          "class_type": "VAEDecode",
+          "inputs": {
+            "samples": [
+              "42",
+              0
+            ],
+            "vae": [
+              "3",
+              0
+            ]
+          }
+        },
+        "44": {
+          "class_type": "VAEDecodeAudio",
+          "inputs": {
+            "samples": [
+              "42",
+              0
+            ],
+            "vae": [
+              "4",
+              0
+            ]
+          }
+        },
+        "40": {
+          "class_type": "ImageFromBatch",
+          "inputs": {
+            "image": [
+              "22",
+              0
+            ],
+            "batch_index": 0,
+            "length": 1
+          }
+        }
+      },
+      {
+        "create_time": 1790873841198
+      },
+      [
+        "30",
+        "26",
+        "41",
+        "16"
+      ]
+    ],
+    "outputs": {
+      "30": {
+        "audio": [
+          {
+            "filename": "bridge_00001.flac",
+            "subfolder": "h3_action_validation/jungle",
+            "type": "output"
+          }
+        ]
+      },
+      "26": {
+        "images": [
+          {
+            "filename": "bridge_00002_.mp4",
+            "subfolder": "h3_action_validation/jungle",
+            "type": "output"
+          }
+        ],
+        "animated": [
+          true
+        ]
+      }
+    },
+    "status": {
+      "status_str": "success",
+      "completed": true,
+      "messages": [
+        [
+          "execution_start",
+          {
+            "prompt_id": "14ffdeeb-c5e1-4b47-8e69-009480d1077f",
+            "timestamp": 1790873926924
+          }
+        ],
+        [
+          "execution_cached",
+          {
+            "nodes": [
+              "1",
+              "2",
+              "3",
+              "4",
+              "6",
+              "9",
+              "10"
+            ],
+            "prompt_id": "14ffdeeb-c5e1-4b47-8e69-009480d1077f",
+            "timestamp": 1790873926926
+          }
+        ],
+        [
+          "execution_success",
+          {
+            "prompt_id": "14ffdeeb-c5e1-4b47-8e69-009480d1077f",
+            "timestamp": 1790873987843
+          }
+        ]
+      ]
+    },
+    "meta": {
+      "30": {
+        "node_id": "30",
+        "display_node": "30",
+        "parent_node": null,
+        "real_node_id": "30"
+      },
+      "26": {
+        "node_id": "26",
+        "display_node": "26",
+        "parent_node": null,
+        "real_node_id": "26"
+      }
+    }
+  }
+}

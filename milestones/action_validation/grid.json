@@ -1,0 +1,86 @@
+{
+  "video": "/workspace/comfy/ComfyUI/output/h3_action_validation/todos_testes_4x3.mp4",
+  "layout": "4x3",
+  "resolution": [
+    2560,
+    1152
+  ],
+  "fps": 24,
+  "duration": 27.875,
+  "audio": false,
+  "short_clips": "hold last frame",
+  "panels": [
+    {
+      "number": 1,
+      "label": "Selva | fonte",
+      "source": "/workspace/comfy/ComfyUI/output/h3_action_validation/jungle/source_00002_.mp4",
+      "duration": 5.166688
+    },
+    {
+      "number": 2,
+      "label": "Selva | 3 extensoes",
+      "source": "/workspace/comfy/ComfyUI/output/h3_action_validation/jungle/chain_jungle_hard_hard_00001_.mp4",
+      "duration": 17.916667
+    },
+    {
+      "number": 3,
+      "label": "Selva | ancora nova",
+      "source": "/workspace/comfy/ComfyUI/output/h3_action_validation/jungle/fresh_00002_.mp4",
+      "duration": 5.166688
+    },
+    {
+      "number": 4,
+      "label": "Selva | bridge",
+      "source": "/workspace/comfy/ComfyUI/output/h3_action_validation/jungle/bridge_00002_.mp4",
+      "duration": 27.833344
+    },
+    {
+      "number": 5,
+      "label": "Duelo | fonte",
+      "source": "/workspace/comfy/ComfyUI/output/h3_action_validation/combat/source_00002_.mp4",
+      "duration": 5.166688
+    },
+    {
+      "number": 6,
+      "label": "Duelo | mascara fixa",
+      "source": "/workspace/comfy/ComfyUI/output/h3_action_validation/combat/chain_combat_hard_hard_00001_.mp4",
+      "duration": 17.916667
+    },
+    {
+      "number": 7,
+      "label": "Duelo | feather 17, forca 1",
+      "source": "/workspace/comfy/ComfyUI/output/h3_action_validation/combat/chain_combat_feather_feather_00001_.mp4",
+      "duration": 17.916667
+    },
+    {
+      "number": 8,
+      "label": "Duelo | retake isolado",
+      "source": "/workspace/comfy/ComfyUI/output/h3_action_validation/combat/retake_00002_.mp4",
+      "duration": 5.875
+    },
+    {
+      "number": 9,
+      "label": "Neve | fonte",
+      "source": "/workspace/comfy/ComfyUI/output/h3_action_validation/snow/source_00002_.mp4",
+      "duration": 5.166688
+    },
+    {
+      "number": 10,
+      "label": "Neve | 3 extensoes",
+      "source": "/workspace/comfy/ComfyUI/output/h3_action_validation/snow/chain_snow_hard_hard_00001_.mp4",
+      "duration": 17.916667
+    },
+    {
+      "number": 11,
+      "label": "Duelo 1024x576 | fonte",
+      "source": "/workspace/comfy/ComfyUI/output/h3_action_validation/combat_576p/source_00002_.mp4",
+      "duration": 5.166688
+    },
+    {
+      "number": 12,
+      "label": "Duelo 1024x576 | 2 extensoes",
+      "source": "/workspace/comfy/ComfyUI/output/h3_action_validation/combat_576p/chain_combat_576p_hard_00001_.mp4",
+      "duration": 13.666667
+    }
+  ]
+}

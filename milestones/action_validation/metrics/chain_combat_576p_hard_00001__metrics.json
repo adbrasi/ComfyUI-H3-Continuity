@@ -1,0 +1,154 @@
+{
+  "video": "/workspace/comfy/ComfyUI/output/h3_action_validation/combat_576p/chain_combat_576p_hard_00001_.mp4",
+  "frames": 328,
+  "dimensions": [
+    1024,
+    576
+  ],
+  "fps": 24,
+  "expected_duration_seconds": 13.666666666666666,
+  "payload_join_rgb_delta": {
+    "124": {
+      "mae_0_255": 9.872551918029785,
+      "rmse_0_255": 19.05431365966797,
+      "max_abs_0_255": 227
+    },
+    "226": {
+      "mae_0_255": 10.38106632232666,
+      "rmse_0_255": 20.60280990600586,
+      "max_abs_0_255": 225
+    }
+  },
+  "feather_handover_rgb_delta": {},
+  "farneback_flow_and_warped_residual_near_payload_joins": {
+    "124": {
+      "-3": {
+        "flow_magnitude_median_px_per_frame_halfres": 3.164811611175537,
+        "flow_magnitude_p90_px_per_frame_halfres": 4.252544403076172,
+        "flow_warped_rgb_mae_0_255_halfres": 2.7448458671569824,
+        "valid_warp_fraction": 0.9870130750868056
+      },
+      "-2": {
+        "flow_magnitude_median_px_per_frame_halfres": 3.461174488067627,
+        "flow_magnitude_p90_px_per_frame_halfres": 4.33471155166626,
+        "flow_warped_rgb_mae_0_255_halfres": 2.792126417160034,
+        "valid_warp_fraction": 0.9866061740451388
+      },
+      "-1": {
+        "flow_magnitude_median_px_per_frame_halfres": 3.4783029556274414,
+        "flow_magnitude_p90_px_per_frame_halfres": 4.457043123245239,
+        "flow_warped_rgb_mae_0_255_halfres": 2.741882562637329,
+        "valid_warp_fraction": 0.9866265190972222
+      },
+      "0": {
+        "flow_magnitude_median_px_per_frame_halfres": 3.723641872406006,
+        "flow_magnitude_p90_px_per_frame_halfres": 5.019793462753296,
+        "flow_warped_rgb_mae_0_255_halfres": 4.056014537811279,
+        "valid_warp_fraction": 0.9836154513888888
+      },
+      "1": {
+        "flow_magnitude_median_px_per_frame_halfres": 3.666499376296997,
+        "flow_magnitude_p90_px_per_frame_halfres": 4.8904381275177,
+        "flow_warped_rgb_mae_0_255_halfres": 2.7594854831695557,
+        "valid_warp_fraction": 0.9818522135416666
+      },
+      "2": {
+        "flow_magnitude_median_px_per_frame_halfres": 3.3312485218048096,
+        "flow_magnitude_p90_px_per_frame_halfres": 5.01322193145752,
+        "flow_warped_rgb_mae_0_255_halfres": 2.5956387519836426,
+        "valid_warp_fraction": 0.9842054578993056
+      },
+      "3": {
+        "flow_magnitude_median_px_per_frame_halfres": 3.237692356109619,
+        "flow_magnitude_p90_px_per_frame_halfres": 4.926090383529663,
+        "flow_warped_rgb_mae_0_255_halfres": 2.5222997665405273,
+        "valid_warp_fraction": 0.9847276475694444
+      }
+    },
+    "226": {
+      "-3": {
+        "flow_magnitude_median_px_per_frame_halfres": 2.675060749053955,
+        "flow_magnitude_p90_px_per_frame_halfres": 4.154854583740235,
+        "flow_warped_rgb_mae_0_255_halfres": 2.4109723567962646,
+        "valid_warp_fraction": 0.9877387152777778
+      },
+      "-2": {
+        "flow_magnitude_median_px_per_frame_halfres": 2.635162591934204,
+        "flow_magnitude_p90_px_per_frame_halfres": 4.118657016754151,
+        "flow_warped_rgb_mae_0_255_halfres": 2.44270396232605,
+        "valid_warp_fraction": 0.9888983832465278
+      },
+      "-1": {
+        "flow_magnitude_median_px_per_frame_halfres": 2.521587610244751,
+        "flow_magnitude_p90_px_per_frame_halfres": 4.046723461151123,
+        "flow_warped_rgb_mae_0_255_halfres": 2.5180439949035645,
+        "valid_warp_fraction": 0.9900377061631944
+      },
+      "0": {
+        "flow_magnitude_median_px_per_frame_halfres": 2.879669189453125,
+        "flow_magnitude_p90_px_per_frame_halfres": 4.154231834411621,
+        "flow_warped_rgb_mae_0_255_halfres": 4.0172224044799805,
+        "valid_warp_fraction": 0.9883287217881944
+      },
+      "1": {
+        "flow_magnitude_median_px_per_frame_halfres": 2.6552493572235107,
+        "flow_magnitude_p90_px_per_frame_halfres": 3.906232786178589,
+        "flow_warped_rgb_mae_0_255_halfres": 3.1895456314086914,
+        "valid_warp_fraction": 0.9881930881076388
+      },
+      "2": {
+        "flow_magnitude_median_px_per_frame_halfres": 2.4996395111083984,
+        "flow_magnitude_p90_px_per_frame_halfres": 3.970756244659424,
+        "flow_warped_rgb_mae_0_255_halfres": 2.8792061805725098,
+        "valid_warp_fraction": 0.98846435546875
+      },
+      "3": {
+        "flow_magnitude_median_px_per_frame_halfres": 2.4827933311462402,
+        "flow_magnitude_p90_px_per_frame_halfres": 3.9698020458221435,
+        "flow_warped_rgb_mae_0_255_halfres": 2.6534156799316406,
+        "valid_warp_fraction": 0.9877387152777778
+      }
+    }
+  },
+  "farneback_flow_and_warped_residual_near_feather_handovers": {},
+  "segments": {
+    "source": {
+      "frame_range_half_open": [
+        0,
+        124
+      ],
+      "mean_laplacian_variance": 102.30772039445182,
+      "median_laplacian_variance": 102.73857980952627,
+      "mean_upper_40pct_luma_0_255": 80.09549165059606
+    },
+    "extension_1": {
+      "frame_range_half_open": [
+        124,
+        226
+      ],
+      "mean_laplacian_variance": 104.6423027727588,
+      "median_laplacian_variance": 104.66627326011972,
+      "mean_upper_40pct_luma_0_255": 83.42158103220909
+    },
+    "extension_2": {
+      "frame_range_half_open": [
+        226,
+        328
+      ],
+      "mean_laplacian_variance": 104.34650357956811,
+      "median_laplacian_variance": 104.03338904234431,
+      "mean_upper_40pct_luma_0_255": 120.57312276048324
+    }
+  },
+  "previews": {
+    "three_second_contact_sheet": "/workspace/research/ComfyUI-H3-Continuity/milestones/action_validation/previews/chain_combat_576p_hard_00001__3sec.jpg",
+    "seam_strips": "/workspace/research/ComfyUI-H3-Continuity/milestones/action_validation/previews/chain_combat_576p_hard_00001__seam_strips.jpg"
+  },
+  "limits": {
+    "seam_delta": "Decoded adjacent-frame RGB delta only; camera motion, pose change, exposure and codec affect it. It does not measure perceptual discontinuity.",
+    "laplacian": "Blur/sharpness proxy; changes with subject scale, movement, texture, focus and framing. Do not treat as a monotonic degradation score.",
+    "brightness": "Mean luma in the upper 40% is a rough background-light/composition proxy; it may include subject or foreground depending on scene layout.",
+    "identity": "No automated identity or semantic continuity metric is applied; review contact sheets and video in motion.",
+    "optical_flow": "Half-resolution Farneback median/p90 magnitude is a rough apparent-motion proxy. No crossfade is applied to delivered frames. Lower flow-warped RGB residual can reflect less motion, blur, different choreography, or flow-estimator limitations; it also depends on occlusion, disocclusion, parallax and lighting. Compare it with neighboring pairs, not as a standalone score."
+  }
+}

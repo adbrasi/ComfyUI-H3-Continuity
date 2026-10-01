@@ -1,0 +1,44 @@
+[
+  {
+    "name": "jungle_source",
+    "prompt_id": "bb8fe4cd-fbfb-4af2-80be-fc4bc4ee132e",
+    "number": 0,
+    "node_errors": {}
+  },
+  {
+    "name": "jungle_hard",
+    "prompt_id": "099ede02-4d22-4a59-9c66-adf2663f67e0",
+    "number": 1,
+    "node_errors": {}
+  },
+  {
+    "name": "combat_source",
+    "prompt_id": "357e3056-d34f-4b6d-b8ea-1fa1e4248197",
+    "number": 2,
+    "node_errors": {}
+  },
+  {
+    "name": "combat_hard",
+    "prompt_id": "62e8d0bc-f896-4960-91c7-a6efea156ef7",
+    "number": 3,
+    "node_errors": {}
+  },
+  {
+    "name": "combat_feather",
+    "prompt_id": "5dd19f51-b3b6-403d-b3ad-0099b6cf32ee",
+    "number": 4,
+    "node_errors": {}
+  },
+  {
+    "name": "snow_source",
+    "prompt_id": "6ae11441-7afe-49a9-bdf1-b71e5c373291",
+    "number": 5,
+    "node_errors": {}
+  },
+  {
+    "name": "snow_hard",
+    "prompt_id": "688ad024-ebd4-4497-8137-92cd1074bd42",
+    "number": 6,
+    "node_errors": {}
+  }
+]
