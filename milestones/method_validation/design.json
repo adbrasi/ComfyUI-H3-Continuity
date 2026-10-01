@@ -1,0 +1,24 @@
+{
+  "source": "h3_action_validation/combat/source.safetensors",
+  "reference": "source first decoded frame",
+  "resolution": [
+    736,
+    416
+  ],
+  "fps": 24,
+  "source_frames": 124,
+  "output_frames": 430,
+  "context_frames": 39,
+  "audio_context_seconds": 1,
+  "feather_frames": 17,
+  "feather_strength": 1,
+  "chain_seeds": [
+    35702,
+    35703,
+    35704
+  ],
+  "control": "existing pinned_av feather video from action validation",
+  "anchors_feather": "not supported; zero and explicitly labeled",
+  "bridge": "source124 + generated middle182 + independent future124 =430; target260 with two context windows39; not equal sampling budget or trajectory",
+  "retake": "not part of this experiment"
+}

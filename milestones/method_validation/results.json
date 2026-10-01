@@ -1,0 +1,33 @@
+{
+  "cases": [
+    {
+      "label": "01 PINNED AV | feather ON",
+      "input": "/workspace/comfy/ComfyUI/output/h3_action_validation/combat/chain_combat_feather_feather_00001_.mp4",
+      "bytes": 6116919,
+      "sha256": "68505232a1ef4f6299e13c71470825f99b537eb2179999119f97c45423453a50"
+    },
+    {
+      "label": "02 PINNED PREFIX | feather ON",
+      "input": "/workspace/comfy/ComfyUI/output/h3_method_validation/chain_pinned_prefix_feather_00001_.mp4",
+      "bytes": 6101124,
+      "sha256": "0eb5b0e7304ac4556755313d757ae8dd727a7d0927df76d3c866b29547769fa0"
+    },
+    {
+      "label": "03 ANCHORS | feather N/A",
+      "input": "/workspace/comfy/ComfyUI/output/h3_method_validation/chain_anchors_feather_00001_.mp4",
+      "bytes": 6649300,
+      "sha256": "a3c48d867ee6fbc0ae7cf309476be1c2c866250c9e0a480c74b331bb4c800841"
+    },
+    {
+      "label": "04 BRIDGE + NOVA ANCORA | feather ON",
+      "input": "/workspace/comfy/ComfyUI/output/h3_method_validation/bridge_00002_.mp4",
+      "bytes": 5743799,
+      "sha256": "4cd15447ef5092a4d8f8ac31fb12a8bbb610294564b0616f444c3ab54e30bb38"
+    }
+  ],
+  "grid": "/workspace/comfy/ComfyUI/output/h3_method_validation/comparacao_metodos_2x2.mp4",
+  "frames": 430,
+  "fps": 24,
+  "duration_seconds": 17.916666666666668,
+  "retake": "deferred"
+}
