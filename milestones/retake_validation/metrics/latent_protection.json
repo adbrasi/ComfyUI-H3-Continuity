@@ -1,0 +1,78 @@
+{
+  "source_latent": "/workspace/comfy/ComfyUI/output/h3_action_validation/combat/chain_combat_feather_02.safetensors",
+  "source_shapes": {
+    "audio": [
+      1,
+      32,
+      2,
+      235
+    ],
+    "video": [
+      1,
+      24,
+      42,
+      26,
+      46
+    ]
+  },
+  "methods": {
+    "temporal": {
+      "plan_start_end": [
+        34,
+        107
+      ],
+      "report": "Raw latent; no VAE re-encode. Edit [34, 107); latent support [34, 107) at 24 fps. Feather 8 frames inside each edge; video strength 1. Zero-mask latents stay fixed; VAE pixels can have wider temporal influence. Assemble restores original frames/pixels outside the reported support.",
+      "video_protected_max_abs": 4.76837158203125e-07,
+      "video_protected_mean_abs": 1.2333248200491198e-08,
+      "video_editable_mean_abs": 0.4202134609222412,
+      "audio_max_abs": 1.1920928955078125e-07,
+      "audio_mean_abs": 3.773899859282892e-09
+    },
+    "differential": {
+      "plan_start_end": [
+        34,
+        107
+      ],
+      "report": "Raw latent; no VAE re-encode. Edit [34, 107); latent support [34, 107) at 24 fps. Feather 8 frames inside each edge; video strength 1. Zero-mask latents stay fixed; VAE pixels can have wider temporal influence. Assemble restores original frames/pixels outside the reported support.",
+      "video_protected_max_abs": 4.76837158203125e-07,
+      "video_protected_mean_abs": 1.2333248200491198e-08,
+      "video_editable_mean_abs": 0.36939409375190735,
+      "audio_max_abs": 1.1920928955078125e-07,
+      "audio_mean_abs": 3.773899859282892e-09
+    },
+    "spatial": {
+      "plan_start_end": [
+        34,
+        107
+      ],
+      "report": "Raw latent; no VAE re-encode. Edit [34, 107); latent support [34, 107) at 24 fps. Feather 8 frames inside each edge; video strength 1. Spatial support snaps outward to native 2\u00d72 latent patches. Zero-mask latents stay fixed; VAE pixels can have wider temporal influence. Assemble restores original frames/pixels outside the reported support.",
+      "video_protected_max_abs": 4.76837158203125e-07,
+      "video_protected_mean_abs": 1.245796532600707e-08,
+      "video_editable_mean_abs": 0.21489429473876953,
+      "audio_max_abs": 1.1920928955078125e-07,
+      "audio_mean_abs": 3.773899859282892e-09,
+      "spatial_latent_support_min_max_indices": {
+        "time": [
+          10,
+          32
+        ],
+        "row": [
+          6,
+          26
+        ],
+        "col": [
+          6,
+          40
+        ]
+      },
+      "effective_spatial_support_pixel_bounds_half_open_xyxy": [
+        96,
+        96,
+        640,
+        416
+      ],
+      "support_note": "Raw mask rectangle [96,112,640,416) snaps to H3 2x2 latent patches; exact supported pixel area is [96,96,640,416), expanding 16px upward."
+    }
+  },
+  "comparison_note": "The source video pixels are H.264 decoded; byte-exact preservation is not expected after encoding. Protected raw latent max error is only float rounding (~4.77e-7 video; 1.19e-7 audio)."
+}

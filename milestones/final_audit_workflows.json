@@ -1,0 +1,88 @@
+{
+  "00_gerar_fonte.api.json": {
+    "valid": true,
+    "error": null,
+    "node_errors": {},
+    "fixture_substitutions": {}
+  },
+  "01_continuar_video.api.json": {
+    "valid": true,
+    "error": null,
+    "node_errors": {},
+    "fixture_substitutions": {
+      "27": "Existing local video selected for validation"
+    }
+  },
+  "02_continuar_latent.api.json": {
+    "valid": true,
+    "error": null,
+    "node_errors": {},
+    "fixture_substitutions": {}
+  },
+  "03_audio_full_video.api.json": {
+    "valid": true,
+    "error": null,
+    "node_errors": {},
+    "fixture_substitutions": {
+      "27": "Existing local video selected for validation",
+      "31": "Bundled demo WAV selected for validation"
+    }
+  },
+  "04_audio_continuation_only.api.json": {
+    "valid": true,
+    "error": null,
+    "node_errors": {},
+    "fixture_substitutions": {
+      "27": "Existing local video selected for validation",
+      "31": "Bundled demo WAV selected for validation"
+    }
+  },
+  "05_bridge.api.json": {
+    "valid": true,
+    "error": null,
+    "node_errors": {},
+    "fixture_substitutions": {}
+  },
+  "06_retake.api.json": {
+    "valid": true,
+    "error": null,
+    "node_errors": {},
+    "fixture_substitutions": {}
+  },
+  "07_retake_spatial.api.json": {
+    "valid": true,
+    "error": null,
+    "node_errors": {},
+    "fixture_substitutions": {}
+  },
+  "08_joint_refine.api.json": {
+    "valid": true,
+    "error": null,
+    "node_errors": {},
+    "fixture_substitutions": {}
+  },
+  "09_future_anchor.api.json": {
+    "valid": true,
+    "error": null,
+    "node_errors": {},
+    "fixture_substitutions": {}
+  },
+  "10_assemble_latents.api.json": {
+    "valid": true,
+    "error": null,
+    "node_errors": {},
+    "fixture_substitutions": {}
+  },
+  "11_retake_differential.api.json": {
+    "valid": true,
+    "error": null,
+    "node_errors": {},
+    "fixture_substitutions": {}
+  },
+  "12_retake_spatial_differential.api.json": {
+    "valid": true,
+    "error": null,
+    "node_errors": {},
+    "fixture_substitutions": {}
+  }
+}

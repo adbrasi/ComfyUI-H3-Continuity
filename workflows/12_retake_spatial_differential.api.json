@@ -37,7 +37,7 @@
         "3",
         0
       ],
-      "prompt": "One continuous unedited cinematic tracking shot, medium wide view of a woman in a dark green coat walking steadily from left to right along a wet stone sidewalk beside a red brick wall, carrying a small tan leather bag. She walks at a constant natural pace, her arms swing gently and her coat moves with each step. The camera tracks smoothly sideways at her walking speed, maintaining the same framing and distance. Overcast soft daylight, realistic skin, stable neutral colors, subtle film texture. No cuts, no transitions, no sudden camera changes. Audio: continuous soft outdoor city ambience and evenly paced footsteps on wet pavement, no music, no dialogue.",
+      "prompt": "One continuous realistic cinematic tracking shot of the same woman in the dark green coat beside the same red brick wall, carrying the same small tan leather bag. At the beginning she walks steadily to the right. In the middle she briefly turns her head toward the camera, smiles and raises her free hand in a small friendly wave, then lowers her hand and turns forward again. At the end she resumes exactly the original natural walking posture and pace. The camera keeps tracking sideways at the same speed and distance. Preserve the same clothing, face, wall, pavement and lighting. No cuts, no camera jump, no new people or objects. Quiet footsteps, no speech, no music.",
       "width": 736,
       "height": 416,
       "length": 124
@@ -58,11 +58,11 @@
     "class_type": "BasicGuider",
     "inputs": {
       "model": [
-        "6",
+        "91",
         0
       ],
       "conditioning": [
-        "21",
+        "5",
         0
       ]
     }
@@ -70,7 +70,7 @@
   "8": {
     "class_type": "RandomNoise",
     "inputs": {
-      "noise_seed": 23456
+      "noise_seed": 91234
     }
   },
   "9": {
@@ -112,7 +112,7 @@
       ],
       "latent_image": [
         "21",
-        1
+        0
       ]
     }
   },
@@ -142,81 +142,7 @@
       ]
     }
   },
-  "16": {
-    "class_type": "H3ContinuitySave",
-    "inputs": {
-      "latent": [
-        "11",
-        0
-      ],
-      "filename": "h3_continuity/take.safetensors",
-      "plan": [
-        "21",
-        2
-      ]
-    }
-  },
-  "21": {
-    "class_type": "H3ContinuityPrepare",
-    "inputs": {
-      "positive": [
-        "5",
-        0
-      ],
-      "latent": [
-        "5",
-        1
-      ],
-      "context_frames": 22,
-      "method": "pinned_av",
-      "audio_context_seconds": 1.0,
-      "source_images": [
-        "28",
-        0
-      ],
-      "source_audio": [
-        "28",
-        1
-      ],
-      "vae": [
-        "3",
-        0
-      ],
-      "audio_vae": [
-        "4",
-        0
-      ],
-      "feather_frames": 17,
-      "feather_strength": 1.0,
-      "feather_curve": "smoothstep"
-    }
-  },
-  "24": {
-    "class_type": "H3ContinuityAssemble",
-    "inputs": {
-      "images": [
-        "12",
-        0
-      ],
-      "audio": [
-        "13",
-        0
-      ],
-      "plan": [
-        "21",
-        2
-      ],
-      "source_images": [
-        "28",
-        0
-      ],
-      "source_audio": [
-        "28",
-        1
-      ]
-    }
-  },
-  "25": {
+  "14": {
     "class_type": "CreateVideo",
     "inputs": {
       "images": [
@@ -230,43 +156,149 @@
       "fps": 24
     }
   },
-  "26": {
+  "15": {
     "class_type": "SaveVideo",
     "inputs": {
       "video": [
-        "25",
+        "14",
         0
       ],
-      "filename_prefix": "h3_continuity/continued",
+      "filename_prefix": "h3_continuity_tests/retake_spatial_differential",
       "format": "auto",
       "codec": "auto"
     }
   },
-  "27": {
-    "class_type": "LoadVideo",
+  "16": {
+    "class_type": "H3ContinuitySave",
     "inputs": {
-      "file": "h3_source_3s.mp4"
-    }
-  },
-  "28": {
-    "class_type": "H3ContinuityImport",
-    "inputs": {
-      "video": [
-        "27",
+      "latent": [
+        "11",
         0
       ],
-      "width": 736,
-      "height": 416
+      "filename": "h3_continuity_tests/retake_spatial_differential.safetensors"
     }
   },
-  "30": {
+  "17": {
     "class_type": "SaveAudio",
     "inputs": {
       "audio": [
         "24",
         1
       ],
-      "filename_prefix": "h3_continuity/continued"
+      "filename_prefix": "h3_continuity_tests/retake_spatial_differential"
+    }
+  },
+  "20": {
+    "class_type": "H3ContinuityLoad",
+    "inputs": {
+      "filename": "h3_continuity_tests/source.safetensors"
+    }
+  },
+  "21": {
+    "class_type": "H3RetakePrepare",
+    "inputs": {
+      "source_latent": [
+        "20",
+        0
+      ],
+      "start_frame": 34,
+      "end_frame": 90,
+      "offset_frames": 0,
+      "grow_frames": 4,
+      "feather_frames": 8,
+      "curve": "smoothstep",
+      "edit_audio": false,
+      "mask": [
+        "90",
+        0
+      ],
+      "video_strength": 1.0
+    }
+  },
+  "22": {
+    "class_type": "VAEDecode",
+    "inputs": {
+      "samples": [
+        "20",
+        0
+      ],
+      "vae": [
+        "3",
+        0
+      ]
+    }
+  },
+  "23": {
+    "class_type": "VAEDecodeAudio",
+    "inputs": {
+      "samples": [
+        "20",
+        0
+      ],
+      "vae": [
+        "4",
+        0
+      ]
+    }
+  },
+  "24": {
+    "class_type": "H3RetakeAssemble",
+    "inputs": {
+      "images": [
+        "12",
+        0
+      ],
+      "source_images": [
+        "22",
+        0
+      ],
+      "source_audio": [
+        "23",
+        0
+      ],
+      "audio": [
+        "13",
+        0
+      ],
+      "plan": [
+        "21",
+        1
+      ]
+    }
+  },
+  "29": {
+    "class_type": "SaveImage",
+    "inputs": {
+      "images": [
+        "21",
+        2
+      ],
+      "filename_prefix": "h3_continuity_tests/retake_feather8_91234_mask"
+    }
+  },
+  "90": {
+    "class_type": "LoadImageMask",
+    "inputs": {
+      "image": "h3_roi.png",
+      "channel": "red"
+    }
+  },
+  "91": {
+    "class_type": "H3RetakeDifferentialDiffusion",
+    "inputs": {
+      "model": [
+        "6",
+        0
+      ],
+      "latent": [
+        "21",
+        0
+      ],
+      "sigmas": [
+        "10",
+        0
+      ],
+      "strength": 1.0
     }
   }
 }

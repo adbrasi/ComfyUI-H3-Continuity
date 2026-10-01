@@ -26,7 +26,7 @@ Não recorte a saída latente do sampler antes de salvar ou usá-la como origem.
 | `pinned_prefix` | Fixa o prefixo visual e fornece contexto de áudio como guia. |
 | `anchors` | Fornece contexto como keyframes; o overlap visual é regenerado. |
 
-Comece comparando `pinned_av` e `pinned_prefix` sem feather. Use as mesmas referências limpas de identidade, roupa e cenário em todas as etapas. O prompt deve descrever o estado atual, a ação seguinte e a trajetória da câmera; referências não substituem memória do estado de objetos fora do quadro.
+Compare `pinned_av`, `pinned_prefix` e `anchors` no seletor `method` do mesmo Prepare. Os workflows 01/02 usam feather ligado (17 frames, força 1); `anchors` regenera o overlap por guias e não aplica esse controle. Use as mesmas referências limpas de identidade, roupa e cenário em todas as etapas. O prompt deve descrever o estado atual, a ação seguinte e a trajetória da câmera; referências não substituem memória do estado de objetos fora do quadro.
 
 Um destino de **124 frames**, com **22 frames** de contexto, entrega **102 frames novos**, ou 4,25 s. A duração do destino inclui o contexto. Escolher um seed pode alterar a costura; verifique em movimento e com som.
 
@@ -35,6 +35,8 @@ Um destino de **124 frames**, com **22 frames** de contexto, entrega **102 frame
 `feather_frames=0` conserva a borda fixa. Valores positivos liberam gradualmente parte do contexto visual; `feather_strength` controla a intensidade e `feather_curve` a curva. Isso modifica a geração, sem dissolvência entre duas poses.
 
 O plano calcula `handover_frame` a partir da máscara efetiva: a montagem mantém a origem até a primeira célula liberada e utiliza daí em diante os frames reparados. **Ligue `source_images` ao Assemble para entregar o feather**. Sem essa conexão, Assemble rejeita uma montagem que descartaria o reparo.
+
+Feather troca os frames da borda nas mesmas coordenadas da timeline; não desloca os tempos de áudio. O áudio original continua preservado até a emenda nominal. Se o reparo mudar gestos, impactos ou fala nessa borda, preservar esse áudio não garante correspondência com o movimento regenerado.
 
 O suporte é quantizado à grade H3. Não interprete `feather_frames` como uma quantidade exata de frames RGB independentes. Compare primeiro feather curto e força moderada; aumentar o reparo permite mudanças maiores também na origem.
 
@@ -94,6 +96,8 @@ A máscara é reduzida por máximo sobre o suporte temporal e sobre os patches e
 Assemble restaura os frames originais fora do suporte temporal. Com MASK, restaura também os pixels protegidos dentro do intervalo, utilizando o suporte espacial quantizado. Não aplica crossfade visual. Máscara totalmente preta ou força visual zero entregam a origem visual integralmente; `edit_audio=true` ainda pode editar o som.
 
 Mesmo quando latentes ficam fixos, o decoder temporal pode influenciar pixels próximos. Por isso a montagem restaura a origem fora da região entregue. Em resolução diferente, a origem é redimensionada com crop central antes da preservação; não equivale a conservar o arquivo de pixels na resolução anterior. Examine as bordas espaciais e temporais no resultado.
+
+Os workflows [11_retake_differential.json](../workflows/11_retake_differential.json) e [12_retake_spatial_differential.json](../workflows/12_retake_spatial_differential.json) mostram as conexões prontas para retake temporal e espacial.
 
 **Differential Diffusion** permanece experimental. Conecte o retake LATENT exato e os mesmos SIGMAS do sampler. O adaptador sincroniza máscara do sampler e timesteps H3; não combine com outro node de máscara dinâmica nem com Joint Refine.
 

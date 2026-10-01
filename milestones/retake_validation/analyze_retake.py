@@ -15,6 +15,7 @@ TEMPORAL = (34, 107)
 SPATIAL = (96, 112, 640, 416)  # x0,y0,x1,y1, half-open
 FPS = 24
 FRAME_PER_TOKEN = (1, 4, 4, 4, 4)  # H3 native temporal grid from comfy/ldm/minimax/model.py
+SPATIAL_PATCH_PIXELS = 32  # 2x2 groups of H3 latent cells; each cell covers 16 source pixels here.
 
 
 def native_support(count: int, start: int, end: int, feather: int) -> tuple[int, int]:
@@ -103,10 +104,14 @@ def analyze(source_path: Path, result_path: Path, out: Path) -> dict:
     h, w = source[0].shape[:2]
     x0, y0, x1, y1 = SPATIAL
     x1, y1 = min(x1, w), min(y1, h)
-    spatial = np.zeros((h, w), dtype=bool)
-    spatial[y0:y1, x0:x1] = True
+    spatial_requested = np.zeros((h, w), dtype=bool)
+    spatial_requested[y0:y1, x0:x1] = True
+    patch = SPATIAL_PATCH_PIXELS
+    sx0, sy0 = (x0 // patch) * patch, (y0 // patch) * patch
+    sx1, sy1 = min(w, ((x1 + patch - 1) // patch) * patch), min(h, ((y1 + patch - 1) // patch) * patch)
+    spatial_snapped = np.zeros((h, w), dtype=bool)
+    spatial_snapped[sy0:sy1, sx0:sx1] = True
     all_pixels = np.ones((h, w), dtype=bool)
-    outside_spatial = ~spatial
     inside_frames = np.arange(max(0, TEMPORAL[0]), min(TEMPORAL[1], n))
     support_start, support_end = native_support(n, *TEMPORAL, feather=8)
     support_inside_frames = np.arange(support_start, min(support_end, n))
@@ -128,14 +133,15 @@ def analyze(source_path: Path, result_path: Path, out: Path) -> dict:
         d = np.abs(source[i].astype(np.float32) - result[i].astype(np.float32))
         framewise[str(i)] = {
             "global_mae_0_255": float(d.mean()),
-            "spatial_inside_mae": float(d[spatial].mean()),
-            "spatial_outside_mae": float(d[outside_spatial].mean()),
+            "spatial_requested_inside_mae": float(d[spatial_requested].mean()),
+            "spatial_snapped_inside_mae": float(d[spatial_snapped].mean()),
+            "spatial_snapped_outside_mae": float(d[~spatial_snapped].mean()),
         }
 
     temporal_range = np.arange(n)
     # Spatial and temporal overlap is reported separately to reveal leakage.
-    temporal_inside_spatial_inside = stats(source, result, support_inside_frames, spatial)
-    temporal_inside_spatial_outside = stats(source, result, support_inside_frames, outside_spatial)
+    temporal_inside_spatial_inside = stats(source, result, support_inside_frames, spatial_snapped)
+    temporal_inside_spatial_outside = stats(source, result, support_inside_frames, ~spatial_snapped)
     report = {
         "source": str(source_path),
         "retake": str(result_path),
@@ -145,14 +151,18 @@ def analyze(source_path: Path, result_path: Path, out: Path) -> dict:
         "temporal_requested_half_open": list(TEMPORAL),
         "temporal_native_latent_support_half_open": [support_start, support_end],
         "temporal_support_derivation": "H3RetakePrepare profile (smoothstep feather 8) max-pooled over FRAME_PER_TOKEN=(1,4,4,4,4); first/last active latent intervals snap [34,107) outward.",
-        "spatial_rect_half_open_xyxy": [x0, y0, x1, y1],
+        "spatial_rect_requested_half_open_xyxy": [x0, y0, x1, y1],
+        "spatial_rect_native_snapped_half_open_xyxy": [sx0, sy0, sx1, sy1],
+        "spatial_snap_patch_pixels": patch,
         "regions_vs_source": {
             "outside_temporal_support_all_pixels": stats(source, result, outside_frames, all_pixels),
             "inside_temporal_support_all_pixels": stats(source, result, support_inside_frames, all_pixels),
-            "spatial_rectangle_all_frames": stats(source, result, temporal_range, spatial),
-            "outside_spatial_rectangle_all_frames": stats(source, result, temporal_range, outside_spatial),
-            "inside_temporal_and_spatial_rectangle": temporal_inside_spatial_inside,
-            "inside_temporal_but_outside_spatial_rectangle": temporal_inside_spatial_outside,
+            "inside_requested_spatial_rectangle_all_frames": stats(source, result, temporal_range, spatial_requested),
+            "outside_requested_spatial_rectangle_all_frames": stats(source, result, temporal_range, ~spatial_requested),
+            "inside_native_snapped_spatial_rectangle_all_frames": stats(source, result, temporal_range, spatial_snapped),
+            "outside_native_snapped_spatial_rectangle_all_frames": stats(source, result, temporal_range, ~spatial_snapped),
+            "inside_temporal_and_native_snapped_spatial_support": temporal_inside_spatial_inside,
+            "inside_temporal_but_outside_native_snapped_spatial_support": temporal_inside_spatial_outside,
         },
         "selected_frame_differences": framewise,
         "contact_sheet_frames": indices,

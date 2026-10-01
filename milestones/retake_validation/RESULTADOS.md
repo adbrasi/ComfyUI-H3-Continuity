@@ -22,3 +22,5 @@ Os três jobs terminaram com status success. Os dois mosaicos foram verificados 
 O frame de inspeção aos 10,5 s do filme mostra portal e espadas coloridas nos modos temporais. No modo espacial, as espadas mudam e o portal não aparece nesse frame. A máscara limita a área disponível e serve para comparar preservação espacial, sem garantir que todo elemento do prompt será gerado. Temporal e Differential Diffusion parecem próximos neste exemplo; não concluímos superioridade geral.
 
 As transições e a qualidade do efeito devem ser avaliadas em movimento. Preservar o contexto e restaurar o exterior da máscara não garante uma transformação fisicamente perfeita. Históricos, APIs, workflow importável de Differential Diffusion e scripts de montagem estão arquivados nesta pasta.
+
+A verificação do latent bruto confirmou preservação fora da máscara com diferença máxima de 4,77e-7 no vídeo e 1,19e-7 no áudio (arredondamento float). A máscara espacial solicitada expande para [96,96,640,416) pixels na grade nativa. Consulte metrics/latent_protection.json.

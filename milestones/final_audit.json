@@ -1,0 +1,29 @@
+{
+  "cpu_tests": {
+    "passed": 190
+  },
+  "registered_nodes": [
+    "H3BridgeAssemble",
+    "H3BridgePrepare",
+    "H3ConditioningLoad",
+    "H3ConditioningSave",
+    "H3ContinuityAssemble",
+    "H3ContinuityImport",
+    "H3ContinuityLatentAssemble",
+    "H3ContinuityLoad",
+    "H3ContinuityPrepare",
+    "H3ContinuitySave",
+    "H3JointRefine",
+    "H3RetakeAssemble",
+    "H3RetakeDifferentialDiffusion",
+    "H3RetakePrepare"
+  ],
+  "workflows_validated": 13,
+  "core_commit": "2d6b73283af2447bdd065ece4090b8c6b1784544",
+  "gpu_validation": "milestones/action_validation, method_validation, retake_validation",
+  "scope": "Training-free methods retained; no universal quality winner or zero-drift guarantee",
+  "experimental": [
+    "H3RetakeDifferentialDiffusion",
+    "H3JointRefine"
+  ]
+}

@@ -179,7 +179,10 @@
       ],
       "context_frames": 22,
       "method": "pinned_av",
-      "audio_context_seconds": 1.0
+      "audio_context_seconds": 1.0,
+      "feather_frames": 17,
+      "feather_strength": 1.0,
+      "feather_curve": "smoothstep"
     }
   },
   "22": {
